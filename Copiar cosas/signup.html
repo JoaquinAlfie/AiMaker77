@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Ai Maker - Sign Up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-signup.css" />
+    <link rel="icon" href="img/Logox4.png" type="image/png">
+</head>
+<body>
+    <header>
+        <a class="volver" href="index.html">
+            <img src="img/Logox4.png" alt="Logo" style="width: 95px; height: 83.64px;"/>
+        </a>
+    </header>
+    <main class="main">
+        <h1 class="titulo">Welcome to Ai Maker</h1>
+        <div class="registreo">
+            <p class="signup">Sign Up</p1>
+            <section class="email" onclick="seleccionaremail()">
+                <textarea id="mail" name="mail" placeholder="Enter email" maxlength="34"></textarea>
+            </section>
+            <section class="usuario" onclick="seleccionaruser()">
+                <textarea id="user" name="user" placeholder="Create User Name" maxlength="22"></textarea>
+            </section>
+            <section class="contra" onclick="seleccionarcontra()">
+                <textarea id="password" name="password" placeholder="Password" maxlength="28"></textarea>
+                <button id="ocultar1">
+                    <img src="img/invisible27.png" alt="invisible" style="width: 27px;height: 27px;"/>
+                </button>
+            </section>
+            <section class="confirmcontra" onclick="seleccionarconfirm()">
+                <textarea id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" maxlength="28"></textarea>
+                <button id="ocultar2">
+                    <img src="img/invisible27.png" alt="invisible" style="width: 27px;height: 27px;"/>
+                </button>
+            </section>
+            <section class="enter">
+                <a class="register" href="home.html">
+                        Register
+                </a>
+            </section>
+            <section class="ifyoulogin">
+                <div class="ifyou">
+                    If you already have an account, you can
+                </div>
+                <a class="login" href="signin.html">
+                    Login Here ! 
+                </a>
+            </section>
+        </div>
+    </main>
+    <script>
+        function seleccionaremail() {
+        const textarea = document.getElementById("mail");
+        textarea.focus();
+        textarea.select();
+        }
+        function seleccionaruser() {
+        const textarea = document.getElementById("user");
+        textarea.focus();
+        textarea.select();
+        }
+        function seleccionarcontra() {
+        const textarea = document.getElementById("password");
+        textarea.focus();
+        textarea.select();
+        }
+        function seleccionarconfirm() {
+        const textarea = document.getElementById("confirmpassword");
+        textarea.focus();
+        textarea.select();
+        }
+    </script>
+</body>
+</html>

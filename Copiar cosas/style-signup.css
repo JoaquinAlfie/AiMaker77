@@ -1,0 +1,198 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: white;
+  color: black;
+}
+.volver {
+    border: none;
+    background-color: white;
+    padding-left: 77px;
+    top:18px;
+    cursor: pointer;
+    position: relative;
+}
+.titulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 64px;
+    font-family: 'Poppins', sans-serif ;
+    font-weight: normal;
+    margin-top: 46px;
+}
+.registreo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    font-family: 'Poppins', sans-serif ;
+    font-weight: 500;
+    margin-top: 38px;
+}
+::placeholder {
+    color: #7D71E6;
+}
+.email {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 33px;
+    background-color: rgba(125, 113, 230, 0.25);
+    border-radius: 15px;
+    width: 426px;
+    height: 71.4px;
+    cursor: text;
+    padding: 20px;
+}
+#mail {
+    outline: none;
+    resize: none;
+    background-color:rgba(125, 113, 230, 0.00000000000001);
+    font-family: 'Poppins', sans-serif ;
+    font-weight: normal;
+    font-size: 16px;
+    height: 25px;
+    overflow-y: hidden;
+    flex: 1;
+    border: none;
+}
+.usuario {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 14px;
+    background-color: rgba(125, 113, 230, 0.25);
+    border-radius: 15px;
+    width: 426px;
+    height: 71.4px;
+    cursor: text;
+    padding: 20px;
+}
+#user {
+    outline: none;
+    resize: none;
+    background-color:rgba(125, 113, 230, 0.00000000000001);
+    font-family: 'Poppins', sans-serif ;
+    font-weight: normal;
+    font-size: 16px;
+    height: 25px;
+    overflow-y: hidden;
+    flex: 1;
+    border: none;
+}
+.contra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    background-color: rgba(125, 113, 230, 0.25);
+    border-radius: 8px;
+    width: 426px;
+    height: 71.4px;
+    cursor: text;
+    padding: 20px;
+}
+#password {
+    outline: none;
+    resize: none;
+    background-color:rgba(125, 113, 230, 0.00000000000001);
+    font-family: 'Poppins', sans-serif ;
+    font-weight: normal;
+    font-size: 16px;
+    height: 25px;
+    overflow-y: hidden;
+    flex: 1;
+    border: none;
+}
+#ocultar1 {
+    border: none;
+    outline: none;
+    resize: none;
+    background-color:rgba(125, 113, 230, 0.00000000000001);
+    cursor: pointer;
+}
+.confirmcontra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    background-color: rgba(125, 113, 230, 0.25);
+    border-radius: 8px;
+    width: 426px;
+    height: 71.4px;
+    cursor: text;
+    padding: 20px;
+}
+#confirmpassword {
+    outline: none;
+    resize: none;
+    background-color:rgba(125, 113, 230, 0.00000000000001);
+    font-family: 'Poppins', sans-serif ;
+    font-weight: normal;
+    font-size: 16px;
+    height: 25px;
+    overflow-y: hidden;
+    flex: 1;
+    border: none;
+}
+#ocultar2 {
+    border: none;
+    outline: none;
+    resize: none;
+    background-color:rgba(125, 113, 230, 0.00000000000001);
+    cursor: pointer;
+}
+.enter{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    margin-top: 30px;
+}
+.register {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: 426px;
+    height: 71.4px;
+    border: none;
+    background-color: #7D71E6;
+    border-radius: 9px;
+    color: white;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif ;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0px 4px 61px 0px rgba(77, 71, 195, 0.4);
+}
+.ifyoulogin {
+    display: flex;
+}
+.ifyou {
+    margin-top: 26px;   
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif ;
+    font-weight: 400;
+}
+.login {
+    margin-top: 26px;   
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif ;
+    font-weight: 600;
+    padding-left: 4px;
+    color: #7D71E6;
+    cursor: pointer;
+}
+a {
+text-decoration: none;
+  color: inherit; 
+}

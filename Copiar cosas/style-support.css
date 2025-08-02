@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: white;
+  color: black;
+}
+.navbar {
+  width: 100%;
+  height: 112px;
+  display: flex;
+  align-items: center;
+  padding: 0 77px;
+  background-color: white;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 150px;
+    margin-top: 104px;
+}
+.belo {
+    width: 374px;
+    height: 613px;
+    background-color: rgba(125, 113, 230, 0.05);
+    border: none;
+    border-radius: 74px;
+    box-shadow: 0px 2px 13px -2px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.lbelo{
+    margin-top: 35px;
+}
+.apoyabelo {
+    margin-top: 35px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #7D71E6;
+}
+.donarbelo {
+    width: 257px;
+    height: 98px;
+    border: none;
+    border-radius: 24px;
+    background-color: #7D71E6;
+    color: #FFFFFFFF;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}   
+.mercadopago {
+    width: 374px;
+    height: 613px;
+    background-color: rgba(125, 113, 230, 0.05);
+    border: none;
+    border-radius: 74px;
+    box-shadow: 0px 2px 13px -2px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.lmp{
+    margin-top: 35px;
+}
+.apoyamp {
+    margin-top: 81px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #7D71E6;
+}
+.donarmp {
+    width: 257px;
+    height: 98px;
+    border: none;
+    border-radius: 24px;
+    background-color: #7D71E6;
+    color: #FFFFFFFF;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.paypal {
+    width: 374px;
+    height: 613px;
+    background-color: rgba(125, 113, 230, 0.05);
+    border: none;
+    border-radius: 74px;
+    box-shadow: 0px 2px 13px -2px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.lpp{
+    margin-top: 35px;
+}
+.apoyapp {
+    margin-top: 85px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #7D71E6;
+}
+.donarpp {
+    width: 257px;
+    height: 98px;
+    border: none;
+    border-radius: 24px;
+    background-color: #7D71E6;
+    color: #FFFFFFFF;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+a {
+    text-decoration: none;
+    color: inherit; 
+}

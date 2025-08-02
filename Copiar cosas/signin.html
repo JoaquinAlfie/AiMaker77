@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Ai Maker - Sign In</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-signin.css" />
+    <link rel="icon" href="img/Logox4.png" type="image/png">
+</head>
+<body>
+    <header>
+        <a class="volver" href="index.html">
+            <img src="img/Logox4.png" alt="Logo" style="width: 95px; height: 83.64px;"/>
+        </a>
+    </header> 
+    <main class="main">
+        <h1 class="titulo">Welcome to Ai Maker</h1>
+        <div class="logueo">
+            <p class="signin">Sign in</p1>
+            <section class="usuario" onclick="seleccionarmail()">
+                <textarea id="mail" name="user" placeholder="Enter email or user name" maxlength="34"></textarea>
+            </section>
+            <section class="contra" onclick="seleccionarpass()">
+                <textarea id="password" name="contraseña" placeholder="Password" maxlength="28"></textarea>
+                <button id="ocultar">
+                    <img src="img/invisible.png" alt="invisible" style="width: 34px;height: 34px;"/>
+                </button>
+            </section>
+            <section class="enter">
+                <a class="login" href="home.html">
+                    Login
+                </a>
+            </section>
+            <section class="ifyouregister">
+                <div class="ifyou">
+                    If you don’t have an account, you can
+                </div>
+                <a class="Register" href="signup.html">
+                    Register Here ! 
+                </a>
+            </section>
+        </div>
+    </main>
+    <script>
+        function seleccionarmail() {
+        const textarea = document.getElementById("mail");
+        textarea.focus();
+        textarea.select();
+        }
+        function seleccionarpass() {
+        const textarea = document.getElementById("password");
+        textarea.focus();
+        textarea.select();
+        }
+    </script>
+</body>
+</html>
