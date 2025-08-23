@@ -3,7 +3,7 @@ import "../assets/styles/style-signin.css"
 function Signin() {
   return (
     <div className="iniciodesesion">
-        <header>
+        <header className="cabezita">
             <a className="volver" href="/index.html"> 
                 <img src="/img/Logox4.png" alt="Logo"style={{ width: "95px", height: "83.64px" }}/>
             </a>

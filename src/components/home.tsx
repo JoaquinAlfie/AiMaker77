@@ -34,7 +34,7 @@ function Home() {
         <section className="acciones">
           <a className="btn-get-started" href="chatbot.html">
             <img
-              src="/img/rocketlaunch.png"
+              src="/img/RocketLaunch.png"
               alt="Rocket"
               style={{ width: "32px", height: "32px" }}
             />
