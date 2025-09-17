@@ -23,26 +23,25 @@
     background-color: white;
     cursor: pointer;
 }
-.main {                  
+.maineo {                  
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 150px;
 }
 .logueo {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 0;
 }
-.titulo {
+.titlee {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 64px;
     font-family: 'Poppins', sans-serif ;
     font-weight: normal;
-    margin-top: 0;
 }
 .signin {
     display: flex;
@@ -50,8 +49,10 @@
     font-size: 36px;
     font-family: 'Poppins', sans-serif ;
     font-weight: 500;
-    margin-top: 0px;
-    
+    margin-top: 30px;
+}
+::placeholder {
+    color: #7D71E6;
 }
 .usuario {
     display: flex;
@@ -77,9 +78,6 @@
     overflow-y: hidden;
     flex: 1;
     border: none;
-}
-::placeholder {
-    color: #7D71E6;
 }
 .contra {
     display: flex;

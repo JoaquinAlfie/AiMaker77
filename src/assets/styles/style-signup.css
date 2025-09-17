@@ -3,41 +3,55 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
+.registrodesesion {
   font-family: 'Poppins', sans-serif;
   background-color: white;
   color: black;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+  position: relative;
+  align-items: center;
+  }
+
+.cabezita  {
+    padding-left: 77px;
+    top: 20px;
+    position: absolute;
 }
 .volver {
     border: none;
     background-color: white;
-    padding-left: 77px;
-    top:18px;
     cursor: pointer;
-    position: relative;
 }
-.titulo {
+
+.maineo {                  
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    font-size: 64px;
-    font-family: 'Poppins', sans-serif ;
-    font-weight: normal;
-    margin-top: 46px;
+    justify-content: center;
+    margin-top: 150px;
 }
 .registreo {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.signup {
+.titlee {
     display: flex;
     justify-content: center;
+    align-items: center;
+    font-size: 64px;
+    font-family: 'Poppins', sans-serif ;
+    font-weight: normal;
+}
+.signup {
+    display: flex;
     align-items: center;
     font-size: 36px;
     font-family: 'Poppins', sans-serif ;
     font-weight: 500;
-    margin-top: 38px;
+    margin-top: 30px;
 }
 ::placeholder {
     color: #7D71E6;
@@ -54,7 +68,7 @@ body {
     cursor: text;
     padding: 20px;
 }
-#mail {
+#mail1 {
     outline: none;
     resize: none;
     background-color:rgba(125, 113, 230, 0.00000000000001);
@@ -66,7 +80,7 @@ body {
     flex: 1;
     border: none;
 }
-.usuario {
+.usuario1 {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -90,7 +104,7 @@ body {
     flex: 1;
     border: none;
 }
-.contra {
+.contra1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -102,7 +116,7 @@ body {
     cursor: text;
     padding: 20px;
 }
-#password {
+#password1 {
     outline: none;
     resize: none;
     background-color:rgba(125, 113, 230, 0.00000000000001);
@@ -152,13 +166,13 @@ body {
     background-color:rgba(125, 113, 230, 0.00000000000001);
     cursor: pointer;
 }
-.enter{
+.enter1{
     display: flex;
     justify-content: center;
     align-items: center; 
     margin-top: 30px;
 }
-.register {
+.register1 {
     display: flex;
     justify-content: center;
     align-items: center; 
@@ -183,7 +197,7 @@ body {
     font-family: 'Poppins', sans-serif ;
     font-weight: 400;
 }
-.login {
+.login1 {
     margin-top: 26px;   
     font-size: 14px;
     font-family: 'Poppins', sans-serif ;

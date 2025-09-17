@@ -8,8 +8,8 @@ function Signin() {
                 <img src="/img/Logox4.png" alt="Logo"style={{ width: "95px", height: "83.64px" }}/>
             </a>
         </header>
-        <main className="main">
-            <h1 className="titulo">Welcome to Ai Maker</h1>
+        <main className="maineo">
+            <h1 className="titlee">Welcome to Ai Maker</h1>
             <div className="logueo">
                 <p className="signin">Sign in</p>
                 <section className="usuario">
