@@ -5,7 +5,6 @@
 }
 
 .cuerpo {
-  font-family: 'Poppins', sans-serif;
   background-color: white;
   color: black;
 }
@@ -16,7 +15,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 77px;
   background-color: white;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08); /* 9 del 12 del 18*/
 }
@@ -77,18 +75,20 @@
   font-family: 'Poppins', sans-serif;
 }
 .main {
-  padding: 50px 94px;
   max-width: 1440px;
+  display: flex;
+  flex-direction: column !important; 
+  align-items: flex-start !important; 
 }
 
 
-.titulo {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  font-size: 96px;
+.main .titulo{
+  font-family: 'Poppins', sans-serif ;
+  font-weight: 700 ;
+  font-size: 96px ;
   width: 820px;
-  height: 262px;
-  text-align: left;
+  height: 262px ;
+  text-align: left ;
   margin-top: 138px;
 }
 
@@ -117,9 +117,6 @@
   height: 77px;
   border-radius: 20px;
   background-color: #7D71E6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 10px;
   color: white;
   font-size: 26px;
