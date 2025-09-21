@@ -7,7 +7,7 @@ import Support from './components/support'
 
 function App() {
   return (
-    <Support/>
+    <Chatbot/>
   )
 }
 

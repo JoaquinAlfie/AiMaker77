@@ -20,9 +20,6 @@ function Chatbot ()  {
                     </a>
                 </div>
                 <div className="righticons">
-                    <button className="settings">
-                        <img src="img/settings.png" alt="settings" style={{width: "46px" , height: "46px"}}/>
-                    </button>
                     <button className="userchatbot">
                         <img src="img/user50.png" alt="user" style={{width: "50px" , height: "50px"}}/>
                     </button>
