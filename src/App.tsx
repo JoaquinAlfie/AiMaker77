@@ -4,10 +4,18 @@ import Signin from './components/signin'
 import Signup from './components/signup'
 import Chatbot from './components/chatbot'
 import Support from './components/support'
+import { useState } from "react";
 
 function App() {
+
+  const [user, setUser] = useState<string[]>([]);
   return (
-    <Chatbot/>
+    <>
+    { user.length === 0
+    ? <Signup setUser={setUser} /> 
+    : <Home/>
+    }
+    </>
   )
 }
 

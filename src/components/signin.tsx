@@ -13,24 +13,24 @@ function Signin() {
             <div className="logueo">
                 <p className="signin">Sign in</p>
                 <section className="usuario">
-                    <input id="mail" name="user" placeholder="Enter email or user name" maxLength={34}/>
+                    <input id="usuario1" name="user" placeholder="Enter email or user name" maxLength={34}/>
                 </section>
                 <section className="contra">
-                    <input id="password" name="contraseña" placeholder="Password" maxLength={28}/>
+                    <input id="contra1" name="contraseña" placeholder="Password" maxLength={28}/>
                     <button id="ocultar" type="button">
                         <img src="/img/invisible.png" alt="invisible" style={{ width: "34px", height: "34px" }}/>
                     </button>
                 </section>
                 <section className="enter">
-                    <a className="login" href="/home.html">
+                    <button className="login" type="button">
                     Login
-                    </a>
+                    </button>
                 </section>
                 <section className="ifyouregister">
                     <div className="ifyou">
                         If you don’t have an account, you can
                     </div>
-                    <a className="Register" href="/signup.html">
+                    <a className="register">
                     Register Here!
                     </a>
                 </section>

@@ -56,7 +56,7 @@
 ::placeholder {
     color: #7D71E6;
 }
-.email {
+.nombre {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -68,7 +68,7 @@
     cursor: text;
     padding: 20px;
 }
-#mail1 {
+#nombre1 {
     outline: none;
     resize: none;
     background-color:rgba(125, 113, 230, 0.00000000000001);
@@ -80,7 +80,7 @@
     flex: 1;
     border: none;
 }
-.usuario1 {
+.apellido {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -92,7 +92,7 @@
     cursor: text;
     padding: 20px;
 }
-#user {
+#apellido1 {
     outline: none;
     resize: none;
     background-color:rgba(125, 113, 230, 0.00000000000001);
@@ -104,7 +104,7 @@
     flex: 1;
     border: none;
 }
-.contra1 {
+.correo {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -116,7 +116,7 @@
     cursor: text;
     padding: 20px;
 }
-#password1 {
+#correo1 {
     outline: none;
     resize: none;
     background-color:rgba(125, 113, 230, 0.00000000000001);
@@ -135,7 +135,7 @@
     background-color:rgba(125, 113, 230, 0.00000000000001);
     cursor: pointer;
 }
-.confirmcontra {
+.contraseña {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -147,7 +147,7 @@
     cursor: text;
     padding: 20px;
 }
-#confirmpassword {
+#contraseña1 {
     outline: none;
     resize: none;
     background-color:rgba(125, 113, 230, 0.00000000000001);
@@ -201,12 +201,16 @@
     margin-top: 26px;   
     font-size: 14px;
     font-family: 'Poppins', sans-serif ;
-    font-weight: 600;
+    font-weight: bold;
     padding-left: 4px;
     color: #7D71E6;
     cursor: pointer;
 }
-a {
-text-decoration: none;
-  color: inherit; 
+
+.obligatorios {
+    font-family: 'Mulish', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #FF0000;
 }

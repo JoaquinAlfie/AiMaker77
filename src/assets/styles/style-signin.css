@@ -66,7 +66,7 @@
     cursor: text;
     padding: 20px;
 }
-#mail {
+#usuario1 {
     outline: none;
     resize: none;
     background-color:rgba(125, 113, 230, 0.00000000000001);
@@ -91,7 +91,7 @@
     padding: 20px;
     cursor: text;
 }
-#password {
+#contra1 {
     outline: none;
     resize: none;
     background-color:rgba(125, 113, 230, 0.00000000000001);
@@ -141,7 +141,7 @@
     font-family: 'Poppins', sans-serif ;
     font-weight: 400;
 }
-.Register {
+.register {
     margin-top: 31px;   
     font-size: 16px;
     font-family: 'Poppins', sans-serif ;

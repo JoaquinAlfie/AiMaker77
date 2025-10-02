@@ -1,8 +1,30 @@
 import "../assets/styles/style-signup.css"
+import React, { useState } from "react";
 
-function Signup () {
+interface SignupProps {
+  setUser: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+
+function Signup ({ setUser }: SignupProps) {
+    const [name, setName] =  useState("");
+    const [lastName, setLastName] =  useState("");
+    const [email, setEmail] =  useState("");
+    const [password, setPassword] =  useState("");
+    const [error, setError] =  useState(false);
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if( !name || !lastName || !email || !password ) {
+        setError(true)
+        return; 
+        }
+        setError(false);
+
+        setUser ([name]);
+    };
 return (
-    <div className="registrodesesion">
+    <form className="registrodesesion" onSubmit = {handleSubmit}>
         <header className="cabezita">
             <a className="volver" href="/index.html"> 
                 <img src="/img/Logox4.png" alt="Logo"style={{ width: "95px", height: "83.64px" }}/>
@@ -12,28 +34,25 @@ return (
             <h1 className="titlee">Welcome to Ai Maker</h1>
             <div className="registreo">
                 <p className="signup">Sign Up</p>
-                <section className="email">
-                    <input id="mail1" name="mail" placeholder="Enter email" maxLength={34}/>
+                <section className="nombre">
+                    <input type="text" id="nombre1" name="nombre" placeholder="Name" maxLength={22} value= {name} onChange={(e) => setName(e.target.value)} />
                 </section>
-                <section className="usuario1">
-                    <input type="text" id="user" name="user" placeholder="Create User Name" maxLength={22}/>
+                <section className="apellido">
+                    <input type="text" id="apellido1" name="apellido" placeholder="Last Name" maxLength={22} value= {lastName} onChange={(e) => setLastName(e.target.value)} />
                 </section>
-                 <section className="contra1">
-                    <input id="password1" name="contraseña" placeholder="Password" maxLength={28}/>
-                    <button id="ocultar" type="button">
-                        <img src="/img/invisible.png" alt="invisible" style={{ width: "27px", height: "27px" }}/>
-                    </button>
+                 <section className="correo">
+                    <input type="text" id="correo1" name="correo" placeholder="Email" maxLength={34} value= {email} onChange={(e) => setEmail(e.target.value)} />
                  </section>
-                 <section className="confirmcontra">
-                    <input id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" maxLength={28}/>
-                    <button id="ocultar2">
+                 <section className="contraseña">
+                    <input type="text" id="contraseña1" name="contraseña" placeholder="Password" maxLength={26} value= {password} onChange={(e) => setPassword(e.target.value)} />
+                    <a id="ocultar2">
                         <img src="img/invisible27.png" alt="invisible" style={{width: "27px", height: "27px"}}/>
-                    </button>
+                    </a>
                  </section>
                  <section className="enter1">
-                    <a className="register1">
+                    <button className="register1" type="submit">
                         Register
-                    </a>
+                    </button>
                  </section>
                  <section className="ifyoulogin">
                     <div className="ifyou">
@@ -45,7 +64,8 @@ return (
                  </section>
             </div>
         </main>
-    </div>
+        {error && <p className="obligatorios">Todos los campos son obligatorios</p> }
+    </form>
 );
 }
 
