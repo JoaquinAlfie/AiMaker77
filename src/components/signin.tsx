@@ -13,7 +13,7 @@ function Signin() {
             <div className="logueo">
                 <p className="signin">Sign in</p>
                 <section className="usuario">
-                    <input id="usuario1" name="user" placeholder="Enter email or user name" maxLength={34}/>
+                    <input id="usuario1" name="usuario" placeholder="Enter email or user name" maxLength={34}/>
                 </section>
                 <section className="contra">
                     <input id="contra1" name="contraseña" placeholder="Password" maxLength={28}/>
