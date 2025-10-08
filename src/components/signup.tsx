@@ -2,7 +2,7 @@ import "../assets/styles/style-signup.css"
 import React, { useState } from "react";
 
 interface SignupProps {
-  setUser: React.Dispatch<React.SetStateAction<string[]>>;
+  setUser: React.Dispatch<React.SetStateAction<string>>;
 }
 
 
@@ -21,7 +21,7 @@ function Signup ({ setUser }: SignupProps) {
         }
         setError(false);
 
-        setUser ([name]);
+        setUser (name);
     };
 return (
     <form className="registrodesesion" onSubmit = {handleSubmit}>

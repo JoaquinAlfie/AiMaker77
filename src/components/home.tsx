@@ -1,6 +1,9 @@
 import "../assets/styles/style-home.css"
 
-function Home() {
+type HomeProps = {
+  user: string;};
+
+function Home({ user }: HomeProps) {
   return (
     <div className='casa'>
       <header className="navbar">
@@ -41,6 +44,10 @@ function Home() {
             Get Started
           </a>
           <button className="btn-como-funciona">¿Cómo Funciona?</button>
+        </section>
+        <section className="holapibe">
+          <div className="bienvenido">Bienvenido, </div>
+          <div className="pibe">{user}</div>
         </section>
       </main>
     </div>

@@ -13,7 +13,7 @@ function App() {
     <>
     { user.length === 0
     ? <Signup setUser={setUser} /> 
-    : <Home/>
+    : <Home user={user} />
     }
     </>
   )
