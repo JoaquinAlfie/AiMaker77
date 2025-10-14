@@ -9,14 +9,17 @@ import { useState } from "react";
 function App() {
 
   const [user, setUser] =  useState<string>("");
-  return (
-    <>
-    { user.length === 0
-    ? <Signup setUser={setUser} /> 
-    : <Home user={user} />
-    }
-    </>
-  )
+  const [page, setPage ] = useState<"landing" | "signin" | "signup" | "home"> ("landing");
+  if (user) return <Home user = {user}/>;
+
+  switch (page) {
+    case "signup":
+      return <Signup setUser={setUser} setPage={setPage}/>;
+    case "signin":
+      return <Signin setUser={setUser} setPage={setPage}/>;
+    default:
+      return <Landing setPage={setPage}/>;
+  }
 }
 
 export default App

@@ -1,10 +1,42 @@
 import "../assets/styles/style-signin.css"
+import React, { useState } from "react";
+import { loginUser } from "../api/auth";
 
-function Signin() {
-  return (
+interface SigninProps {
+  setUser: React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home">>;
+}
+
+function Signin ({ setUser, setPage }: SigninProps) {
+    const [email, setEmail] =  useState("");
+    const [password, setPassword] =  useState("");
+    const [error, setError] =  useState("");
+    const [loading, setLoading] =useState(false);
+
+    const handleLogin = async () => {
+        if(!email || !password ) {
+        setError("Todos los campos son obligatorios");
+        return;
+        }
+    try {
+        setLoading(true);
+        const loginres = await loginUser(email, password);
+        if (loginres.token) {
+        setUser(email);
+        } else {
+            setError("Credenciales inválidas");
+        } 
+    }catch {
+        setError("Error al iniciar sesión");
+        }  finally {
+        setLoading(false);
+        }
+    }
+    
+    return (
     <div className="iniciodesesion">
         <header className="cabezita">
-            <a className="volver" href="/index.html"> 
+            <a className="volver" onClick={() => setPage("landing")}> 
                 <img src="/img/Logox4.png" alt="Logo"style={{ width: "95px", height: "83.64px" }}/>
             </a>
         </header>
@@ -13,17 +45,17 @@ function Signin() {
             <div className="logueo">
                 <p className="signin">Sign in</p>
                 <section className="usuario">
-                    <input id="usuario1" name="usuario" placeholder="Enter email or user name" maxLength={34}/>
+                    <input id="usuario1" name="usuario" placeholder="Enter email or user name" maxLength={34} value={email} onChange={(e)=> setEmail (e.target.value)}/>
                 </section>
                 <section className="contra">
-                    <input id="contra1" name="contraseña" placeholder="Password" maxLength={28}/>
+                    <input id="contra1" name="contraseña" placeholder="Password" maxLength={28} value={password} onChange={(e)=> setPassword (e.target.value)}/>
                     <button id="ocultar" type="button">
                         <img src="/img/invisible.png" alt="invisible" style={{ width: "34px", height: "34px" }}/>
                     </button>
                 </section>
                 <section className="enter">
-                    <button className="login" type="button">
-                    Login
+                    <button className="login" type="button" onClick={handleLogin}>
+                        { loading ? "Loading..." : "Login"}
                     </button>
                 </section>
                 <section className="ifyouregister">
@@ -34,6 +66,7 @@ function Signin() {
                     Register Here!
                     </a>
                 </section>
+                {error && <p className="obligatorios2">{error}</p>}
             </div>
         </main>
     </div>

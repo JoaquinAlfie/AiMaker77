@@ -1,14 +1,18 @@
 import "../assets/styles/style.css"
 
-function Landing() {
+interface LandingProps {
+  setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home">>;
+}
+
+function Landing({ setPage }: LandingProps) {
   return (
     <div className='cuerpo'>
       <header className="navbar">
         <img src="/img/Logox4.png" alt="Logo" className="logo" />
         <section className="nav-items">
           <button className="contacto">Contacto</button>
-          <a className="btn-login" href="signin.html">Iniciar Sesión</a>
-          <a className="btn-register" href="signup.html">Registrate</a>
+          <a className="btn-login" onClick={() => setPage("signin")}>Iniciar Sesión</a>
+          <a className="btn-register" onClick={() => setPage("signup")}>Registrate</a>
         </section>
       </header>
 
@@ -18,7 +22,7 @@ function Landing() {
           Entrená modelos de inteligencia artificial con tus propios datos, sin necesidad de programar ni tener experiencia previa.
         </p>
         <section className="acciones">
-          <a className="btn-get-started" href="signin.html">
+          <a className="btn-get-started" onClick={() => setPage("signup")}>
             <img src="/img/RocketLaunch.png" alt="Rocket" style={{ width: 32, height: 32 }} />
             Get Started
           </a>

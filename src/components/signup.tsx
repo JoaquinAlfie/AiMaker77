@@ -1,6 +1,6 @@
 import "../assets/styles/style-signup.css"
 import React, { useState } from "react";
-import { registerUser } from "../api/auth";
+import { registerUser, loginUser } from "../api/auth";
 
 interface SignupProps {
   setUser: React.Dispatch<React.SetStateAction<string>>;
@@ -25,10 +25,10 @@ function Signup ({ setUser }: SignupProps) {
 
     try {
         setLoading(true);
-        const res= await registerUser({ name, last_name: lastName, email, password,});
+        const regres= await registerUser({ name, last_name: lastName, email, password,});
 
-        if (res.error) {
-            setError (res.error);
+        if (regres.error) {
+            setError (regres.error);
         } else { 
             alert ("Usuario Creado. Revisa tu correo para verificar tu cuenta.");
             setUser(name)
