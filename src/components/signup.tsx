@@ -12,19 +12,34 @@ function Signup ({ setUser }: SignupProps) {
     const [lastName, setLastName] =  useState("");
     const [email, setEmail] =  useState("");
     const [password, setPassword] =  useState("");
-    const [error, setError] =  useState(false);
+    const [error, setError] =  useState("");
     const [loading, setLoading] =useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if( !name || !lastName || !email || !password ) {
-        setError(true)
+        setError("Todos los campos son obligatorios.")
         return; 
         }
-        setError(false);
+    
 
-        setUser (name);
-    };
+    try {
+        setLoading(true);
+        const res= await registerUser({ name, last_name: lastName, email, password,});
+
+        if (res.error) {
+            setError (res.error);
+        } else { 
+            alert ("Usuario Creado. Revisa tu correo para verificar tu cuenta.");
+            setUser(name)
+        }
+    } catch (err){ 
+        setError ("Error al registar Usuario.");
+    } finally { 
+        setLoading (false);
+    }
+    }
+
 return (
     <form className="registrodesesion" onSubmit = {handleSubmit}>
         <header className="cabezita">
@@ -53,7 +68,7 @@ return (
                  </section>
                  <section className="enter1">
                     <button className="register1" type="submit">
-                        Register
+                        { loading ? "Loading..." : "Register"}
                     </button>
                  </section>
                  <section className="ifyoulogin">
@@ -66,7 +81,7 @@ return (
                  </section>
             </div>
         </main>
-        {error && <p className="obligatorios">Todos los campos son obligatorios</p> }
+        {error && <p className="obligatorios">{error}</p> }
     </form>
 );
 }
