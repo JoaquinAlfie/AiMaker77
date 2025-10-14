@@ -8,7 +8,7 @@ import { useState } from "react";
 
 function App() {
 
-  const [user, setUser] = useState<string[]>([]);
+  const [user, setUser] =  useState<string>("");
   return (
     <>
     { user.length === 0

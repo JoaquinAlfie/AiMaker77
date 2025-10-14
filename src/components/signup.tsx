@@ -13,9 +13,10 @@ function Signup ({ setUser }: SignupProps) {
     const [email, setEmail] =  useState("");
     const [password, setPassword] =  useState("");
     const [error, setError] =  useState(false);
+    const [loading, setLoading] =useState(false);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         if( !name || !lastName || !email || !password ) {
         setError(true)
         return; 
