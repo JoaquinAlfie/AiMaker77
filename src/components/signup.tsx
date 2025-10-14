@@ -1,5 +1,6 @@
 import "../assets/styles/style-signup.css"
 import React, { useState } from "react";
+import { registerUser } from "../api/auth";
 
 interface SignupProps {
   setUser: React.Dispatch<React.SetStateAction<string>>;
