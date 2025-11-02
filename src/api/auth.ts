@@ -1,29 +1,58 @@
-const API_URL = "https://ai-maker-api.vercel.app/auth";
+const BASE_URL = "https://ai-maker-api.vercel.app/auth";
 
-export async function registerUser(data: {
+interface RegisterData {
   name: string;
   last_name: string;
   email: string;
   password: string;
-}) {
-  const res = await fetch(`${API_URL}/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  return res.json();
 }
 
-export async function loginUser(email: string, password: string) {
-  const res = await fetch(`${API_URL}/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  });
+interface LoginData {
+  email: string;
+  password: string;
+}
 
-  const data = await res.json();
-  if (res.ok) {
-    localStorage.setItem("token", data.token);
+export const registerUser = async (data: RegisterData) => {
+  try {
+    const res = await fetch(`${BASE_URL}/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return await res.json(); 
+  } catch (err) {
+    return { error: "Error al registrar el usuario" };
   }
-  return data;
-}
+};
+
+export const verifyUserCode = async (email: string, code: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/register/code`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, code }),
+    });
+    return await res.json();
+  } catch (err) {
+    return { error: "Error al verificar usuario" };
+  }
+};
+
+export const loginUser = async (email: string, password: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    return await res.json();
+  } catch (err) {
+    return { error: "Error al iniciar sesión" };
+  }
+};

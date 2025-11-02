@@ -13,25 +13,27 @@ function Signin ({ setUser, setPage }: SigninProps) {
     const [error, setError] =  useState("");
     const [loading, setLoading] =useState(false);
 
-    const handleLogin = async () => {
-        if(!email || !password ) {
-        setError("Todos los campos son obligatorios");
-        return;
-        }
-    try {
-        setLoading(true);
-        const loginres = await loginUser(email, password);
-        if (loginres.token) {
-        setUser(email);
-        } else {
-            setError("Credenciales inválidas");
-        } 
-    }catch {
-        setError("Error al iniciar sesión");
-        }  finally {
-        setLoading(false);
-        }
+const handleLogin = async () => {
+  if (!email || !password) {
+    setError("Todos los campos son obligatorios");
+    return;
+  }
+  try {
+    setLoading(true);
+    const res = await loginUser(email, password);
+
+    if (res.token) {
+      localStorage.setItem("token", res.token); 
+      setUser(email);
+    } else {
+      setError(res.error || "Credenciales inválidas");
     }
+  } catch {
+    setError("Error al iniciar sesión");
+  } finally {
+    setLoading(false);
+  }
+};
     
     return (
     <div className="iniciodesesion">
@@ -48,7 +50,7 @@ function Signin ({ setUser, setPage }: SigninProps) {
                     <input id="usuario1" name="usuario" placeholder="Enter email or user name" maxLength={34} value={email} onChange={(e)=> setEmail (e.target.value)}/>
                 </section>
                 <section className="contra">
-                    <input id="contra1" name="contraseña" placeholder="Password" maxLength={28} value={password} onChange={(e)=> setPassword (e.target.value)}/>
+                    <input id="contra1" type="password" name="contraseña" placeholder="Password" maxLength={28} value={password} onChange={(e)=> setPassword (e.target.value)}/>
                     <button id="ocultar" type="button">
                         <img src="/img/invisible.png" alt="invisible" style={{ width: "34px", height: "34px" }}/>
                     </button>
