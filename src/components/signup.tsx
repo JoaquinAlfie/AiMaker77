@@ -31,8 +31,8 @@ function Signup({ setUser, setPage }: SignupProps) {
       if (res.error) setError(res.error);
       else {
         setNeedsVerification(true); 
-         if (res.code) //prueba
-            setCode(res.code); //prueba
+         if (res.code) 
+            setCode(res.code); // prueba
         alert(`Código de verificación (solo dev): ${res.code}`);//prueba backend
       }
     } catch {
@@ -51,6 +51,7 @@ function Signup({ setUser, setPage }: SignupProps) {
       if (res.error) setError(res.error);
       else {
         alert("Usuario verificado correctamente. Ahora puedes iniciar sesión.");
+        setUser(email);  //prueba vercel
         setPage("signin");
       }
     } catch {

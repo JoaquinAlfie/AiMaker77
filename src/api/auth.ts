@@ -7,10 +7,10 @@ interface RegisterData {
   password: string;
 }
 
-interface LoginData {
-  email: string;
-  password: string;
-}
+// interface LoginData {
+//  email: string;
+//  password: string;
+//} 
 
 export const registerUser = async (data: RegisterData) => {
   try {
