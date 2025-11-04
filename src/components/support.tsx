@@ -22,21 +22,21 @@ function Support({ setPage }: SupportProps) {
                     <div className="apoyabelo">
                         Apoyanos con Belo
                     </div>
-                    <a className="donarbelo"> Donar con Belo </a>
+                    <a className="donarbelo" href="https://pay.belo.app/error/expired-link" target="_blank"> Donar con Belo </a>
                 </section>
                 <section className="mercadopago">
                     <img src="img/mp.png" alt="Logo" className="lmp" style={{width: "315px" , height: "82px"}}/>
                     <div className="apoyamp">
                         Apoyanos con MP
                     </div>
-                    <a className="donarmp">Donar con MP</a>
+                    <a className="donarmp" href="https://link.mercadopago.com.ar/aimaker" target="_blank">Donar con MP</a>
                 </section>
                 <section className="paypal">
                     <img src="img/pp.png" alt="Logo" className="lpp" style={{width: "294px" , height: "78px"}}/>
                     <div className="apoyapp">
                         Apoyanos con PayPal
                     </div>
-                    <a className="donarpp">Donar con PayPal</a>
+                    <a className="donarpp" href="https://www.paypal.com/paypalme/AiMaker2025" target="_blank">Donar con PayPal</a>
                 </section>
             </main>
         </div>    
