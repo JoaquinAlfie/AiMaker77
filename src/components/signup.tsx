@@ -1,80 +1,53 @@
-import "../assets/styles/style-signup.css"
+import "../assets/styles/style-signup.css";
 import React, { useState } from "react";
-import { registerUser, verifyUserCode } from "../api/auth";
+import { registerUser } from "../api/auth";
 
 interface SignupProps {
   setUser: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home">>;
 }
 
-function Signup({ setUser, setPage }: SignupProps) {
+function Signup({ setPage }: SignupProps) {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [code, setCode] = useState("");
-  const [needsVerification, setNeedsVerification] = useState(false);
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!name || !lastName || !email || !password) {
       setError("Todos los campos son obligatorios.");
       return;
     }
+
     setLoading(true);
     setError("");
+
     try {
-      const res = await registerUser({ name, last_name: lastName, email, password });
-      console.log(res); //prueba backend
-      if (res.error) setError(res.error);
-      else {
-        setNeedsVerification(true); 
-         if (res.code) 
-            setCode(res.code); // prueba
-        alert(`Código de verificación (solo dev): ${res.code}`);//prueba backend
+      const res = await registerUser({
+        name,
+        last_name: lastName,
+        email,
+        password,
+      });
+
+      console.log("Respuesta registro:", res);
+
+      if (res.code === "error" || res.error) {
+        setError(res.message || res.error);
+      } else {
+        alert("Usuario creado con éxito. Ahora puedes iniciar sesión.");
+        setPage("signin");
       }
     } catch {
       setError("Error al registrar usuario.");
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleVerify = async () => {
-    if (!code) return setError("Ingresa el código de verificación.");
-    setLoading(true);
-    setError("");
-    try {
-      const res = await verifyUserCode(email, code);
-      if (res.error) setError(res.error);
-      else {
-        alert("Usuario verificado correctamente. Ahora puedes iniciar sesión.");
-        setUser(email);  //prueba vercel
-        setPage("signin");
-      }
-    } catch {
-      setError("Error al verificar usuario.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (needsVerification) {
-    return (
-      <div className="registrodesesion">
-        <h2>Ingresa el código de verificación enviado a {email}</h2>
-        <input
-          placeholder="Código"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-        />
-        <button onClick={handleVerify}>{loading ? "Verificando..." : "Verificar"}</button>
-        {error && <p>{error}</p>}
-      </div>
-    );
-  }
+};
 return (
     <form className="registrodesesion" onSubmit = {handleRegister}>
         <header className="cabezita">

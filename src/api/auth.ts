@@ -7,38 +7,16 @@ interface RegisterData {
   password: string;
 }
 
-// interface LoginData {
-//  email: string;
-//  password: string;
-//} 
-
 export const registerUser = async (data: RegisterData) => {
   try {
     const res = await fetch(`${BASE_URL}/register`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-    return await res.json(); 
-  } catch (err) {
-    return { error: "Error al registrar el usuario" };
-  }
-};
-
-export const verifyUserCode = async (email: string, code: string) => {
-  try {
-    const res = await fetch(`${BASE_URL}/register/code`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, code }),
-    });
     return await res.json();
-  } catch (err) {
-    return { error: "Error al verificar usuario" };
+  } catch {
+    return { error: "Error al registrar el usuario" };
   }
 };
 
@@ -46,13 +24,11 @@ export const loginUser = async (email: string, password: string) => {
   try {
     const res = await fetch(`${BASE_URL}/login`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
     return await res.json();
-  } catch (err) {
+  } catch {
     return { error: "Error al iniciar sesión" };
   }
 };

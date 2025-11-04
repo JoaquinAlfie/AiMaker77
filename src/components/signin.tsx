@@ -1,5 +1,5 @@
-import "../assets/styles/style-signin.css"
 import React, { useState } from "react";
+import "../assets/styles/style-signin.css";
 import { loginUser } from "../api/auth";
 
 interface SigninProps {
@@ -7,33 +7,37 @@ interface SigninProps {
   setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home">>;
 }
 
-function Signin ({ setUser, setPage }: SigninProps) {
-    const [email, setEmail] =  useState("");
-    const [password, setPassword] =  useState("");
-    const [error, setError] =  useState("");
-    const [loading, setLoading] =useState(false);
+function Signin({ setUser, setPage }: SigninProps) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-const handleLogin = async () => {
-  if (!email || !password) {
-    setError("Todos los campos son obligatorios");
-    return;
-  }
-  try {
-    setLoading(true);
-    const res = await loginUser(email, password);
-
-    if (res.token) {
-      localStorage.setItem("token", res.token); 
-      setUser(email);
-    } else {
-      setError(res.error || "Credenciales inválidas");
+  const handleLogin = async () => {
+    if (!email || !password) {
+      setError("Todos los campos son obligatorios");
+      return;
     }
-  } catch {
-    setError("Error al iniciar sesión");
-  } finally {
-    setLoading(false);
-  }
-};
+
+    try {
+      setLoading(true);
+      const res = await loginUser(email, password);
+
+      console.log("Respuesta login:", res);
+
+      if (res.token) {
+        localStorage.setItem("token", res.token);
+        setUser(email);
+        setPage("home");
+      } else {
+        setError(res.message || res.error || "Credenciales inválidas");
+      }
+    } catch {
+      setError("Error al iniciar sesión");
+    } finally {
+      setLoading(false);
+    }
+  };
     
     return (
     <div className="iniciodesesion">
