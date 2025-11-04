@@ -35,7 +35,7 @@ function Home({ user }: HomeProps) {
           necesidad de programar ni tener experiencia previa.
         </p>
         <section className="acciones">
-          <a className="btn-get-started" href="chatbot.html">
+          <a className="btn-get-started">
             <img
               src="/img/RocketLaunch.png"
               alt="Rocket"

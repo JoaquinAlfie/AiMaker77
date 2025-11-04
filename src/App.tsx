@@ -2,12 +2,13 @@ import Landing from './components/landing'
 import Home from './components/home'
 import Signin from './components/signin'
 import Signup from './components/signup'
+import Chatbot from './components/chatbot'
 import { useState } from "react";
 
 function App() {
 
   const [user, setUser] =  useState<string>("");
-  const [page, setPage ] = useState<"landing" | "signin" | "signup" | "home"> ("landing");
+  const [page, setPage ] = useState<"landing" | "signin" | "signup" | "home" | "chatbot"> ("landing");
   if (user) return <Home user = {user}/>;
 
   switch (page) {

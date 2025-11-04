@@ -83,7 +83,7 @@ return (
                     <div className="ifyou">
                         If you already have an account, you can
                     </div>
-                    <a className="login1">
+                    <a className="login1" onClick={() => setPage("signin")}>
                         Login Here ! 
                     </a>
                  </section>

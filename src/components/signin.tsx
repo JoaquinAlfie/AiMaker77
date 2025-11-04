@@ -68,7 +68,7 @@ function Signin({ setUser, setPage }: SigninProps) {
                     <div className="ifyou">
                         If you don’t have an account, you can
                     </div>
-                    <a className="register">
+                    <a className="register" onClick={() => setPage("signup")}>
                     Register Here!
                     </a>
                 </section>
