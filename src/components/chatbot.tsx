@@ -1,11 +1,18 @@
 import "../assets/styles/style-chatbot.css"
 
-function Chatbot ()  {
+type ChatbotProps = {
+  user: string;
+  setPage: React.Dispatch<
+    React.SetStateAction<"landing" | "signin" | "signup" | "home" | "chatbot" | "support">
+  >;
+};
+
+function Chatbot({ setPage }: ChatbotProps) {
  return (
     <div className='lacasa'>
         <div className='icons'>
             <section className="iconizqitems">
-                <a className="volver" >
+                <a className="volver" onClick={() => setPage("home")}>
                     <img src="img/logochico.png" alt="Logo"  style= {{width: "57.97px" , height: "51.04px"}} />
                 </a>
                 <button className="barralat">
@@ -14,7 +21,7 @@ function Chatbot ()  {
             </section>
             <section className="iconsitems">
                 <div className="centericons">
-                    <a className="supportchatbot" style={{margin: 0,}}>
+                    <a className="supportchatbot" style={{margin: 0,}} onClick={() => setPage("support")}>
                         <img src="img/Sparkle.png" alt="Rocket" style={{width: "34px" , height: "34px"}}/>
                         Support AI MAKER
                     </a>

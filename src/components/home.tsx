@@ -1,15 +1,19 @@
 import "../assets/styles/style-home.css"
 
 type HomeProps = {
-  user: string;};
+  user: string;
+  setPage: React.Dispatch<
+    React.SetStateAction<"landing" | "signin" | "signup" | "home" | "chatbot" | "support">
+  >;
+};
 
-function Home({ user }: HomeProps) {
+function Home({ user, setPage }: HomeProps) {
   return (
     <div className='casa'>
       <header className="navbar">
         <img src="/img/Logox4.png" alt="Logo" className="logo" />
         <section className="nav-items">
-          <a className="support" href="support.html">
+          <a className="support" onClick={() => setPage("support")}>
             <img
               src="/img/Sparkle.png"
               alt="Rocket"
@@ -35,7 +39,7 @@ function Home({ user }: HomeProps) {
           necesidad de programar ni tener experiencia previa.
         </p>
         <section className="acciones">
-          <a className="btn-get-started">
+          <a className="btn-get-started" onClick={() => setPage("chatbot")}>
             <img
               src="/img/RocketLaunch.png"
               alt="Rocket"
