@@ -159,8 +159,8 @@ useEffect(() => {
           <div className="chatis">CHATS</div>
           {chats.map((chat) => (
             <div
-              key={chat._id}
-              className={`chat-item ${activeChat === chat._id ? "active" : ""}`}
+              key={chat.id}
+              className={`chat-item ${activeChat === chat.id ? "active" : ""}`}
               onClick={() => handleActiveChat(chat.id)}
             >
               {chat.name}
