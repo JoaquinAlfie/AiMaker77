@@ -58,14 +58,8 @@ useEffect(() => {
     if (!res.error) {
       setChats([...chats, res]);
       setActiveChat(res.id);
-
-          if (message.trim()) {  //pruebaa
-      const msgRes = await sendMessage(res.id, message);
-      if (msgRes && !msgRes.error) {
-        setMessages([msgRes]);
-        setMessage("");
-      }
-    }
+       setMessages([]);
+      
     }
   };
 
@@ -196,7 +190,7 @@ useEffect(() => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
-            <button className="enterchatbot" onClick={handleSend}>
+            <button className="enterchatbot" onClick={handleSend} disabled={!activeChat || loading} >
               {loading ? (
                 "..."
               ) : (
