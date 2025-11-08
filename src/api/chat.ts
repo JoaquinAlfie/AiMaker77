@@ -42,3 +42,33 @@ export const deleteChat = async (chatId: string) => {
     return { error: "Error al eliminar el chat." };
   }
 };
+// MENSAJES 
+export const getMessages = async (chatId: string) => {
+  try {
+    const res = await fetch(`${MSG_URL}/${chatId}`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+    return await res.json();
+  } catch {
+    return { error: "Error al obtener mensajes." };
+  }
+};
+
+export const sendMessage = async (chatId: string, text: string) => {
+  try {
+    const res = await fetch(`${MSG_URL}/${chatId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({
+        sender_type: "user",
+        text,
+      }),
+    });
+    return await res.json();
+  } catch {
+    return { error: "Error al enviar mensaje." };
+  }
+};
