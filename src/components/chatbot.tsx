@@ -58,6 +58,14 @@ useEffect(() => {
     if (!res.error) {
       setChats([...chats, res]);
       setActiveChat(res.id);
+
+          if (message.trim()) {  //pruebaa
+      const msgRes = await sendMessage(res.id, message);
+      if (msgRes && !msgRes.error) {
+        setMessages([msgRes]);
+        setMessage("");
+      }
+    }
     }
   };
 
