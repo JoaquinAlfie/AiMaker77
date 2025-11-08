@@ -4,106 +4,73 @@ import { getAllChats, createChat, getMessages, sendMessage} from "../api/chat";
 
 type ChatbotProps = {
   user: string;
-  setPage: React.Dispatch<
-    React.SetStateAction<
-      "landing" | "signin" | "signup" | "home" | "chatbot" | "support"
-    >
-  >;
+  setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home" | "chatbot" | "support">>;
 };
 
-function Chatbot({setPage }: ChatbotProps) {
+function Chatbot({ setPage }: ChatbotProps) {
   const [chats, setChats] = useState<any[]>([]);
   const [activeChat, setActiveChat] = useState<string | null>(null);
   const [messages, setMessages] = useState<any[]>([]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Cargar todos los chats del usuario
+  // Cargar todos los chats
   useEffect(() => {
     (async () => {
-      const res = await getAllChats();
-      console.log("🔹 chats cargados:", res); // broo
-      if (!res.error) {
-        setChats(Array.isArray(res) ? res : res.chats || []);  }
+      const allChats = await getAllChats();
+      setChats(allChats);
+      if (allChats.length > 0 && !activeChat) {
+        setActiveChat(allChats[0].id); // activamos el primer chat
+      }
     })();
   }, []);
 
-  // Cargar mensajes del chat seleccionado
-useEffect(() => {
-  if (!activeChat) return;
-
-  (async () => {
-    try {
-      console.log("🔹 Request a getMessages con chatId:", activeChat);
-      const res = await getMessages(String(activeChat));
-      console.log("🔹 Respuesta de getMessages:", res);
-
-      if (res.error) {
-        console.error("Error al obtener mensajes del chat:", res.error);
-        setMessages([]);
-      } else {
-        setMessages(Array.isArray(res) ? res : res.messages || []);
-      }
-    } catch (err) {
-      console.error("❌ Error inesperado al obtener mensajes:", err);
+  // Cargar mensajes cuando cambia el chat activo
+  useEffect(() => {
+    if (!activeChat) {
       setMessages([]);
+      return;
     }
-  })();
-}, [activeChat]);
-
+    (async () => {
+      const msgs = await getMessages(activeChat);
+      setMessages(msgs);
+    })();
+  }, [activeChat]);
 
   const handleNewChat = async () => {
-  await createChat("Nuevo Chat");   // crea el chat en backend
-  const allChats = await getAllChats();  // recarga todos
-  setChats(allChats.chats || allChats);
-  const lastChat = (allChats.chats || allChats).slice(-1)[0];
-  if (lastChat) setActiveChat(lastChat.id);
+    await createChat("Nuevo Chat"); // backend solo devuelve message
+    const allChats = await getAllChats();
+    setChats(allChats);
+    const lastChat = allChats.slice(-1)[0];
+    if (lastChat) setActiveChat(lastChat.id);
   };
 
-  const handleActiveChat = async (chatId: string) => {
-     console.log("Seleccionaste chat:", chatId); // anda?
+  const handleActiveChat = (chatId: string) => {
     setActiveChat(chatId);
-    const msgs = await getMessages(String(chatId));
-    console.log("🔹 Respuesta de getMessages:", msgs); // br brr patapin
-    setMessages(Array.isArray(msgs) ? msgs : msgs.messages || []);
   };
 
   const handleSend = async () => {
-  console.log("🔹 handleSend ejecutado"); 
-  if (!message.trim()) return alert("Escribí un mensaje antes de enviar.");
-  setLoading(true);
+    if (!message.trim()) return alert("Escribí un mensaje antes de enviar.");
+    setLoading(true);
 
-  try {
-    let chatId = activeChat;
-
-    // Crear chat si no hay activo
-    if (!chatId) {
-      const newChat = await createChat("Nuevo Chat");
-      if (newChat && !newChat.error) {
-        const allChats = await getAllChats();
-        setChats(allChats.chats || allChats);
-        const lastChat = (allChats.chats || allChats).slice(-1)[0];
-        chatId = lastChat.id;
-        setActiveChat(chatId);
-      } else {
-        alert("Error al crear el chat.");
-        setLoading(false);
-        return;
+    try {
+      if (!activeChat) {
+        await handleNewChat(); // si no hay chat activo, crear uno
       }
-    }
 
-    // Ahora sí mandamos el mensaje al chat correcto
-    const res = await sendMessage(chatId!, message);
-    if (res) {
-      setMessages([...messages, { sender_type: "user", text: message }]);
-      setMessage("");
+      // Mandar mensaje
+      if (activeChat) {
+        await sendMessage(activeChat, message);
+        setMessages([...messages, { sender_type: "user", text: message }]);
+        setMessage("");
+      }
+    } catch (err) {
+      console.error("Error al enviar mensaje:", err);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error("❌ Error al enviar mensaje:", err);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
+
 
   return (
     <div className="lacasa">
