@@ -1,6 +1,6 @@
 import "../assets/styles/style-chatbot.css";
 import React, { useEffect, useState } from "react";
-import { getAllChats, createChat, getMessages, sendMessage, deleteChat } from "../api/chat";
+import { getAllChats, createChat, getMessages, sendMessage} from "../api/chat";
 
 type ChatbotProps = {
   user: string;
