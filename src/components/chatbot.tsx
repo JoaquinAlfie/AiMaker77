@@ -52,6 +52,7 @@ function Chatbot({setPage }: ChatbotProps) {
      console.log("Seleccionaste chat:", chatId); // anda?
     setActiveChat(chatId);
     const msgs = await getMessages(chatId);
+    console.log("🔹 Respuesta de getMessages:", msgs); // br brr patapin
     setMessages(Array.isArray(msgs) ? msgs : msgs.messages || []);
   };
 
