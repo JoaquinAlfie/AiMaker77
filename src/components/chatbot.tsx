@@ -41,6 +41,7 @@ function Chatbot({setPage }: ChatbotProps) {
 
   const handleNewChat = async () => {
     const res = await createChat("Nuevo Chat");
+    console.log("Nuevo chat creado:", res); // que guardo?
     if (!res.error) {
       setChats([...chats, res]);
       setActiveChat(res._id);
@@ -48,6 +49,7 @@ function Chatbot({setPage }: ChatbotProps) {
   };
 
   const handleActiveChat = async (chatId: string) => {
+     console.log("Seleccionaste chat:", chatId); // anda?
     setActiveChat(chatId);
     const msgs = await getMessages(chatId);
     setMessages(Array.isArray(msgs) ? msgs : msgs.messages || []);
