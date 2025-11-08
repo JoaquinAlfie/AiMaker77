@@ -68,60 +68,42 @@ useEffect(() => {
     setMessages(Array.isArray(msgs) ? msgs : msgs.messages || []);
   };
 
-const handleSend = async () => {
+  const handleSend = async () => {
   console.log("🔹 handleSend ejecutado"); 
-
-  if (!message.trim()) {
-    return alert("Escribí un mensaje antes de enviar.");
-  }
-
+  if (!message.trim()) return alert("Escribí un mensaje antes de enviar.");
   setLoading(true);
 
   try {
     let chatId = activeChat;
 
-    // 1️⃣ Crear chat si no hay activo
+    // Crear chat si no hay activo
     if (!chatId) {
-      const newChatRes = await createChat("Nuevo Chat");
-      
-      if (!newChatRes || newChatRes.code === "error") {
+      const newChat = await createChat("Nuevo Chat");
+      if (newChat && !newChat.error) {
+        const allChats = await getAllChats();
+        setChats(allChats.chats || allChats);
+        const lastChat = (allChats.chats || allChats).slice(-1)[0];
+        chatId = lastChat.id;
+        setActiveChat(chatId);
+      } else {
         alert("Error al crear el chat.");
         setLoading(false);
         return;
       }
-
-      // Recargar todos los chats para obtener el ID recién creado
-      const allChats = await getAllChats();
-      setChats(allChats.chats || allChats);
-      const lastChat = (allChats.chats || allChats).slice(-1)[0];
-
-      if (!lastChat?.id) {
-        alert("No se pudo obtener el ID del nuevo chat");
-        setLoading(false);
-        return;
-      }
-
-      chatId = lastChat.id;
-      setActiveChat(chatId);
     }
 
-    // 2️⃣ Enviar mensaje al chat correcto
+    // Ahora sí mandamos el mensaje al chat correcto
     const res = await sendMessage(chatId!, message);
-
     if (res) {
       setMessages([...messages, { sender_type: "user", text: message }]);
       setMessage("");
-    } else {
-      alert("Error al enviar el mensaje.");
     }
   } catch (err) {
     console.error("❌ Error al enviar mensaje:", err);
-    alert("Ocurrió un error al enviar el mensaje.");
   } finally {
     setLoading(false);
   }
 };
-  
 
   return (
     <div className="lacasa">
