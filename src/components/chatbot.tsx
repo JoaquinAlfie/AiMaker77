@@ -53,11 +53,14 @@ useEffect(() => {
 
 
   const handleNewChat = async () => {
-  await createChat("Nuevo Chat");   // crea el chat en backend
-  const allChats = await getAllChats();  // recarga todos
-  setChats(allChats.chats || allChats); //si no volver
-  const lastChat = (allChats.chats || allChats).slice(-1)[0]; // si no volver
-  if (lastChat) setActiveChat(lastChat.id); // si no volver
+    const res = await createChat("Nuevo Chat");
+    console.log("Nuevo chat creado:", res); // que guardo?
+    
+    if (!res.error) {
+      setChats([...chats, res]);
+      setActiveChat(res.id);
+      
+    }
   };
 
   const handleActiveChat = async (chatId: string) => {
