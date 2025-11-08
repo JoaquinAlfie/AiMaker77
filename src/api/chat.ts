@@ -68,7 +68,10 @@ export const sendMessage = async (chatId: string, content: string) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getToken()}`,
       },
-      body: JSON.stringify({content}),
+      body: JSON.stringify({
+                sender_type: "user",
+        text: content,
+      }),
     });
     if (!res.ok) throw new Error("Error al enviar mensaje");
     return await res.json();
