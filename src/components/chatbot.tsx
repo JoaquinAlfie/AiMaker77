@@ -1,6 +1,6 @@
 import "../assets/styles/style-chatbot.css";
 import React, { useEffect, useState } from "react";
-import { getAllChats, createChat, getMessages, sendMessage } from "../api/chat";
+import { getAllChats, createChat, getMessages, sendMessage, deleteChat } from "../api/chat";
 
 type ChatbotProps = {
   user: string;
@@ -42,6 +42,12 @@ function Chatbot({setPage }: ChatbotProps) {
       setChats([...chats, res]);
       setActiveChat(res._id);
     }
+  };
+
+  const handleActiveChat = async (chatId: string) => {
+    setActiveChat(chatId);
+    const msgs = await getMessages(chatId);
+    setMessages(msgs || []);
   };
 
   const handleSend = async () => {
@@ -117,7 +123,7 @@ function Chatbot({setPage }: ChatbotProps) {
             <div
               key={chat._id}
               className={`chat-item ${activeChat === chat._id ? "active" : ""}`}
-              onClick={() => setActiveChat(chat._id)}
+              onClick={() => handleActiveChat(chat._id)}
             >
               {chat.name}
             </div>
