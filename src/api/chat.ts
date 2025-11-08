@@ -7,7 +7,7 @@ const getToken = () => localStorage.getItem("token");
 // CHATS 
 export const getAllChats = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/`, {
+    const res = await fetch(`${BASE_URL}`, {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
     if (!res.ok) throw new Error("Error al obtener los chats");
@@ -19,7 +19,7 @@ export const getAllChats = async () => {
 };
 export const createChat = async (name:string) => {
   try {
-    const res = await fetch(`${BASE_URL}/create`, {
+    const res = await fetch(`${BASE_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
