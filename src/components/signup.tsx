@@ -36,7 +36,7 @@ function Signup({ setPage }: SignupProps) {
 
       console.log("Respuesta registro:", res);
 
-      if (res.code === "error" || res.error) {
+      if (res.code === "error" || res.error || res.message?.includes("Ya existe")){
         setError(res.message || res.error);
       } else {
         alert("Usuario creado con éxito. Ahora puedes iniciar sesión.");
