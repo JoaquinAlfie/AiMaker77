@@ -55,10 +55,13 @@ useEffect(() => {
   const handleNewChat = async () => {
   await createChat("Nuevo Chat");   // crea el chat en backend
   const allChats = await getAllChats();  // recarga todos
-  setChats(allChats.chats || allChats);
-  const lastChat = (allChats.chats || allChats).slice(-1)[0];
+  const chatsArray = allChats.chats || allChats;
+  setChats(chatsArray);
+
+  // 🔹 CAMBIO: activar último chat creado
+  const lastChat = chatsArray.slice(-1)[0];
   if (lastChat) setActiveChat(lastChat.id);
-  };
+};
 
   const handleActiveChat = async (chatId: string) => {
      console.log("Seleccionaste chat:", chatId); // anda?
