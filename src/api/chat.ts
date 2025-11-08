@@ -15,3 +15,30 @@ export const getAllChats = async () => {
     return { error: "Error al obtener los chats." };
   }
 };
+export const createChat = async (name: string) => {
+  try {
+    const res = await fetch(BASE_URL + "/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ name }),
+    });
+    return await res.json();
+  } catch {
+    return { error: "Error al crear el chat." };
+  }
+};
+
+export const deleteChat = async (chatId: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${chatId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+    return await res.json();
+  } catch {
+    return { error: "Error al eliminar el chat." };
+  }
+};
