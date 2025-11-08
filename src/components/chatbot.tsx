@@ -20,25 +20,21 @@ function Chatbot({setPage }: ChatbotProps) {
 
   // Cargar todos los chats del usuario
   useEffect(() => {
-  (async () => {
-    const token = localStorage.getItem("token"); // o de donde guardes tu JWT
-    console.log("Token:", token); // así ves si está llegando correctamente
-
-    if (token) {
+    (async () => {
       const res = await getAllChats();
-      if (!res.error) setChats(res);
-    } else {
-      console.log("No hay token disponible todavía");
-    }
-  })();
-}, []);
+      if (!res.error) {
+        setChats(Array.isArray(res) ? res : res.chats || []);  }
+    })();
+  }, []);
 
   // Cargar mensajes del chat seleccionado
   useEffect(() => {
     if (activeChat) {
       (async () => {
         const res = await getMessages(activeChat);
-        if (!res.error) setMessages(res);
+        if (!res.error) {
+        setMessages(Array.isArray(res) ? res : res.messages || []);
+      }
       })();
     }
   }, [activeChat]);
@@ -54,7 +50,7 @@ function Chatbot({setPage }: ChatbotProps) {
   const handleActiveChat = async (chatId: string) => {
     setActiveChat(chatId);
     const msgs = await getMessages(chatId);
-    setMessages(msgs || []);
+    setMessages(Array.isArray(msgs) ? msgs : msgs.messages || []);
   };
 
   const handleSend = async () => {
