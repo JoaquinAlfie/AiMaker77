@@ -7,17 +7,19 @@ const getToken = () => localStorage.getItem("token");
 // CHATS 
 export const getAllChats = async () => {
   try {
-    const res = await fetch(BASE_URL + "/", {
+    const res = await fetch(`${BASE_URL}/`, {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
+    if (!res.ok) throw new Error("Error al obtener los chats");
     return await res.json();
-  } catch {
-    return { error: "Error al obtener los chats." };
+  } catch (error) {
+    console.error(error);
+    return [];
   }
 };
-export const createChat = async (name: string) => {
+export const createChat = async (name:string) => {
   try {
-    const res = await fetch(BASE_URL + "/", {
+    const res = await fetch(`${BASE_URL}/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,9 +27,11 @@ export const createChat = async (name: string) => {
       },
       body: JSON.stringify({ name }),
     });
+    if (!res.ok) throw new Error("Error al crear el chat");
     return await res.json();
-  } catch {
-    return { error: "Error al crear el chat." };
+  } catch (error) {
+    console.error(error);
+    return null;
   }
 };
 
@@ -48,13 +52,15 @@ export const getMessages = async (chatId: string) => {
     const res = await fetch(`${MSG_URL}/${chatId}`, {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
+    if (!res.ok) throw new Error("Error al obtener mensajes del chat");
     return await res.json();
-  } catch {
-    return { error: "Error al obtener mensajes." };
+  } catch (error) {
+    console.error(error);
+    return [];
   }
 };
 
-export const sendMessage = async (chatId: string, text: string) => {
+export const sendMessage = async (chatId: string, content: string) => {
   try {
     const res = await fetch(`${MSG_URL}/${chatId}`, {
       method: "POST",
@@ -62,13 +68,12 @@ export const sendMessage = async (chatId: string, text: string) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getToken()}`,
       },
-      body: JSON.stringify({
-        sender_type: "user",
-        text,
-      }),
+      body: JSON.stringify({content}),
     });
+    if (!res.ok) throw new Error("Error al enviar mensaje");
     return await res.json();
-  } catch {
-    return { error: "Error al enviar mensaje." };
+  } catch (error) {
+    console.error(error);
+    return null;
   }
 };

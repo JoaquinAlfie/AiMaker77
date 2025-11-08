@@ -11,7 +11,7 @@ type ChatbotProps = {
   >;
 };
 
-function Chatbot({ setPage }: ChatbotProps) {
+function Chatbot({setPage }: ChatbotProps) {
   const [chats, setChats] = useState<any[]>([]);
   const [activeChat, setActiveChat] = useState<string | null>(null);
   const [messages, setMessages] = useState<any[]>([]);
