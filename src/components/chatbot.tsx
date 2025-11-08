@@ -22,6 +22,7 @@ function Chatbot({setPage }: ChatbotProps) {
   useEffect(() => {
     (async () => {
       const res = await getAllChats();
+      console.log("🔹 chats cargados:", res); // broo
       if (!res.error) {
         setChats(Array.isArray(res) ? res : res.chats || []);  }
     })();
@@ -44,7 +45,7 @@ function Chatbot({setPage }: ChatbotProps) {
     console.log("Nuevo chat creado:", res); // que guardo?
     if (!res.error) {
       setChats([...chats, res]);
-      setActiveChat(res._id);
+      setActiveChat(res.id);
     }
   };
 
@@ -146,7 +147,7 @@ function Chatbot({setPage }: ChatbotProps) {
             <div
               key={chat._id}
               className={`chat-item ${activeChat === chat._id ? "active" : ""}`}
-              onClick={() => handleActiveChat(chat._id)}
+              onClick={() => handleActiveChat(chat.id)}
             >
               {chat.name}
             </div>
