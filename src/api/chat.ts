@@ -11,13 +11,11 @@ export const getAllChats = async () => {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
     if (!res.ok) throw new Error("Error al obtener los chats");
-    const data = await res.json();
-    return data.chats || [];
+    return await res.json();
   } catch (error) {
     console.error(error);
     return [];
   }
-
 };
 export const createChat = async (name:string) => {
   try {
@@ -30,8 +28,7 @@ export const createChat = async (name:string) => {
       body: JSON.stringify({ name }),
     });
     if (!res.ok) throw new Error("Error al crear el chat");
-    const data = await res.json();
-    return data.message || "Chat creado";
+    return await res.json();
   } catch (error) {
     console.error(error);
     return null;
@@ -56,8 +53,7 @@ export const getMessages = async (chatId: string) => {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
     if (!res.ok) throw new Error("Error al obtener mensajes del chat");
-    const data = await res.json();
-    return data.chat_messages || [];
+    return await res.json();
   } catch (error) {
     console.error(error);
     return [];
