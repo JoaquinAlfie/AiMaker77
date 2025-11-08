@@ -29,16 +29,28 @@ function Chatbot({setPage }: ChatbotProps) {
   }, []);
 
   // Cargar mensajes del chat seleccionado
-  useEffect(() => {
-    if (activeChat) {
-      (async () => {
-        const res = await getMessages(activeChat);
-        if (!res.error) {
+useEffect(() => {
+  if (!activeChat) return;
+
+  (async () => {
+    try {
+      console.log("🔹 Request a getMessages con chatId:", activeChat);
+      const res = await getMessages(String(activeChat));
+      console.log("🔹 Respuesta de getMessages:", res);
+
+      if (res.error) {
+        console.error("Error al obtener mensajes del chat:", res.error);
+        setMessages([]);
+      } else {
         setMessages(Array.isArray(res) ? res : res.messages || []);
       }
-      })();
+    } catch (err) {
+      console.error("❌ Error inesperado al obtener mensajes:", err);
+      setMessages([]);
     }
-  }, [activeChat]);
+  })();
+}, [activeChat]);
+
 
   const handleNewChat = async () => {
     const res = await createChat("Nuevo Chat");
@@ -52,7 +64,7 @@ function Chatbot({setPage }: ChatbotProps) {
   const handleActiveChat = async (chatId: string) => {
      console.log("Seleccionaste chat:", chatId); // anda?
     setActiveChat(chatId);
-    const msgs = await getMessages(chatId);
+    const msgs = await getMessages(String(chatId));
     console.log("🔹 Respuesta de getMessages:", msgs); // br brr patapin
     setMessages(Array.isArray(msgs) ? msgs : msgs.messages || []);
   };
