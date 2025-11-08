@@ -7,7 +7,7 @@ const getToken = () => localStorage.getItem("token");
 // CHATS 
 export const getAllChats = async () => {
   try {
-    const res = await fetch(`BASE_URL`, {
+    const res = await fetch(`${BASE_URL}`, {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
     if (!res.ok) throw new Error("Error al obtener los chats");
@@ -19,7 +19,7 @@ export const getAllChats = async () => {
 };
 export const createChat = async (name:string) => {
   try {
-    const res = await fetch(`${BASE_URL}/create`, {
+    const res = await fetch(`${BASE_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export const createChat = async (name:string) => {
 
 export const deleteChat = async (chatId: string) => {
   try {
-    const res = await fetch(`${BASE_URL}/${chatId}`, {
+    const res = await fetch(`${BASE_URL}/chat${chatId}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${getToken()}` },
     });
@@ -49,7 +49,7 @@ export const deleteChat = async (chatId: string) => {
 // MENSAJES 
 export const getMessages = async (chatId: string) => {
   try {
-    const res = await fetch(`${MSG_URL}/${chatId}`, {
+    const res = await fetch(`${MSG_URL}/chat${chatId}`, {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
     if (!res.ok) throw new Error("Error al obtener mensajes del chat");
@@ -62,7 +62,7 @@ export const getMessages = async (chatId: string) => {
 
 export const sendMessage = async (chatId: string, content: string) => {
   try {
-    const res = await fetch(`${MSG_URL}/${chatId}`, {
+    const res = await fetch(`${MSG_URL}/chat${chatId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
