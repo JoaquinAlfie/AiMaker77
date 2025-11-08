@@ -53,13 +53,29 @@ useEffect(() => {
 
 
   const handleNewChat = async () => {
+  try {
+    // Crear chat en backend
     const res = await createChat("Nuevo Chat");
-    console.log("Nuevo chat creado:", res); // que guardo?
-    if (!res.error) {
-      setChats([...chats, res]);
-      setActiveChat(res.id);
-      
+    console.log("Nuevo chat creado:", res);
+
+    // Recargar todos los chats después de crear
+    const allChats = await getAllChats();
+    console.log("Chats recargados:", allChats);
+    setChats(allChats);
+
+    // Activar automáticamente el último chat creado
+    if (allChats.length > 0) {
+      const lastChat = allChats[allChats.length - 1];
+      setActiveChat(lastChat._id);
+
+      // Cargar mensajes del chat recién creado
+      const msgs = await getMessages(String(lastChat._id));
+      setMessages(Array.isArray(msgs) ? msgs : msgs.messages || []);
     }
+  } catch (err) {
+    console.error("Error al crear nuevo chat:", err);
+  }
+
   };
 
   const handleActiveChat = async (chatId: string) => {
