@@ -69,28 +69,27 @@ useEffect(() => {
   };
 
   const handleSend = async () => {
-    console.log("🔹 handleSend ejecutado");
-  if (!activeChat) {
-    alert("Seleccioná o creá un chat primero.");
-    return;
-  }
-  if (!message.trim()) {
-    alert("Escribí un mensaje antes de enviar.");
-    return;
-  }
+    console.log("🔹 handleSend ejecutado"); 
+    if (!message.trim()) return alert("Escribí un mensaje antes de enviar.");
+    setLoading(true);
+    try {
+    // Crear chat si no hay activo
+    if (!activeChat) {
+      const newChat = await createChat("Nuevo Chat");
+      if (!newChat.error) {
+        setChats([...chats, newChat]);
+        setActiveChat(newChat.id);
+      }
+    }
 
-  setLoading(true);
-  try {
-    const res = await sendMessage(activeChat, message);
-    console.log("🔹 Respuesta del servidor:", res);
-    if (res && !res.error) {
-      setMessages([...messages, res]);
+    // Ahora mandamos el mensaje
+    const res = await sendMessage(activeChat!, message);
+    if (res) {
+      setMessages([...messages, { sender_type: "user", text: message }]);
       setMessage("");
-    } else {
-      console.error("Error al enviar mensaje:", res.error);
     }
   } catch (err) {
-    console.error("❌ Error inesperado al enviar:", err);
+    console.error(err);
   } finally {
     setLoading(false);
   }
