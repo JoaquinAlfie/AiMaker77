@@ -11,8 +11,7 @@ export const getAllChats = async () => {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
     if (!res.ok) throw new Error("Error al obtener los chats");
-    const data = await res.json();
-    return data.chats || [];
+    return await res.json();
   } catch (error) {
     console.error(error);
     return [];
