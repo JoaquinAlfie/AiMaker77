@@ -79,15 +79,20 @@ useEffect(() => {
   try {
     let chatId = activeChat;
 
-    // Crear chat si no hay activo
+    // 🔹 Crear chat si no hay activo
     if (!chatId) {
       const newChat = await createChat("Nuevo Chat");
       if (newChat && !newChat.error) {
         const allChats = await getAllChats();
-        setChats(allChats.chats || allChats);
-        const lastChat = (allChats.chats || allChats).slice(-1)[0];
+        const chatsArray = allChats.chats || allChats;
+        setChats(chatsArray);
+
+        const lastChat = chatsArray.slice(-1)[0];
         chatId = lastChat.id;
         setActiveChat(chatId);
+
+        // 🔹 Inicializamos los mensajes vacíos del nuevo chat
+        setMessages([]);
       } else {
         alert("Error al crear el chat.");
         setLoading(false);
@@ -95,10 +100,10 @@ useEffect(() => {
       }
     }
 
-    // Ahora sí mandamos el mensaje al chat correcto
+    // 🔹 Mandamos el mensaje y lo agregamos inmediatamente
     const res = await sendMessage(chatId!, message);
     if (res) {
-      setMessages([...messages, { sender_type: "user", text: message }]);
+      setMessages((prev) => [...prev, { sender_type: "user", text: message }]);
       setMessage("");
     }
   } catch (err) {
