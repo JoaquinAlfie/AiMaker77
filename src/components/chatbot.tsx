@@ -20,11 +20,18 @@ function Chatbot({setPage }: ChatbotProps) {
 
   // Cargar todos los chats del usuario
   useEffect(() => {
-    (async () => {
+  (async () => {
+    const token = localStorage.getItem("token"); // o de donde guardes tu JWT
+    console.log("Token:", token); // así ves si está llegando correctamente
+
+    if (token) {
       const res = await getAllChats();
       if (!res.error) setChats(res);
-    })();
-  }, []);
+    } else {
+      console.log("No hay token disponible todavía");
+    }
+  })();
+}, []);
 
   // Cargar mensajes del chat seleccionado
   useEffect(() => {
