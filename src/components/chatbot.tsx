@@ -51,15 +51,32 @@ function Chatbot({setPage }: ChatbotProps) {
   };
 
   const handleSend = async () => {
-    if (!activeChat || !message.trim()) return;
-    setLoading(true);
+    console.log("🔹 handleSend ejecutado");
+  if (!activeChat) {
+    alert("Seleccioná o creá un chat primero.");
+    return;
+  }
+  if (!message.trim()) {
+    alert("Escribí un mensaje antes de enviar.");
+    return;
+  }
+
+  setLoading(true);
+  try {
     const res = await sendMessage(activeChat, message);
-    if (!res.error) {
+    console.log("🔹 Respuesta del servidor:", res);
+    if (res && !res.error) {
       setMessages([...messages, res]);
       setMessage("");
+    } else {
+      console.error("Error al enviar mensaje:", res.error);
     }
+  } catch (err) {
+    console.error("❌ Error inesperado al enviar:", err);
+  } finally {
     setLoading(false);
-  };
+  }
+};
 
   return (
     <div className="lacasa">
