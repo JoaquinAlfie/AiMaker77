@@ -223,3 +223,29 @@ a {
   text-decoration: none;
   color: inherit; 
 }
+
+.mensajes {
+  flex: 1; 
+  padding: 10px;
+  overflow-y: auto; 
+  display: flex;
+  flex-direction: column;
+  gap: 8px; 
+  background-color: #f9f9f9; 
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.msg {
+  padding: 6px 10px;
+  border-radius: 6px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+.msg.user {
+  align-self: flex-end;
+  background-color: #d1e7dd;
+}
+.msg.ai {
+  align-self: flex-start;
+  background-color: #f8d7da;
+}
