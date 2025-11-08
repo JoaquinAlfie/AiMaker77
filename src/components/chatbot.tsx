@@ -55,13 +55,10 @@ useEffect(() => {
   const handleNewChat = async () => {
   await createChat("Nuevo Chat");   // crea el chat en backend
   const allChats = await getAllChats();  // recarga todos
-  const chatsArray = allChats.chats || allChats;
-  setChats(chatsArray);
-
-  // 🔹 CAMBIO: activar último chat creado
-  const lastChat = chatsArray.slice(-1)[0];
+  setChats(allChats.chats || allChats);
+  const lastChat = (allChats.chats || allChats).slice(-1)[0];
   if (lastChat) setActiveChat(lastChat.id);
-};
+ };
 
   const handleActiveChat = async (chatId: string) => {
      console.log("Seleccionaste chat:", chatId); // anda?
@@ -84,9 +81,9 @@ useEffect(() => {
       const newChat = await createChat("Nuevo Chat");
       if (newChat && !newChat.error) {
         const allChats = await getAllChats();
+        setChats(allChats.chats || allChats);
         const lastChat = (allChats.chats || allChats).slice(-1)[0];
         chatId = lastChat.id;
-        setChats(allChats.chats || allChats);
         setActiveChat(chatId);
       } else {
         alert("Error al crear el chat.");
@@ -95,25 +92,19 @@ useEffect(() => {
       }
     }
 
-    // Mostramos el mensaje inmediatamente en UI
-    setMessages([...messages, { sender_type: "user", text: message }]);
-    const msgToSend = message;
-    setMessage("");
-
-    // Mandamos el mensaje al backend
-    const res = await sendMessage(chatId!, msgToSend);
-
-    if (!res || res.error) {
-      console.error("Error al enviar mensaje al backend:", res?.error);
-      // Opcional: mostrar alerta
+    // Ahora sí mandamos el mensaje al chat correcto
+    const res = await sendMessage(chatId!, message);
+    if (res) {
+      setMessages([...messages, { sender_type: "user", text: message }]);
+      setMessage("");
     }
-
   } catch (err) {
     console.error("❌ Error al enviar mensaje:", err);
   } finally {
     setLoading(false);
   }
 };
+
   return (
     <div className="lacasa">
       <div className="icons">
