@@ -54,9 +54,7 @@ useEffect(() => {
 
   const handleNewChat = async () => {
   try {
-    // Crear chat en backend
-    const res = await createChat("Nuevo Chat");
-    console.log("Nuevo chat creado:", res);
+    await createChat("Nuevo Chat");
 
     // Recargar todos los chats después de crear
     const allChats = await getAllChats();
