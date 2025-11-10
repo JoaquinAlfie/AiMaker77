@@ -11,141 +11,100 @@ type ChatbotProps = {
   >;
 };
 
-function Chatbot({setPage }: ChatbotProps) {
+function Chatbot({ setPage }: ChatbotProps) {
   const [chats, setChats] = useState<any[]>([]);
   const [activeChat, setActiveChat] = useState<string | null>(null);
   const [messages, setMessages] = useState<any[]>([]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Cargar todos los chats del usuario
+  // 🔹 Cargar todos los chats al montar
   useEffect(() => {
     (async () => {
-      const res = await getAllChats();
-      console.log("🔹 chats cargados:", res); // broo
-      if (!res.error) {
-        setChats(Array.isArray(res) ? res : res.chats || []);  }
+      const all = await getAllChats();
+      setChats(all);
     })();
   }, []);
 
-  // Cargar mensajes del chat seleccionado
-useEffect(() => {
-  if (!activeChat) return;
+  // 🔹 Cargar mensajes del chat activo
+  useEffect(() => {
+    if (!activeChat) return;
+    (async () => {
+      const msgs = await getMessages(activeChat);
+      setMessages(msgs);
+    })();
+  }, [activeChat]);
 
-  (async () => {
-    try {
-      console.log("🔹 Request a getMessages con chatId:", activeChat);
-      const res = await getMessages(String(activeChat));
-      console.log("🔹 Respuesta de getMessages:", res);
-
-      if (res.error) {
-        console.error("Error al obtener mensajes del chat:", res.error);
-        setMessages([]);
-      } else {
-        setMessages(Array.isArray(res) ? res : res.messages || []);
-      }
-    } catch (err) {
-      console.error("❌ Error inesperado al obtener mensajes:", err);
-      setMessages([]);
-    }
-  })();
-}, [activeChat]);
-
-
+  // 🔹 Crear nuevo chat
   const handleNewChat = async () => {
-  await createChat("Nuevo Chat");   // crea el chat en backend
-  const allChats = await getAllChats();  // recarga todos
-  setChats(allChats.chats || allChats);
-  const lastChat = (allChats.chats || allChats).slice(-1)[0];
-  if (lastChat) setActiveChat(lastChat.id);
- };
-
-  const handleActiveChat = async (chatId: string) => {
-     console.log("Seleccionaste chat:", chatId); // anda?
-    setActiveChat(chatId);
-    const msgs = await getMessages(String(chatId));
-    console.log("🔹 Respuesta de getMessages:", msgs); // br brr patapin
-    setMessages(Array.isArray(msgs) ? msgs : msgs.messages || []);
+    const newChat = await createChat("Nuevo Chat");
+    if (newChat) {
+      const all = await getAllChats();
+      setChats(all);
+      const last = all.slice(-1)[0];
+      if (last) setActiveChat(last._id || last.id);
+    }
   };
 
+  // 🔹 Seleccionar un chat
+  const handleActiveChat = async (chatId: string) => {
+    setActiveChat(chatId);
+    const msgs = await getMessages(chatId);
+    setMessages(msgs);
+  };
+
+  // 🔹 Enviar mensaje
   const handleSend = async () => {
-  console.log("🔹 handleSend ejecutado"); 
-  if (!message.trim()) return alert("Escribí un mensaje antes de enviar.");
-  setLoading(true);
+    if (!message.trim()) return alert("Escribí un mensaje antes de enviar.");
+    setLoading(true);
+    try {
+      let chatId = activeChat;
 
-  try {
-    let chatId = activeChat;
-
-    // Crear chat si no hay activo
-    if (!chatId) {
-      const newChat = await createChat("Nuevo Chat");
-      if (newChat && !newChat.error) {
-        const allChats = await getAllChats();
-        setChats(allChats.chats || allChats);
-        const lastChat = (allChats.chats || allChats).slice(-1)[0];
-        chatId = lastChat.id;
+      // Crear chat si no hay uno activo
+      if (!chatId) {
+        const newChat = await createChat("Nuevo Chat");
+        if (!newChat) throw new Error("No se pudo crear el chat");
+        const all = await getAllChats();
+        setChats(all);
+        const last = all.slice(-1)[0];
+        chatId = last._id || last.id;
         setActiveChat(chatId);
-      } else {
-        alert("Error al crear el chat.");
-        setLoading(false);
-        return;
       }
-    }
 
-    // Ahora sí mandamos el mensaje al chat correcto
-    const res = await sendMessage(chatId!, message);
-    if (res) {
-      setMessages([...messages, { sender_type: "user", text: message }]);
-      setMessage("");
+      const res = await sendMessage(chatId!, message);
+      if (res) {
+        setMessages([...messages, { sender_type: "user", text: message }]);
+        setMessage("");
+      }
+    } catch (err) {
+      console.error("❌ Error al enviar mensaje:", err);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error("❌ Error al enviar mensaje:", err);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <div className="lacasa">
       <div className="icons">
         <section className="iconizqitems">
           <a className="volver" onClick={() => setPage("home")}>
-            <img
-              src="img/logochico.png"
-              alt="Logo"
-              style={{ width: "57.97px", height: "51.04px" }}
-            />
+            <img src="img/logochico.png" alt="Logo" width={58} height={51} />
           </a>
           <button className="barralat">
-            <img
-              src="img/barralat.png"
-              alt="Barra Lateral"
-              style={{ width: "55px", height: "55px" }}
-            />
+            <img src="img/barralat.png" alt="Barra Lateral" width={55} height={55} />
           </button>
         </section>
+
         <section className="iconsitems">
           <div className="centericons">
-            <a
-              className="supportchatbot"
-              style={{ margin: 0 }}
-              onClick={() => setPage("support")}
-            >
-              <img
-                src="img/Sparkle.png"
-                alt="Rocket"
-                style={{ width: "34px", height: "34px" }}
-              />
+            <a className="supportchatbot" onClick={() => setPage("support")}>
+              <img src="img/Sparkle.png" alt="Rocket" width={34} height={34} />
               Support AI MAKER
             </a>
           </div>
           <div className="righticons">
             <button className="userchatbot">
-              <img
-                src="img/user50.png"
-                alt="user"
-                style={{ width: "50px", height: "50px" }}
-              />
+              <img src="img/user50.png" alt="user" width={50} height={50} />
             </button>
           </div>
         </section>
@@ -154,7 +113,7 @@ useEffect(() => {
       <div className="chat-controls">
         <button className="newchat" onClick={handleNewChat}>
           <div className="mas">
-            <img src="img/mas.png" alt="nuevo chat" style={{ width: "17px", height: "17px" }} />
+            <img src="img/mas.png" alt="nuevo chat" width={17} height={17} />
           </div>
           <div className="nuevochat">New Chat</div>
         </button>
@@ -165,11 +124,11 @@ useEffect(() => {
           <div className="chatis">CHATS</div>
           {chats.map((chat) => (
             <div
-              key={chat.id}
-              className={`chat-item ${activeChat === chat.id ? "active" : ""}`}
-              onClick={() => handleActiveChat(chat.id)}
+              key={chat._id || chat.id}
+              className={`chat-item ${activeChat === (chat._id || chat.id) ? "active" : ""}`}
+              onClick={() => handleActiveChat(chat._id || chat.id)}
             >
-              {chat.name}
+              {chat.name || "Chat sin nombre"}
             </div>
           ))}
         </section>
@@ -196,11 +155,9 @@ useEffect(() => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
-            <button className="enterchatbot" onClick={handleSend} >
-              {loading ? (
-                "..."
-              ) : (
-                <img src="img/Button Icon.png" alt="enter" style={{ width: "40px", height: "40px" }} />
+            <button className="enterchatbot" onClick={handleSend}>
+              {loading ? "..." : (
+                <img src="img/Button Icon.png" alt="enter" width={40} height={40} />
               )}
             </button>
           </section>

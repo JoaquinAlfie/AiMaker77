@@ -1,25 +1,27 @@
 const BASE_URL = "https://ai-maker-api.vercel.app/chats";
 const MSG_URL = "https://ai-maker-api.vercel.app/messages";
 
-// Helper para obtener el token guardado
 const getToken = () => localStorage.getItem("token");
 
-// CHATS 
+// 🟣 Obtener todos los chats
 export const getAllChats = async () => {
   try {
-    const res = await fetch(`${BASE_URL}`, {
+    const res = await fetch(BASE_URL, {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
-    if (!res.ok) throw new Error("Error al obtener los chats");
-    return await res.json();
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Error al obtener los chats");
+    return Array.isArray(data) ? data : data.chats || [];
   } catch (error) {
-    console.error(error);
+    console.error("❌ Error en getAllChats:", error);
     return [];
   }
 };
-export const createChat = async (name:string) => {
+
+// 🟣 Crear nuevo chat
+export const createChat = async (name: string) => {
   try {
-    const res = await fetch(`${BASE_URL}`, {
+    const res = await fetch(BASE_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,40 +29,32 @@ export const createChat = async (name:string) => {
       },
       body: JSON.stringify({ name }),
     });
-    if (!res.ok) throw new Error("Error al crear el chat");
-    return await res.json();
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Error al crear el chat");
+    return data;
   } catch (error) {
-    console.error(error);
+    console.error("❌ Error en createChat:", error);
     return null;
   }
 };
 
-export const deleteChat = async (chatId: string) => {
-  try {
-    const res = await fetch(`${BASE_URL}/chat/${chatId}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${getToken()}` },
-    });
-    return await res.json();
-  } catch {
-    return { error: "Error al eliminar el chat." };
-  }
-};
-// MENSAJES 
+// 🟣 Obtener mensajes de un chat
 export const getMessages = async (chatId: string) => {
   try {
     const res = await fetch(`${MSG_URL}/chat/${chatId}`, {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
-    if (!res.ok) throw new Error("Error al obtener mensajes del chat");
-    return await res.json();
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Error al obtener mensajes");
+    return Array.isArray(data) ? data : data.messages || [];
   } catch (error) {
-    console.error(error);
+    console.error("❌ Error en getMessages:", error);
     return [];
   }
 };
 
-export const sendMessage = async (chatId: string, content: string) => {
+// 🟣 Enviar mensaje
+export const sendMessage = async (chatId: string, text: string) => {
   try {
     const res = await fetch(`${MSG_URL}/chat/${chatId}`, {
       method: "POST",
@@ -68,15 +62,13 @@ export const sendMessage = async (chatId: string, content: string) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getToken()}`,
       },
-      body: JSON.stringify({
-                sender_type: "user",
-        text: content,
-      }),
+      body: JSON.stringify({ sender_type: "user", text }),
     });
-    if (!res.ok) throw new Error("Error al enviar mensaje");
-    return await res.json();
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Error al enviar mensaje");
+    return data;
   } catch (error) {
-    console.error(error);
+    console.error("❌ Error en sendMessage:", error);
     return null;
   }
 };
