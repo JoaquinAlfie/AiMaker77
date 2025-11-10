@@ -21,7 +21,7 @@ function Home({ user, setPage }: HomeProps) {
             />
             Support AI MAKER
           </a>
-          <button className="contacto">Contacto</button>
+          <a className="contacto" href="mailto:ai.maker.empresa@gmail.com" target="_blank">Contacto</a>
           <button className="user">
             <img
               src="/img/user50.png"
