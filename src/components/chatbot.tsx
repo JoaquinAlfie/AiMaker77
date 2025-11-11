@@ -1,6 +1,6 @@
 import "../assets/styles/style-chatbot.css";
 import React, { useEffect, useState } from "react";
-import { getAllChats, createChat, getMessages, sendMessage} from "../api/chat";
+import { getAllChats, createChat, getMessages, sendMessage, deleteChat} from "../api/chat";
 
 type ChatbotProps = {
   user: string;
@@ -19,12 +19,25 @@ function Chatbot({setPage }: ChatbotProps) {
   const [loading, setLoading] = useState(false);
 
   // Cargar todos los chats del usuario
+  // 🔹 NUEVO: borrar todos los chats al iniciar y crear uno limpio
   useEffect(() => {
     (async () => {
-      const res = await getAllChats();
-      console.log("🔹 chats cargados:", res); // broo
-      if (!res.error) {
-        setChats(Array.isArray(res) ? res : res.chats || []);  }
+      // Obtener todos los chats del usuario
+      const allChats = await getAllChats();
+      const chatsArray = Array.isArray(allChats) ? allChats : allChats.chats || [];
+
+      // Borrar cada chat
+      for (const chat of chatsArray) {
+        await deleteChat(chat.id);
+        console.log(`Chat ${chat.id} borrado`); // debug
+      }
+
+      // Crear un chat nuevo limpio
+      const newChat = await createChat("Nuevo Chat");
+      if (newChat && !newChat.error) {
+        setChats([newChat]);
+        setActiveChat(newChat.id);
+      }
     })();
   }, []);
 
