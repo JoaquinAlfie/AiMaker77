@@ -11,12 +11,18 @@ type ChatbotProps = {
   >;
 };
 
-function Chatbot({setPage }: ChatbotProps) {
+function Chatbot({user, setPage }: ChatbotProps) {
   const [chats, setChats] = useState<any[]>([]);
   const [activeChat, setActiveChat] = useState<string | null>(null);
   const [messages, setMessages] = useState<any[]>([]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+    // 🔹 CAMBIO: Resetear activeChat y messages al cambiar de usuario
+  useEffect(() => {
+    setActiveChat(null); //  CAMBIO
+    setMessages([]);     //  CAMBIO
+  }, [user]);            // CAMBIO: dependemos de user
 
   // Cargar todos los chats del usuario
   useEffect(() => {
@@ -26,7 +32,7 @@ function Chatbot({setPage }: ChatbotProps) {
       if (!res.error) {
         setChats(Array.isArray(res) ? res : res.chats || []);  }
     })();
-  }, []);
+  }, [user]);
 
   // Cargar mensajes del chat seleccionado
 useEffect(() => {
