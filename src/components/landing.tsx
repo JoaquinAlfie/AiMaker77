@@ -10,7 +10,7 @@ function Landing({ setPage }: LandingProps) {
       <header className="navbar">
         <img src="/img/Logox4.png" alt="Logo" className="logo" />
         <section className="nav-items">
-          <a className="contacto" href="mailto:ai.maker.empresa@gmail.com" target="_blank">Contacto</a>
+          <a className="contacto" href="https://mail.google.com/mail/?view=cm&fs=1&to=ai.maker.empresa@gmail.com&su=Consulta%20sobre%20AI%20Maker&body=Hola,%20quería%20hacer%20una%20consulta%20sobre%20su%20plataforma." target="_blank">Contacto</a>
           <a className="btn-login" onClick={() => setPage("signin")}>Iniciar Sesión</a>
           <a className="btn-register" onClick={() => setPage("signup")}>Registrate</a>
         </section>
