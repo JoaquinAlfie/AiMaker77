@@ -36,7 +36,10 @@ function Chatbot({setPage }: ChatbotProps) {
       const newChat = await createChat("Nuevo Chat");
       if (newChat && !newChat.error) {
         setChats([newChat]);
-        setActiveChat(newChat.id);
+        setActiveChat(newChat.id); // 🔹 aquí reseteamos el chat activo
+    } else {
+      setChats([]);
+      setActiveChat(null);
       }
     })();
   }, []);
