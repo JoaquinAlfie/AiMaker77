@@ -17,7 +17,6 @@ function Chatbot({setPage }: ChatbotProps) {
   const [messages, setMessages] = useState<any[]>([]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false); //sidebar
 
   // Cargar todos los chats del usuario
   useEffect(() => {
@@ -108,8 +107,23 @@ useEffect(() => {
 
   return (
     <div className="lacasa">
-      {/* ENCABEZADO SUPERIOR */}
       <div className="icons">
+        <section className="iconizqitems">
+          <a className="volver" onClick={() => setPage("home")}>
+            <img
+              src="img/logochico.png"
+              alt="Logo"
+              style={{ width: "57.97px", height: "51.04px" }}
+            />
+          </a>
+          <button className="barralat">
+            <img
+              src="img/barralat.png"
+              alt="Barra Lateral"
+              style={{ width: "55px", height: "55px" }}
+            />
+          </button>
+        </section>
         <section className="iconsitems">
           <div className="centericons">
             <a
@@ -137,61 +151,29 @@ useEffect(() => {
         </section>
       </div>
 
-      {/* CONTENEDOR PRINCIPAL */}
-      <div className="contenedor">
-        {/* SIDEBAR IZQUIERDO */}
-        <aside className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
-          <section className="iconizqitems">
-            <a className="volver" onClick={() => setPage("home")}>
-              <img
-                src="img/logochico.png"
-                alt="Logo"
-                style={{ width: "57.97px", height: "51.04px" }}
-              />
-            </a>
-
-            <button
-              className="barralat"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-            >
-              <img
-                src="img/barralat.png"
-                alt="Barra Lateral"
-                style={{ width: "55px", height: "55px" }}
-              />
-            </button>
-          </section>
-
-          <div className="chat-controls">
-            <button className="newchat" onClick={handleNewChat}>
-              <div className="mas">
-                <img
-                  src="img/mas.png"
-                  alt="nuevo chat"
-                  style={{ width: "17px", height: "17px" }}
-                />
-              </div>
-              <div className="nuevochat">New Chat</div>
-            </button>
+      <div className="chat-controls">
+        <button className="newchat" onClick={handleNewChat}>
+          <div className="mas">
+            <img src="img/mas.png" alt="nuevo chat" style={{ width: "17px", height: "17px" }} />
           </div>
+          <div className="nuevochat">New Chat</div>
+        </button>
+      </div>
 
-          <section className="chats">
-            <div className="chatis">CHATS</div>
-            {chats.map((chat) => (
-              <div
-                key={chat.id}
-                className={`chat-item ${
-                  activeChat === chat.id ? "active" : ""
-                }`}
-                onClick={() => handleActiveChat(chat.id)}
-              >
-                {chat.name}
-              </div>
-            ))}
-          </section>
-        </aside>
+      <div className="contenedor">
+        <section className="chats">
+          <div className="chatis">CHATS</div>
+          {chats.map((chat) => (
+            <div
+              key={chat.id}
+              className={`chat-item ${activeChat === chat.id ? "active" : ""}`}
+              onClick={() => handleActiveChat(chat.id)}
+            >
+              {chat.name}
+            </div>
+          ))}
+        </section>
 
-        {/* CHAT PRINCIPAL */}
         <main className="mainchatbot">
           <h1 className="titulochatbot">
             {activeChat
@@ -214,15 +196,11 @@ useEffect(() => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
-            <button className="enterchatbot" onClick={handleSend}>
+            <button className="enterchatbot" onClick={handleSend} >
               {loading ? (
                 "..."
               ) : (
-                <img
-                  src="img/Button Icon.png"
-                  alt="enter"
-                  style={{ width: "40px", height: "40px" }}
-                />
+                <img src="img/Button Icon.png" alt="enter" style={{ width: "40px", height: "40px" }} />
               )}
             </button>
           </section>
