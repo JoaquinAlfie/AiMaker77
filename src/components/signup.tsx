@@ -12,6 +12,7 @@ function Signup({ setPage }: SignupProps) {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -69,8 +70,11 @@ return (
                     <input type="text" id="correo1" name="correo" placeholder="Email" maxLength={34} value= {email} onChange={(e) => setEmail(e.target.value)} />
                  </section>
                  <section className="contraseña">
-                    <input type="text" id="contraseña1" name="contraseña" placeholder="Password" maxLength={26} value= {password} onChange={(e) => setPassword(e.target.value)} />
-                    <a id="ocultar2">
+                    <input id="contraseña1" name="contraseña" placeholder="Password" maxLength={26} value= {password} type={showPassword ? "text" : "password"} onChange={(e) => setPassword(e.target.value)} />
+                    <a id="ocultar2" onClick={(e) => { 
+                      e.preventDefault(); 
+                      setShowPassword(!showPassword); 
+                      }}>
                         <img src="img/invisible27.png" alt="invisible" style={{width: "27px", height: "27px"}}/>
                     </a>
                  </section>
