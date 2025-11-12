@@ -116,13 +116,6 @@ useEffect(() => {
               style={{ width: "57.97px", height: "51.04px" }}
             />
           </a>
-          <button className="barralat">
-            <img
-              src="img/barralat.png"
-              alt="Barra Lateral"
-              style={{ width: "55px", height: "55px" }}
-            />
-          </button>
         </section>
         <section className="iconsitems">
           <div className="centericons">
