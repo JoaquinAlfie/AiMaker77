@@ -10,6 +10,7 @@ interface SigninProps {
 function Signin({ setUser, setPage }: SigninProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -54,10 +55,13 @@ function Signin({ setUser, setPage }: SigninProps) {
                     <input id="usuario1" name="usuario" placeholder="Enter email or user name" maxLength={34} value={email} onChange={(e)=> setEmail (e.target.value)}/>
                 </section>
                 <section className="contra">
-                    <input id="contra1" type="password" name="contraseña" placeholder="Password" maxLength={28} value={password} onChange={(e)=> setPassword (e.target.value)}/>
-                    <button id="ocultar" type="button">
+                    <input id="contra1" name="contraseña" placeholder="Password" maxLength={28} type={showPassword ? "text" : "password"} value={password} onChange={(e)=> setPassword (e.target.value)}/>
+                    <a id="ocultar" onClick={(e) => { 
+                      e.preventDefault(); 
+                      setShowPassword(!showPassword); 
+                      }}>
                         <img src="/img/invisible.png" alt="invisible" style={{ width: "34px", height: "34px" }}/>
-                    </button>
+                    </a>
                 </section>
                 <section className="enter">
                     <button className="login" type="button" onClick={handleLogin}>
