@@ -3,12 +3,13 @@ import React, { useState, useEffect, useRef } from "react";
 
 type HomeProps = {
   user: string;
+  setUser: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<
     React.SetStateAction<"landing" | "signin" | "signup" | "home" | "chatbot" | "support">
   >;
 };
 
-function Home({ user, setPage }: HomeProps) {
+function Home({ user, setUser, setPage }: HomeProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -25,6 +26,7 @@ function Home({ user, setPage }: HomeProps) {
 
     const handleLogout = () => {
     localStorage.removeItem("token");
+    setUser("");
     setPage("landing");
   };
   return (

@@ -15,13 +15,13 @@ function App() {
   if (user) {
     switch (page) {
       case "home":
-        return <Home user={user} setPage={setPage} />;
+        return <Home user={user} setUser={setUser} setPage={setPage} />;
       case "chatbot":
         return <Chatbot user={user} setPage={setPage} />;
       case "support":
         return <Support setPage={setPage} />;
       default:
-        return <Home user={user} setPage={setPage} />;
+        return <Home user={user} setUser={setUser} setPage={setPage} />;
     }
   }
 
