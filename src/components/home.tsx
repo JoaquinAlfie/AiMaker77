@@ -32,7 +32,9 @@ function Home({ user, setUser, setPage }: HomeProps) {
   return (
     <div className='casa'>
       <header className="navbar">
-        <img src="/img/Logox4.png" alt="Logo" className="logo" />
+        <a onClick={() => setPage("home")}>
+          <img src="/img/Logox4.png" alt="Logo" className="logo" />
+        </a>
         <section className="nav-items">
           <a className="support" onClick={() => setPage("support")}>
             <img
