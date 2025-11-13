@@ -35,7 +35,7 @@ function Home({ user, setPage }: HomeProps) {
             />
             Support AI MAKER
           </a>
-          <a className="contacto" href="https://mail.google.com/mail/?view=cm&fs=1&to=ai.maker.empresa@gmail.com&su=Consulta%20sobre%20AI%20Maker&body=Hola,%20quería%20hacer%20una%20consulta%20sobre%20su%20plataforma." target="_blank">Contacto</a>
+          <a className="contacto1" href="https://mail.google.com/mail/?view=cm&fs=1&to=ai.maker.empresa@gmail.com&su=Consulta%20sobre%20AI%20Maker&body=Hola,%20quería%20hacer%20una%20consulta%20sobre%20su%20plataforma." target="_blank">Contacto</a>
           <div className="user-menu" ref={menuRef}>
           <button className="user" onClick={() => setMenuOpen((prev) => !prev)}>
             <img
