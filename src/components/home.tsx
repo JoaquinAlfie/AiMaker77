@@ -47,7 +47,7 @@ function Home({ user, setPage }: HomeProps) {
             {menuOpen && (
               <div className="dropdown-menu">
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ai.maker.empresa@gmail.com" target="_blank" className="dropdown-item">
-                  <img src="/img/user50.png" alt="mail" width="18" />
+                  <img src="/img/usergris.png" alt="mail" width="18" />
                   Mail
                 </a>
                 <a className="dropdown-item2" onClick={() => setPage("signin")}>
