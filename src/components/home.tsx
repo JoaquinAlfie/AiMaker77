@@ -22,6 +22,11 @@ function Home({ user, setPage }: HomeProps) {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+    const handleLogout = () => {
+    localStorage.removeItem("token");
+    setPage("landing");
+  };
   return (
     <div className='casa'>
       <header className="navbar">
@@ -46,11 +51,11 @@ function Home({ user, setPage }: HomeProps) {
           </button>
             {menuOpen && (
               <div className="dropdown-menu">
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ai.maker.empresa@gmail.com" target="_blank" className="dropdown-item">
+                <a className="dropdown-item">
                   <img src="/img/usergris.png" alt="mail" width="18" />
-                  Mail
+                  {user}
                 </a>
-                <a className="dropdown-item2" onClick={() => setPage("signin")}>
+                <a className="dropdown-item2" onClick={handleLogout}>
                   <img src="/img/cerrar.png" alt="logout" width="18" />
                   Cerrar Sesión
                 </a>
