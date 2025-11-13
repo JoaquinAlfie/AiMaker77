@@ -43,6 +43,8 @@
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
   margin-right: 90px;
+  width: 288px;
+  height: 57px;
 }
 .user {
   border:none;
