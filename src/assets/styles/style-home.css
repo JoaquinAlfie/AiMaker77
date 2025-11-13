@@ -43,6 +43,10 @@
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
   margin-right: 90px;
+  transition: background 0.2s ease;
+}
+.contacto1:hover {
+  background-color: #f3f3f3;
 }
 .user {
   border:none;
@@ -69,6 +73,11 @@
   font-family: 'Poppins', sans-serif ;
   font-weight: normal;
   margin-right: 380px;
+  transition: background 0.4s ease;
+}
+
+.support:hover {
+ background-color:rgba(125, 113, 230, 0.3)
 }
 .titulo {
   font-family: 'Poppins', sans-serif;
