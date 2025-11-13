@@ -5,6 +5,7 @@ import Signup from './components/signup'
 import Chatbot from './components/chatbot'
 import Support from './components/support'
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 function App() {
   const [user, setUser] = useState<string>("");
@@ -12,27 +13,43 @@ function App() {
     "landing" | "signin" | "signup" | "home" | "chatbot" | "support">("landing");
 
   // 💡 Si ya hay un usuario, mostramos la página correspondiente
-  if (user) {
-    switch (page) {
-      case "home":
-        return <Home user={user} setUser={setUser} setPage={setPage} />;
-      case "chatbot":
-        return <Chatbot user={user} setPage={setPage} />;
-      case "support":
-        return <Support setPage={setPage} />;
-      default:
-        return <Home user={user} setUser={setUser} setPage={setPage} />;
-    }
-  }
-
-  // 💡 Si no hay usuario logueado
-  switch (page) {
-    case "signup":
-      return <Signup setUser={setUser} setPage={setPage} />;
-    case "signin":
-      return <Signin setUser={setUser} setPage={setPage} />;
-    default:
-      return <Landing setPage={setPage} />;
-  }
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={page}
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -15 }}
+        transition={{ duration: 0.4, ease: [0.42, 0, 0.58, 1] }}
+      >
+        {user ? (
+          (() => {
+            switch (page) {
+              case "home":
+                return <Home user={user} setUser={setUser} setPage={setPage} />;
+              case "chatbot":
+                return <Chatbot user={user} setPage={setPage} />;
+              case "support":
+                return <Support setPage={setPage} />;
+              default:
+                return <Home user={user} setUser={setUser} setPage={setPage} />;
+            }
+          })()
+        ) : (
+          (() => {
+            switch (page) {
+              case "signup":
+                return <Signup setUser={setUser} setPage={setPage} />;
+              case "signin":
+                return <Signin setUser={setUser} setPage={setPage} />;
+              default:
+                return <Landing setPage={setPage} />;
+            }
+          })()
+        )}
+      </motion.div>
+    </AnimatePresence>
+  );
 }
-export default App
+
+export default App;
