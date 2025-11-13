@@ -213,3 +213,80 @@ a {
   text-decoration: none;
   color: inherit; 
 }
+
+  .user-menu2 {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menuchat {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 13px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 160px;
+  z-index: 100;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.dropdown-itemchat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 15px;
+  color: #9C9C9C;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-top-left-radius: 13px;
+  border-top-right-radius: 13px;
+}
+
+.dropdown-item2chat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 15px;
+  color: #333;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-bottom-left-radius: 13px;
+  border-bottom-right-radius: 13px;
+}
+
+.dropdown-itemchat:focus,
+.dropdown-itemchat:active {
+  outline: none;
+  border: none;
+}
+
+.dropdown-itemchat:hover {
+  background: #f3f3f3;
+}
+
+.dropdown-item2chat:focus,
+.dropdown-item2chat:active {
+  outline: none;
+  border: none;
+}
+
+.dropdown-item2chat:hover {
+  background: #f3f3f3;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,9 +1,10 @@
 import "../assets/styles/style-chatbot.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { getAllChats, createChat, getMessages, sendMessage} from "../api/chat";
 
 type ChatbotProps = {
   user: string;
+  setUser: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<
     React.SetStateAction<
       "landing" | "signin" | "signup" | "home" | "chatbot" | "support"
@@ -11,13 +12,16 @@ type ChatbotProps = {
   >;
 };
 
-function Chatbot({setPage }: ChatbotProps) {
+function Chatbot({setPage, user, setUser }: ChatbotProps) {
   const [chats, setChats] = useState<any[]>([]);
   const [activeChat, setActiveChat] = useState<string | null>(null);
   const [messages, setMessages] = useState<any[]>([]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
+  
   // Cargar todos los chats del usuario
   useEffect(() => {
     (async () => {
@@ -104,6 +108,22 @@ useEffect(() => {
     setLoading(false);
   }
 };
+  // Cierra el menú si se hace clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+    const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser("");
+    setPage("landing");
+  };
 
   return (
     <div className="lacasa">
@@ -133,13 +153,27 @@ useEffect(() => {
             </a>
           </div>
           <div className="righticons">
-            <button className="userchatbot">
+            <div className="user-menu2">
+            <button className="userchatbot" onClick={() => setMenuOpen((prev) => !prev)}>
               <img
                 src="img/user50.png"
                 alt="user"
                 style={{ width: "50px", height: "50px" }}
               />
             </button>
+            {menuOpen && (
+              <div className="dropdown-menu">
+                <a className="dropdown-item">
+                  <img src="/img/usergris.png" alt="mail" width="18" />
+                  {user}
+                </a>
+                <a className="dropdown-item2" onClick={handleLogout}>
+                  <img src="/img/cerrar.png" alt="logout" width="18" />
+                  Cerrar Sesión
+                </a>
+              </div>
+            )}
+            </div>
           </div>
         </section>
       </div>

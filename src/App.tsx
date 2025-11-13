@@ -28,7 +28,7 @@ function App() {
               case "home":
                 return <Home user={user} setUser={setUser} setPage={setPage} />;
               case "chatbot":
-                return <Chatbot user={user} setPage={setPage} />;
+                return <Chatbot user={user} setUser={setUser} setPage={setPage} />;
               case "support":
                 return <Support setPage={setPage} />;
               default:
