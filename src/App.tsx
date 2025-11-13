@@ -17,9 +17,9 @@ function App() {
     <AnimatePresence mode="wait">
       <motion.div
         key={page}
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -15 }}
+        initial={{ opacity: 0}}
+        animate={{ opacity: 1}}
+        exit={{ opacity: 0}}
         transition={{ duration: 0.4, ease: [0.42, 0, 0.58, 1] }}
       >
         {user ? (
