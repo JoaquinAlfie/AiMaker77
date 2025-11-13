@@ -51,14 +51,14 @@ function Home({ user, setPage }: HomeProps) {
                   target="_blank"
                   className="dropdown-item"
                 >
-                  <img src="/img/mail-icon.png" alt="mail" width="18" />
+                  <img src="/img/user50.png" alt="mail" width="18" />
                   Mail
                 </a>
                 <button
                   className="dropdown-item"
                   onClick={() => setPage("signin")}
                 >
-                  <img src="/img/logout-icon.png" alt="logout" width="18" />
+                  <img src="/img/cerrar.png" alt="logout" width="18" />
                   Cerrar Sesión
                 </button>
               </div>
