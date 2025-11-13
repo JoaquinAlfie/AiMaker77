@@ -1,5 +1,5 @@
-const BASE_URL = "https://aifork.vercel.app/chats";
-const MSG_URL = "https://aifork.vercel.app/messages";
+const BASE_URL = "https://aifork.vercel.app/chatsnonononono";
+const MSG_URL = "https://aifork.vercel.app/messagesnonononoon";
 
 // Helper para obtener el token guardado
 const getToken = () => localStorage.getItem("token");
