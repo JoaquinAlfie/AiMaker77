@@ -177,6 +177,12 @@ a {
   transition: background 0.2s;
 }
 
+.dropdown-item:focus,
+.dropdown-item:active {
+  outline: none;
+  border: none;
+}
+
 .dropdown-item:hover {
   background: #f3f3f3;
 }
