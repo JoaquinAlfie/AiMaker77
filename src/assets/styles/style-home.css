@@ -204,6 +204,16 @@ a {
   background: #f3f3f3;
 }
 
+.dropdown-item2:focus,
+.dropdown-item2:active {
+  outline: none;
+  border: none;
+}
+
+.dropdown-item2:hover {
+  background: #f3f3f3;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
