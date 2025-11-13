@@ -46,21 +46,14 @@ function Home({ user, setPage }: HomeProps) {
           </button>
             {menuOpen && (
               <div className="dropdown-menu">
-                <a
-                  href="https://mail.google.com/mail/?view=cm&fs=1&to=ai.maker.empresa@gmail.com"
-                  target="_blank"
-                  className="dropdown-item"
-                >
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ai.maker.empresa@gmail.com" target="_blank" className="dropdown-item">
                   <img src="/img/user50.png" alt="mail" width="18" />
                   Mail
                 </a>
-                <button
-                  className="dropdown-item"
-                  onClick={() => setPage("signin")}
-                >
+                <a className="dropdown-item2" onClick={() => setPage("signin")}>
                   <img src="/img/cerrar.png" alt="logout" width="18" />
                   Cerrar Sesión
-                </button>
+                </a>
               </div>
             )}
           </div>
