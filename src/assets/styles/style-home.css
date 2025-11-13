@@ -43,6 +43,7 @@
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
   margin-right: 90px;
+  border-radius: 20px;
 }
 .user {
   border:none;
