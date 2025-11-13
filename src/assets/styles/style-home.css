@@ -176,7 +176,8 @@ a {
   width: 100%;
   cursor: pointer;
   transition: background 0.2s;
-  border-radius: 13px;
+  border-top-left-radius: 13px;
+  border-top-right-radius: 13px;
 }
 
 .dropdown-item2 {
@@ -192,7 +193,8 @@ a {
   width: 100%;
   cursor: pointer;
   transition: background 0.2s;
-  border-radius: 13px;
+  border-bottom-left-radius: 13px;
+  border-bottom-right-radius: 13px;
 }
 
 .dropdown-item:focus,
