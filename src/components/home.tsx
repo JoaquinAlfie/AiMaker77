@@ -1,4 +1,5 @@
 import "../assets/styles/style-home.css"
+import React, { useState, useEffect, useRef } from "react";
 
 type HomeProps = {
   user: string;
@@ -8,6 +9,19 @@ type HomeProps = {
 };
 
 function Home({ user, setPage }: HomeProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Cierra el menú si se hace clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   return (
     <div className='casa'>
       <header className="navbar">
@@ -22,13 +36,34 @@ function Home({ user, setPage }: HomeProps) {
             Support AI MAKER
           </a>
           <a className="contacto" href="https://mail.google.com/mail/?view=cm&fs=1&to=ai.maker.empresa@gmail.com&su=Consulta%20sobre%20AI%20Maker&body=Hola,%20quería%20hacer%20una%20consulta%20sobre%20su%20plataforma." target="_blank">Contacto</a>
-          <button className="user">
+          <div className="user-menu" ref={menuRef}>
+          <button className="user" onClick={() => setMenuOpen((prev) => !prev)}>
             <img
               src="/img/user50.png"
               alt="user"
               style={{ width: "50px", height: "50px" }}
             />
           </button>
+            {menuOpen && (
+              <div className="dropdown-menu">
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=ai.maker.empresa@gmail.com"
+                  target="_blank"
+                  className="dropdown-item"
+                >
+                  <img src="/img/mail-icon.png" alt="mail" width="18" />
+                  Mail
+                </a>
+                <button
+                  className="dropdown-item"
+                  onClick={() => setPage("signin")}
+                >
+                  <img src="/img/logout-icon.png" alt="logout" width="18" />
+                  Cerrar Sesión
+                </button>
+              </div>
+            )}
+          </div>
         </section>
       </header>
 
