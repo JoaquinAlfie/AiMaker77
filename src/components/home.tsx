@@ -32,7 +32,7 @@ function Home({ user, setUser, setPage }: HomeProps) {
   return (
     <div className='casa'>
       <header className="navbar">
-        <a onClick={() => window.location.reload()} >
+        <a onClick={() => setPage("home")} >
           <img src="/img/Logox4.png" alt="Logo" className="logo" />
         </a>
         <section className="nav-items">
