@@ -42,7 +42,7 @@
   background-color: #FFFFFF;
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
-  padding-right: 200px;
+  margin-right: 50px;
 }
 .user {
   border:none;
@@ -68,7 +68,7 @@
   font-size: 20px;
   font-family: 'Poppins', sans-serif ;
   font-weight: normal;
-  padding-right: 470px;
+  margin-right: 420px;
 }
 .titulo {
   font-family: 'Poppins', sans-serif;
