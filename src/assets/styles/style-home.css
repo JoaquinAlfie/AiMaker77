@@ -226,3 +226,12 @@ a {
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(125, 113, 230, 0.4);
+}
+a:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(125, 113, 230, 0.4);
+}
