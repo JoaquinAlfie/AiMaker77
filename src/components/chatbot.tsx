@@ -162,13 +162,13 @@ useEffect(() => {
               />
             </button>
             {menuOpen && (
-              <div className="dropdown-menu">
-                <a className="dropdown-item">
-                  <img src="/img/usergris.png" alt="mail" width="18" />
+              <div className="dropdown-menuchat">
+                <a className="dropdown-itemchat">
+                  <img src="/img/usergris.png" alt="mail" width="22" />
                   {user}
                 </a>
-                <a className="dropdown-item2" onClick={handleLogout}>
-                  <img src="/img/cerrar.png" alt="logout" width="18" />
+                <a className="dropdown-item2chat" onClick={handleLogout}>
+                  <img src="/img/cerrar.png" alt="logout" width="22" />
                   Cerrar Sesión
                 </a>
               </div>
