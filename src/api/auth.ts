@@ -1,4 +1,4 @@
-const BASE_URL = "https://ai-maker-api.vercel.app/auth";
+const BASE_URL = "https://aifork.vercel.app/auth";
 
 interface RegisterData {
   name: string;
