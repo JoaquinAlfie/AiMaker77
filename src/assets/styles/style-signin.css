@@ -163,7 +163,7 @@
     transition: all 0.3s ease;
 }
 
-.register1:hover {
+.register:hover {
   transform: scale(1.03);
   }
 
