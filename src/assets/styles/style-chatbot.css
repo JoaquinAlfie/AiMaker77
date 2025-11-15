@@ -66,6 +66,13 @@
   font-size: 20px;
   font-family: 'Poppins', sans-serif ;
   font-weight: normal;
+  transition: all 0.3s ease;
+}
+
+.supportchatbot:hover {
+  background-color:rgba(125, 113, 230, 0.3);
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(125, 113, 230, 0.4);
 }
 .righticons 
 {
@@ -82,7 +89,12 @@
   margin: 0;
   cursor: pointer;
   padding: 0px;
-    }
+  transition: all 0.3s ease;
+}
+
+.userchatbot:hover {
+  transform: scale(1.03);
+}
 .chat-controls{
   background-color: rgba(125, 113, 230, 0.05);
   width: 321px;
@@ -109,6 +121,11 @@
     background: none;
     border: none;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.newchat:hover {
+  transform: scale(1.03);
 }
 
 .searchchat{
@@ -200,15 +217,21 @@ border: none;
   color: #999999;
 }
 .enterchatbot {
-background-color: white;
-border: none;
-cursor: pointer;
-flex-shrink: 0;
-display: flex;
-align-items: center;
-justify-content: center;
-margin-top: 50px;
-} 
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  transition: all 0.3s ease;
+}
+
+.enterchatbot:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(125, 113, 230, 0.4);
+}
 a {
   text-decoration: none;
   color: inherit; 
