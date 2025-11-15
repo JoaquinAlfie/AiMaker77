@@ -1,6 +1,6 @@
 import "../assets/styles/style-signup.css";
 import React, { useState } from "react";
-import { registerUser } from "../api/auth";
+import { registerUser, verifyUser } from "../api/auth";
 
 interface SignupProps {
   setUser: React.Dispatch<React.SetStateAction<string>>;
@@ -15,6 +15,9 @@ function Signup({ setPage }: SignupProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [step, setStep] = useState<"register" | "verify">("register");
+  const [code, setCode] = useState("");
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,8 +43,7 @@ function Signup({ setPage }: SignupProps) {
       if (res.code === "error" || res.error || res.message?.includes("Ya existe")){
         setError(res.message || res.error);
       } else {
-        alert("Usuario creado con éxito. Ahora puedes iniciar sesión.");
-        setPage("signin");
+        setStep("verify");
       }
     } catch {
       setError("Error al registrar usuario.");
@@ -49,6 +51,31 @@ function Signup({ setPage }: SignupProps) {
       setLoading(false);
     }
 };
+
+  const handleVerify = async () => {
+    if (!code) {
+      setError("Ingresa el código enviado a tu email.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await verifyUser(email, code);
+      if (res.error || res.code === "error") {
+        setError(res.message || res.error);
+      } else {
+        alert("Usuario verificado. Ahora puedes iniciar sesión.");
+        setPage("signin");
+      }
+    } catch {
+      setError("Error al verificar código.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
 return (
     <form className="registrodesesion" onSubmit = {handleRegister}>
         <header className="cabezita">
@@ -58,6 +85,7 @@ return (
         </header>
         <main className="maineo">
             <h1 className="titlee">Welcome to Ai Maker</h1>
+            {step === "register" && (
             <div className="registreo">
                 <p className="signup">Sign Up</p>
                 <section className="nombre">
@@ -91,11 +119,37 @@ return (
                         Login Here ! 
                     </a>
                  </section>
-            </div>
-        </main>
-        {error && <p className="obligatorios">{error}</p> }
+        {error && <p className="obligatorios">{error}</p> } </div> 
+        )}
+        {step === "verify" && (
+                    <div className="registreo">
+            <p className="signup">Verify Account</p>
+
+            <p className="ifyou">Enter the code sent to: {email}</p>
+
+            <section className="correo">
+              <input
+                type="text"
+                placeholder="Verification Code"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                maxLength={6}
+              />
+            </section>
+
+            <section className="enter1">
+              <button className="register1" type="button" onClick={handleVerify}>
+                {loading ? "Verifying..." : "Verify"}
+              </button>
+            </section>
+
+            {error && <p className="obligatorios">{error}</p>}
+          </div>
+        )}
+      </main>
     </form>
-);
+  );
 }
+
 
 export default Signup;
