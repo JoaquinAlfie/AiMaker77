@@ -23,7 +23,12 @@
     border: none;
     background-color: white;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
+
+.volver:hover {
+  transform: scale(1.03);
+  }
 
 .maineo {                  
     display: flex;
@@ -187,7 +192,13 @@
     font-weight: 500;
     cursor: pointer;
     box-shadow: 0px 4px 61px 0px rgba(77, 71, 195, 0.4);
+    transition: all 0.3s ease;
 }
+
+.register1:hover {
+  transform: scale(1.03);
+  }
+
 .ifyoulogin {
     display: flex;
 }
@@ -205,7 +216,12 @@
     padding-left: 4px;
     color: #7D71E6;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
+
+.login1:hover {
+  transform: scale(1.03);
+  }
 
 .obligatorios {
     font-family: 'Mulish', sans-serif;
