@@ -22,7 +22,12 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
+
+.logo:hover {
+  transform: scale(1.03);
+  }
 .mainsupport {
     display: flex;
     justify-content: center;
@@ -40,7 +45,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all 0.3s ease;
 }
+
+.belo:hover {
+  transform: scale(1.03);
+  }
 .lbelo{
     margin-top: 35px;
 }
@@ -67,7 +77,13 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-}   
+    transition: all 0.3s ease;
+}
+
+.donarbelo:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(125, 113, 230, 0.4);
+}
 .mercadopago {
     width: 374px;
     height: 613px;
@@ -78,7 +94,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all 0.3s ease;
 }
+
+.mercadopago:hover {
+  transform: scale(1.03);
+  }
 .lmp{
     margin-top: 35px;
 }
@@ -105,6 +126,12 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    transition: all 0.3s ease;
+}
+
+.donarmp:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(125, 113, 230, 0.4);
 }
 .paypal {
     width: 374px;
@@ -116,7 +143,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all 0.3s ease;
 }
+
+.paypal:hover {
+  transform: scale(1.03);
+  }
 .lpp{
     margin-top: 35px;
 }
@@ -143,6 +175,12 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    transition: all 0.3s ease;
+}
+
+.donarpp:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(125, 113, 230, 0.4);
 }
 a {
     text-decoration: none;
