@@ -114,7 +114,12 @@
     resize: none;
     background-color:rgba(125, 113, 230, 0.00000000000001);
     cursor: pointer;
+    transition: all 0.3s ease;
 }
+
+#ocultar:hover {
+  transform: scale(1.03);
+  }
 .enter{
     display: flex;
     justify-content: center;
