@@ -84,7 +84,7 @@ function Home({ user, setUser, setPage }: HomeProps) {
             />
             Get Started
           </a>
-          <button className="btn-como-funciona">¿Cómo Funciona?</button>
+          <button className="btn-como-funciona" onClick={() => alert("Tutorial no disponible al momento")}>¿Cómo Funciona?</button>
         </section>
         <section className="holapibe">
           <div className="bienvenido">Bienvenido, </div>
