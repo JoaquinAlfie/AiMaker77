@@ -230,7 +230,6 @@ border: none;
 
 .enterchatbot:hover {
   transform: scale(1.03);
-  box-shadow: 0 0 25px rgba(125, 113, 230, 0.4);
 }
 a {
   text-decoration: none;
