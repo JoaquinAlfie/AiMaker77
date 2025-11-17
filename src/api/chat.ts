@@ -62,21 +62,22 @@ export const getMessages = async (chatId: string) => {
 
 export const sendMessage = async (chatId: string, content: string) => {
   try {
-    const res = await fetch(`${MSG_URL}/${chatId}`, {
+    const token = getToken();
+    console.log("sendMessage token:", token);
+    const res = await fetch(`${MSG_URL}/chat/${chatId}`, {
+      mode: "no-cors",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken()}`,
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-                sender_type: "user",
-        text: content,
-      }),
+      body: JSON.stringify({ sender_type: "user", text: content }),
     });
-    if (!res.ok) throw new Error("Error al enviar mensaje");
-    return await res.json();
-  } catch (error) {
-    console.error(error);
-    return null;
+
+    // con no-cors no podemos leer la respuesta, así que solo devolvemos true/false
+    return res.ok;
+  } catch (e) {
+    console.error("sendMessage error:", e);
+    return false;
   }
 };

@@ -72,42 +72,74 @@ useEffect(() => {
     setMessages(Array.isArray(msgs) ? msgs : msgs.messages || []);
   };
 
-  const handleSend = async () => {
-  console.log("🔹 handleSend ejecutado"); 
-  if (!message.trim()) return alert("Escribí un mensaje antes de enviar.");
-  setLoading(true);
+  const handleSend = async () => 
+  {
+    //messages - Varible que se define en el front la cual es igual al texto ingresado
+    //
+    console.log("handleSend ejecutando..."); 
+    //Verifica que el mensaje no este vacio
+    if (!message.trim()) return alert("Escribí un mensaje antes de enviar.");
+    //Indica que se esta cargando el mensaje
+    setLoading(true);
 
-  try {
-    let chatId = activeChat;
+    try 
+    {
+      
+      let chatId = activeChat;
 
-    // Crear chat si no hay activo
-    if (!chatId) {
-      const newChat = await createChat("Nuevo Chat");
-      if (newChat && !newChat.error) {
-        const allChats = await getAllChats();
-        setChats(allChats.chats || allChats);
-        const lastChat = (allChats.chats || allChats).slice(-1)[0];
-        chatId = lastChat.id;
-        setActiveChat(chatId);
-      } else {
-        alert("Error al crear el chat.");
-        setLoading(false);
-        return;
+      // Verfica que chatId exista, si no, crea uno nuevo
+      if (!chatId) 
+      {
+        //Crea un nuevo chat
+        const newChat = await createChat("Nuevo Chat");
+        // Si el chat se creó correctamente, actualiza la lista de chats y establece el chat activo
+        if (newChat && !newChat.error) 
+        {
+          // Declara allChats como la lista de chats actualizada
+          const allChats = await getAllChats();
+          // Actualiza el estado de los chats en el front
+          setChats(allChats.chats || allChats);
+          // Obtiene el ID del último chat creado
+          const lastChat = (allChats.chats || allChats).slice(-1)[0];
+          // Asigna el ID del nuevo chat a chatId y lo establece como chat activo
+          chatId = lastChat.id;
+          // Define el chat activo en el estado
+          setActiveChat(chatId);
+        } 
+        else 
+        {
+          // Si hubo un error al crear el chat, muestra una alerta
+          alert("Error al crear el chat.");
+          //Detiene la carga
+          setLoading(false);
+          // Retorna un objeto que indica un error al crear el chat
+          return {error: "Error al crear el chat.", message: newChat};
+        }
       }
-    }
 
-    // Ahora sí mandamos el mensaje al chat correcto
-    const res = await sendMessage(chatId!, message);
-    if (res) {
-      setMessages([...messages, { sender_type: "user", text: message }]);
-      setMessage("");
+      // Debug
+      console.log("chatId, message", { chatId, message }); 
+      console.log("Enviando mensaje...")
+
+      // Envia el mensaje al chat especificado
+      const result = await sendMessage(chatId!, message);
+      
+      //Si resultado tiene un valor, actualiza los mensajes en el front
+      if (result) {
+        setMessages([...messages, { sender_type: "user", text: message }]);
+        setMessage("");
+      }
+    } 
+    catch (err) {
+      console.error("❌ Error al enviar mensaje:", err);
+    } 
+    finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error("❌ Error al enviar mensaje:", err);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
+
+
+
   // Cierra el menú si se hace clic fuera
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
