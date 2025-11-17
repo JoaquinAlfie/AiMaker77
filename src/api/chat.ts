@@ -49,7 +49,8 @@ export const deleteChat = async (chatId: string) => {
 // MENSAJES 
 export const getMessages = async (chatId: string) => {
   try {
-    const res = await fetch(`${MSG_URL}/${chatId}`, {
+    const res = await fetch(`${MSG_URL}/chat/${chatId}`, {
+      method: "GET",
       headers: { Authorization: `Bearer ${getToken()}` },
     });
     if (!res.ok) throw new Error("Error al obtener mensajes del chat");
@@ -64,8 +65,9 @@ export const sendMessage = async (chatId: string, content: string) => {
   try {
     const token = getToken();
     console.log("sendMessage token:", token);
+    console.log("https://ai-maker-api.vercel.app/messages/chat/155");
+    console.log(`${MSG_URL}/chat/${chatId}`)
     const res = await fetch(`${MSG_URL}/chat/${chatId}`, {
-      mode: "no-cors",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
