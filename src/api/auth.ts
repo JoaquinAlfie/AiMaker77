@@ -1,6 +1,6 @@
 const BASE_URL = "https://ai-maker-api.vercel.app/auth"; // ruta para login y registro
 
-interface RegisterData { // define la forma del objeto que se va a enviar al backend al registrar un usuario.
+interface RegisterData { // define la forma del objeto que se va a enviar al backend al registrar un usuario
   name: string;
   last_name: string;
   email: string;

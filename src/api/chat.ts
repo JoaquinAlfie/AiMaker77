@@ -56,8 +56,12 @@ export const getMessages = async (chatId: string) => {
       method: "GET",
       headers: { Authorization: `Bearer ${getToken()}` }, //le manda el token
     });
-    if (!res.ok) throw new Error("Error al obtener mensajes del chat");
-    return await res.json(); // devuelve el objeto a quien llame a la función getMessages
+    if (!res.ok) {
+      console.warn(`No messages found for chat ${chatId}`);
+      return []; // Devuelve array vacío en lugar de intentar leer res.json()
+    }
+    const data = await res.json();
+    return Array.isArray(data) ? data : data.messages || [];
   } catch (error) {
     console.error(error);
     return [];
