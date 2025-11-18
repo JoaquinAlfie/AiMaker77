@@ -235,8 +235,8 @@ const handleActiveChat = async (chatId: string) => {
           {chats.map((chat) => (
             <div
               key={chat.id}
-              className={`chat-item ${activeChat === chat.id ? "active" : ""}`}
-              onClick={() => handleActiveChat(chat.id)}
+              className={`chat-item ${activeChat === chat.chat_sessions_id ? "active" : ""}`}
+              onClick={() => handleActiveChat(chat.chat_sessions_id)}
             >
               {chat.name}
             </div>
