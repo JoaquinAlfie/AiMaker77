@@ -18,6 +18,7 @@ export const getAllChats = async () => {
     return [];
   }
 };
+// funcion createChat
 export const createChat = async (name:string) => {
   try {
     const res = await fetch(`${BASE_URL}`, { //llama a post /chats
