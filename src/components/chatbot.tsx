@@ -124,8 +124,8 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
       
       //Si resultado tiene un valor, actualiza los mensajes en el front
       if (result) {
-        setMessages([...messages, { sender_type: "user", text: message }]);
-        setMessage("");
+        setMessages([...messages, { sender_type: "user", text: message }]); //Actualiza el estado messages agregando el mensaje nuevo al array de mensajes.
+        setMessage(""); // limpia la caja de texto para que el usuario pueda escribir otro mensaje
       }
     } 
     catch (err) {

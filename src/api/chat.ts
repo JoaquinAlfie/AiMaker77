@@ -82,11 +82,15 @@ export const sendMessage = async (chatId: string, content: string) => {
       },
       body: JSON.stringify({ sender_type: "user", text: content }), // Envia sender_type: "user", text: content
     });
+    if (!res.ok) {
+      console.error(`Error al enviar mensaje al chat ${chatId}`);
+      return null;
+    }
 
-    // con no-cors no podemos leer la respuesta, así que solo devolvemos true/false
-    return res.ok; // es true si el servidor respondió con un código 200–299
+    const data = await res.json(); // devuelve el mensaje creado por el backend
+    return data;
   } catch (e) {
     console.error("sendMessage error:", e);
-    return false; // devuelve false para que la app sepa que no se pudo enviar el mensaje
+    return null;
   }
 };
