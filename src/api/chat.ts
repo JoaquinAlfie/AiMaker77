@@ -82,15 +82,16 @@ export const sendMessage = async (chatId: string, content: string) => {
       },
       body: JSON.stringify({ sender_type: "user", text: content }), // Envia sender_type: "user", text: content
     });
+    
+    const data = await res.json().catch(() => null); // evita fallo si res no tiene json
     if (!res.ok) {
-      console.error(`Error al enviar mensaje al chat ${chatId}`);
-      return null;
+      console.error(`Error al enviar mensaje al chat ${chatId}`, data);
+      return { error: true, ...data }; // siempre devuelve un objeto
     }
 
-    const data = await res.json(); // devuelve el mensaje creado por el backend
-    return data;
+    return data; // mensaje creado
   } catch (e) {
     console.error("sendMessage error:", e);
-    return null;
+    return { error: true, message: e };
   }
 };
