@@ -112,30 +112,27 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
           //Detiene la carga
           setLoading(false);
           // Retorna un objeto que indica un error al crear el chat y detiene la función.
-          return {error: "Error al crear el chat.", message: newChat};
-        }
+        return;
       }
-
-      // Debug
-      console.log("chatId, message", { chatId, message }); 
-      console.log("Enviando mensaje...")
-
-      const result = await sendMessage(chatId!, message); // llama a sendMessage del backend para enviar el mensaje al chat especificado.
-      
-      //Si resultado tiene un valor, actualiza los mensajes en el front
-      if (result) {
-        setMessages([...messages, { sender_type: "user", text: message }]); //Actualiza el estado messages agregando el mensaje nuevo al array de mensajes.
-        setMessage(""); // limpia la caja de texto para que el usuario pueda escribir otro mensaje
-      }
-    } 
-    catch (err) {
-      console.error("❌ Error al enviar mensaje:", err);
-    } 
-    finally {
-      setLoading(false);
     }
-  };
 
+    console.log("chatId, message", { chatId, message });
+
+    const result = await sendMessage(chatId!, message);
+
+    if (result) {
+      setMessages([...messages, result]); // <--- ahora agregamos el mensaje real del backend
+      setMessage("");
+    } else {
+      alert("No se pudo enviar el mensaje. Intenta de nuevo.");
+    }
+  } catch (err) {
+    console.error("❌ Error al enviar mensaje:", err);
+    alert("Error inesperado al enviar mensaje.");
+  } finally {
+    setLoading(false); // <--- esto siempre se ejecuta, desbloqueando el botón
+  }
+};
 
 
   // Cierra el menú si se hace clic fuera
