@@ -253,7 +253,7 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
-            <button className="enterchatbot" onClick={handleSend} >
+            <button className="enterchatbot" onClick={handleSend} disabled={loading}>
               {loading ? (
                 "..."
               ) : (
