@@ -46,7 +46,7 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
         console.error("Error al obtener mensajes del chat:", res.error);
         setMessages([]);
       } else {
-        setMessages(Array.isArray(res) ? res : res.messages || []); //si res es un array, lo usa, si no, usa res.chats; y si nada de eso existe, usa un array vacío
+        setMessages(res.chat_messages || []); //si res es un array, lo usa, si no, usa res.chats; y si nada de eso existe, usa un array vacío
       }
     } catch (err) {
       console.error("❌ Error inesperado al obtener mensajes:", err);
@@ -65,14 +65,19 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
  };
 
  // // declara la funcion handleActiveChat
-  const handleActiveChat = async (chatId: string) => { // Recibe un parametro chatId que es el ID del chat que el usuario selecciono
-     console.log("Seleccionaste chat:", chatId); // anda?
-    setActiveChat(chatId); //Actualiza el estado activeChat de React con el ID del chat seleccionado. Esto indica a la aplicación cuál es el chat activo actualmente.
-    const msgs = await getMessages(String(chatId)); // Llama a la función getMessages del archivo chat.ts para traer los mensajes del chat seleccionado desde el backend. Guarda la respuesta en la variable msgs
-    console.log("🔹 Respuesta de getMessages:", msgs); // br brr patapin
-    setMessages(Array.isArray(msgs) ? msgs : msgs.messages || []); // actualiza el estado messages con los mensajes del chat activo para que se muestren en la UI. Array.isArray(msgs) → verifica si msgs ya es un array de mensajes. Si es un array, lo usamos directamente (msgs). msgs.messages → si msgs es un objeto con propiedad messages, usamos ese array. || [] → si no hay mensajes, usamos un array vacío para no romper la UI.
-  };
+const handleActiveChat = async (chatId: string) => {
+  console.log("Seleccionaste chat:", chatId);
+  setActiveChat(chatId);
 
+  try {
+    const response = await getMessages(String(chatId)); // renombré a response
+    console.log("🔹 Respuesta de getMessages:", response);
+    setMessages(response.chat_messages || []); // ahora sí usamos la propiedad correcta
+  } catch (err) {
+    console.error("❌ Error al obtener mensajes del chat:", err);
+    setMessages([]);
+  }
+};
 //declara  la funcion handleSend
   const handleSend = async () => 
   {
