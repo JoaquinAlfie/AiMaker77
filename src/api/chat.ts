@@ -1,17 +1,18 @@
-const BASE_URL = "https://ai-maker-api.vercel.app/chats";
-const MSG_URL = "https://ai-maker-api.vercel.app/messages";
+const BASE_URL = "https://ai-maker-api.vercel.app/chats"; //rutas para chats
+const MSG_URL = "https://ai-maker-api.vercel.app/messages"; //rutas para mensajes
 
-// Helper para obtener el token guardado
+// funcion para obtener el token JWT que guarde al iniciar sesión. es necesario para que el backend deje entrar
 const getToken = () => localStorage.getItem("token");
 
 // CHATS 
+// funcion getAllChats
 export const getAllChats = async () => {
   try {
-    const res = await fetch(`${BASE_URL}`, {
-      headers: { Authorization: `Bearer ${getToken()}` },
+    const res = await fetch(`${BASE_URL}`, { //llama a get /chats
+      headers: { Authorization: `Bearer ${getToken()}` }, //le manda el token
     });
     if (!res.ok) throw new Error("Error al obtener los chats");
-    return await res.json();
+    return await res.json(); // devuelve la lista de chats en .json
   } catch (error) {
     console.error(error);
     return [];
@@ -19,16 +20,16 @@ export const getAllChats = async () => {
 };
 export const createChat = async (name:string) => {
   try {
-    const res = await fetch(`${BASE_URL}`, {
+    const res = await fetch(`${BASE_URL}`, { //llama a post /chats
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getToken()}`,
       },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name }), // envia name (el nombre del chat)
     });
     if (!res.ok) throw new Error("Error al crear el chat");
-    return await res.json();
+    return await res.json(); // devuelve el chat creado
   } catch (error) {
     console.error(error);
     return null;
