@@ -121,13 +121,20 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
       console.log("Enviando mensaje...")
 
       const result = await sendMessage(chatId!, message); // llama a sendMessage del backend para enviar el mensaje al chat especificado.
-      
+      console.log("Respuesta real de la API:", result);
       //Si resultado tiene un valor, actualiza los mensajes en el front
       if (result) {
-        setMessages([...messages, { sender_type: "user", text: message }]); //Actualiza el estado messages agregando el mensaje nuevo al array de mensajes.
-        setMessage(""); // limpia la caja de texto para que el usuario pueda escribir otro mensaje
-      }
-    } 
+
+        // Agrego primero el mensaje del usuario
+    setMessages(prev => [...prev, { sender_type: "user", text: message }]);
+    setMessage("");
+
+    // Ahora agregamos los mensajes que devuelve la IA (bot)
+    if (result && result.chat_messages) {
+      // Cada mensaje que venga de la API lo agregamos al estado
+      setMessages(prev => [...prev, ...result.chat_messages]);
+      console.log("Mensajes de la IA agregados:", result.chat_messages);
+    }}}
     catch (err) {
       console.error("❌ Error al enviar mensaje:", err);
     } 
