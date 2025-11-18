@@ -11,9 +11,9 @@ export const getAllChats = async () => {
     const res = await fetch(`${BASE_URL}`, { //llama a get /chats
       headers: { Authorization: `Bearer ${getToken()}` }, //le manda el token
     });
-    if (!res.ok) throw new Error("Error al obtener los chats");
+    if (!res.ok) throw new Error("Error al obtener los chats"); // si la respuesta no fue exitosa crea el error y lo manda
     return await res.json(); // devuelve la lista de chats en .json
-  } catch (error) {
+  } catch (error) { // si sale mal ejecuta el catch
     console.error(error);
     return [];
   }
@@ -24,8 +24,8 @@ export const createChat = async (name:string) => {
     const res = await fetch(`${BASE_URL}`, { //llama a post /chats
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken()}`,
+        "Content-Type": "application/json", // le digo al servidor de que tipo es la peticion que le mando
+        Authorization: `Bearer ${getToken()}`, //le manda el token
       },
       body: JSON.stringify({ name }), // envia name (el nombre del chat)
     });
@@ -36,52 +36,53 @@ export const createChat = async (name:string) => {
     return null;
   }
 };
-
+// funcion deleteChat
 export const deleteChat = async (chatId: string) => {
   try {
-    const res = await fetch(`${BASE_URL}/${chatId}`, {
+    const res = await fetch(`${BASE_URL}/${chatId}`, { // llama a DELETE /chats/:id
       method: "DELETE",
-      headers: { Authorization: `Bearer ${getToken()}` },
+      headers: { Authorization: `Bearer ${getToken()}` }, //le manda el token
     });
-    return await res.json();
+    return await res.json(); // devuelve deleteChat para quien llame a deletechat pueda usarlo
   } catch {
     return { error: "Error al eliminar el chat." };
   }
 };
 // MENSAJES 
+// funcion getMessages
 export const getMessages = async (chatId: string) => {
   try {
-    const res = await fetch(`${MSG_URL}/chat/${chatId}`, {
+    const res = await fetch(`${MSG_URL}/chat/${chatId}`, { // llama a GET /messages/chat/:chatId
       method: "GET",
-      headers: { Authorization: `Bearer ${getToken()}` },
+      headers: { Authorization: `Bearer ${getToken()}` }, //le manda el token
     });
     if (!res.ok) throw new Error("Error al obtener mensajes del chat");
-    return await res.json();
+    return await res.json(); // devuelve el objeto a quien llame a la función getMessages
   } catch (error) {
     console.error(error);
     return [];
   }
 };
-
+// funcion sendMessage
 export const sendMessage = async (chatId: string, content: string) => {
   try {
     const token = getToken();
     console.log("sendMessage token:", token);
     console.log("https://ai-maker-api.vercel.app/messages/chat/155");
     console.log(`${MSG_URL}/chat/${chatId}`)
-    const res = await fetch(`${MSG_URL}/chat/${chatId}`, {
+    const res = await fetch(`${MSG_URL}/chat/${chatId}`, { // llama a post a /messages/chat/:chatId
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json", // le digo al servidor de que tipo es la peticion que le mando
+        Authorization: `Bearer ${token}`, //le manda el token
       },
-      body: JSON.stringify({ sender_type: "user", text: content }),
+      body: JSON.stringify({ sender_type: "user", text: content }), // Envia sender_type: "user", text: content
     });
 
     // con no-cors no podemos leer la respuesta, así que solo devolvemos true/false
-    return res.ok;
+    return res.ok; // es true si el servidor respondió con un código 200–299
   } catch (e) {
     console.error("sendMessage error:", e);
-    return false;
+    return false; // devuelve false para que la app sepa que no se pudo enviar el mensaje
   }
 };
