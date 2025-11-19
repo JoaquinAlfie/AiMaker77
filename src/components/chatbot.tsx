@@ -140,19 +140,7 @@ const handleActiveChat = async (chatId: string) => {
       // Cada mensaje que venga de la API lo agregamos al estado
       setMessages(prev => [...prev, ...result.chat_messages]);
       console.log("Mensajes de la IA agregados:", result.chat_messages);
-    }
-        // ⬇⬇⬇ ENTRENAMIENTO AUTOMÁTICO ⬇⬇⬇
-      console.log("🚀 Enviando entrenamiento con chatId:", chatId);
-
-      await fetch(`https://ai-maker-api.vercel.app/models/chat/${chatId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chatId }),
-      });
-
-      console.log("📌 Entrenamiento enviado correctamente");
-
-  }}
+    }}}
     catch (err) {
       console.error("Error al enviar mensaje:", err);
     } 
