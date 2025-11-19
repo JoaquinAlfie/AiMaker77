@@ -68,7 +68,7 @@ export const getMessages = async (chatId: string) => {
   }
 };
 // funcion sendMessage
-export const sendMessage = async (chatId: string, content: string) => {
+export const sendMessage = async (chatId: number, message: { sender_type: string; text: string }) => {
   try {
     const token = getToken();
     console.log("sendMessage token:", token);
