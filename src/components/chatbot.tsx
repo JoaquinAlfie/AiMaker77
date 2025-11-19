@@ -126,10 +126,7 @@ const handleActiveChat = async (chatId: string) => {
       console.log("chatId, message", { chatId, message }); 
       console.log("Enviando mensaje...")
 
-      const result = await sendMessage(Number(chatId!), {
-  sender_type: "bot",
-  text: message
-}); // llama a sendMessage del backend para enviar el mensaje al chat especificado.
+      const result = await sendMessage(chatId!, message); // llama a sendMessage del backend para enviar el mensaje al chat especificado.
       console.log("Respuesta real de la API:", result);
       //Si resultado tiene un valor, actualiza los mensajes en el front
       if (result) {

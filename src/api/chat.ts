@@ -68,11 +68,10 @@ export const getMessages = async (chatId: string) => {
   }
 };
 // funcion sendMessage
-export const sendMessage = async (chatId: number, message: { sender_type: string; text: string }) => {
+export const sendMessage = async (chatId: string, content: string) => {
   try {
     const token = getToken();
     console.log("sendMessage token:", token);
-    console.log("https://ai-maker-api.vercel.app/messages/chat/155");
     console.log(`${MSG_URL}/chat/${chatId}`)
     const res = await fetch(`${MSG_URL}/chat/${chatId}`, { // llama a post a /messages/chat/:chatId
       method: "POST",
