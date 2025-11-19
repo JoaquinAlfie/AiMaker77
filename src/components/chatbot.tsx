@@ -49,7 +49,7 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
         setMessages(res.chat_messages || []); //si res es un array, lo usa, si no, usa res.chats; y si nada de eso existe, usa un array vacío
       }
     } catch (err) {
-      console.error("❌ Error inesperado al obtener mensajes:", err);
+      console.error("Error inesperado al obtener mensajes:", err);
       setMessages([]);
     }
   })();
@@ -74,7 +74,7 @@ const handleActiveChat = async (chatId: string) => {
     console.log("🔹 Respuesta de getMessages:", response);
     setMessages(response.chat_messages || []); // ahora sí usamos la propiedad correcta
   } catch (err) {
-    console.error("❌ Error al obtener mensajes del chat:", err);
+    console.error("Error al obtener mensajes del chat:", err);
     setMessages([]);
   }
 };
@@ -83,6 +83,7 @@ const handleActiveChat = async (chatId: string) => {
   {
     //messages - Varible que se define en el front la cual es igual al texto ingresado
     //
+    console.log("ACTIVE CHAT INICIAL:", activeChat);
     console.log("handleSend ejecutando..."); 
     if (!message.trim()) return alert("Escribí un mensaje antes de enviar."); // verifica que el mensaje no esté vacío ni tenga solo espacios.
     setLoading(true); //Indica que se esta cargando el mensaje
@@ -124,7 +125,6 @@ const handleActiveChat = async (chatId: string) => {
       // Debug
       console.log("chatId, message", { chatId, message }); 
       console.log("Enviando mensaje...")
-      console.log("Entrenando chat:", activeChat);
 
       const result = await sendMessage(chatId!, message); // llama a sendMessage del backend para enviar el mensaje al chat especificado.
       console.log("Respuesta real de la API:", result);
@@ -142,7 +142,7 @@ const handleActiveChat = async (chatId: string) => {
       console.log("Mensajes de la IA agregados:", result.chat_messages);
     }}}
     catch (err) {
-      console.error("❌ Error al enviar mensaje:", err);
+      console.error("Error al enviar mensaje:", err);
     } 
     finally {
       setLoading(false);
