@@ -61,10 +61,6 @@ export const getMessages = async (chatId: string) => {
       return []; // Devuelve array vacío en lugar de intentar leer res.json()
     }
     const data = await res.json();
-
-        if (data.modelResult && Array.isArray(data.modelResult.message)) {
-      return data.modelResult.message;
-    }
     return Array.isArray(data) ? data : data.messages || [];
   } catch (error) {
     console.error(error);
@@ -87,7 +83,7 @@ export const sendMessage = async (chatId: string, content: string) => {
     });
     
     const data = await res.json().catch(() => null); // evita fallo si res no tiene json
-    console.log("RESPUESTA REAL DEL BACKEND:", data);
+    console.log("RESPUESTA REAL DEL BACKEND:", data.modelResult);
     if (!res.ok) {
       console.error(`Error al enviar mensaje al chat ${chatId}`, data);
       return { error: true, ...data }; // siempre devuelve un objeto
