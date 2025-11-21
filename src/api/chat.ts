@@ -61,6 +61,10 @@ export const getMessages = async (chatId: string) => {
       return []; // Devuelve array vacío en lugar de intentar leer res.json()
     }
     const data = await res.json();
+
+        if (data.modelResult && Array.isArray(data.modelResult.message)) {
+      return data.modelResult.message;
+    }
     return Array.isArray(data) ? data : data.messages || [];
   } catch (error) {
     console.error(error);
