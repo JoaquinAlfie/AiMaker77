@@ -172,6 +172,24 @@ const handleActiveChat = async (chatId: string) => {
     }
   };
 
+  //funcion para eliminar
+const handleDeleteChat = async (chatId: string) => {
+  const confirmed = window.confirm("¿Seguro querés eliminar este chat?");
+  if (!confirmed) return;
+
+  try {
+    const res = await deleteChat(chatId);
+    if (!res.error) {
+      setChats(prev => prev.filter(c => c.id !== chatId));
+      if (activeChat === chatId) setActiveChat(null);
+    } else {
+      alert("Error al eliminar el chat");
+    }
+  } catch (err) {
+    console.error("Error al eliminar el chat:", err);
+    alert("Error al eliminar el chat");
+  }
+};
 
 
   // Cierra el menú si se hace clic fuera
@@ -263,23 +281,8 @@ const handleActiveChat = async (chatId: string) => {
               onClick={() => handleActiveChat(chat.id)}
             >
               {chat.name}
-              <button
-        className="delete-chat-btn"
-        onClick={async (e) => {
-          e.stopPropagation(); // evita que se active el chat al hacer click en delete
-          const confirmed = window.confirm("¿Seguro querés eliminar este chat?");
-          if (!confirmed) return;
-          const res = await deleteChat(chat.id);
-          if (!res.error) {
-            setChats(prev => prev.filter(c => c.id !== chat.id));
-            if (activeChat === chat.id) setActiveChat(null);
-          } else {
-            alert("Error al eliminar el chat");
-          }
-        }}
-      >
-        Delete
-      </button>
+              <button className="delete-chat-btn" onClick={(e) => {e.stopPropagation(); // evita que se active el chat al hacer click en delete 
+              handleDeleteChat(chat.id);}}>Delete </button>
             </div>
             
           ))}
