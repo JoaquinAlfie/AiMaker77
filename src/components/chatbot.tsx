@@ -1,6 +1,6 @@
 import "../assets/styles/style-chatbot.css";
 import React, { useEffect, useState, useRef } from "react";
-import { getAllChats, createChat, getMessages, sendMessage, deleteChat} from "../api/chat";
+import { getAllChats, createChat, getMessages, sendMessage, deleteChat, getToken} from "../api/chat";
 
 type ChatbotProps = { //Define qué propiedades recibe el componente
   user: string; //nombre del usuario actual
@@ -82,6 +82,7 @@ const handleActiveChat = async (chatId: string) => {
     const response = await getMessages(String(chatId)); // renombré a response
     console.log("🔹 Respuesta de getMessages:", response);
     setMessages(response); // ahora sí usamos la propiedad correcta //prueba 1
+    loadModelInfo(chatId);
   } catch (err) {
     console.error("Error al obtener mensajes del chat:", err);
     setMessages([]);
@@ -188,6 +189,28 @@ const handleDeleteChat = async (chatId: string) => {
   } catch (err) {
     console.error("Error al eliminar el chat:", err);
     alert("Error al eliminar el chat");
+  }
+};
+
+const loadModelInfo = async (chatId: string) => {
+  try {
+    const res = await fetch(`https://ai-maker-api.vercel.app/models/${chatId}`, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    });
+    const data = await res.json();
+    if (data.chat_messages?.length) {
+      const item = data.chat_messages[0];
+      setModelInfo(prev => ({
+        ...prev,
+        [chatId]: {
+          url: item.download_url,
+          metricName: item.metrics?.metric,
+          metricValue: item.metrics?.value,
+        }
+      }));
+    }
+  } catch (err) {
+    console.error("Error cargando info del modelo:", err);
   }
 };
 

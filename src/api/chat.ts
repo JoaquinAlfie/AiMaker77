@@ -2,7 +2,7 @@ const BASE_URL = "https://ai-maker-api.vercel.app/chats"; //rutas para chats
 const MSG_URL = "https://ai-maker-api.vercel.app/messages"; //rutas para mensajes
 
 // funcion para obtener el token JWT que guarde al iniciar sesión. es necesario para que el backend deje entrar
-const getToken = () => localStorage.getItem("token");
+export const getToken = () => localStorage.getItem("token");
 
 // CHATS 
 // funcion getAllChats
