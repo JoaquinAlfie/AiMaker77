@@ -1,6 +1,7 @@
 import "../assets/styles/style-chatbot.css";
 import React, { useEffect, useState, useRef } from "react";
 import { getAllChats, createChat, getMessages, sendMessage, deleteChat, getToken} from "../api/chat";
+import { AnimatePresence, motion } from "framer-motion";
 
 type ChatbotProps = { //Define qué propiedades recibe el componente
   user: string; //nombre del usuario actual
@@ -29,6 +30,7 @@ function Chatbot({setPage, user, setUser }: ChatbotProps) {
   const [menuOpen, setMenuOpen] = useState(false); // controla si el menú del usuario está abierto o cerrado. Tipo: boolean → true o false. Valor inicial: false - menú cerrado al inicio. Se pone true al hacer clic en el botón del usuario. Se pone false al hacer clic afuera del menú (detectado con menuRef). Sirve para mostrar u ocultar el menú desplegable.
   const menuRef = useRef<HTMLDivElement>(null); // crea una referencia (menuRef) que puede apuntar a un elemento HTML. le digo: Este menuRef va a apuntar a un <div> (HTMLDivElement). Inicializarla en null, porque al principio el div todavía no existe en la página (no se ha renderizado). Usarla más adelante con ref={menuRef} para poder acceder directamente a ese div desde el código.
   const [modelInfo, setModelInfo] = useState<ModelInfo>({}); //prueba
+  const [chatLoading, setChatLoading] = useState(false);
 
   
   // Cargar todos los chats del usuario
@@ -77,15 +79,20 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
 const handleActiveChat = async (chatId: string) => {
   console.log("Seleccionaste chat:", chatId);
   setActiveChat(chatId);
+  setChatLoading(true);
 
   try {
     const response = await getMessages(String(chatId)); // renombré a response
     console.log("🔹 Respuesta de getMessages:", response);
+        setTimeout(() => { 
     setMessages(response); // ahora sí usamos la propiedad correcta //prueba 1
     loadModelInfo(chatId);
+    setChatLoading(false); // termina la carga 
+    }, 400);
   } catch (err) {
     console.error("Error al obtener mensajes del chat:", err);
     setMessages([]);
+    setChatLoading(false);
   }
 };
 //declara  la funcion handleSend
@@ -314,11 +321,28 @@ const loadModelInfo = async (chatId: string) => {
         <main className="mainchatbot">
           {messages.length === 0 &&( <h1 className="titulochatbot">Creá, entrená, optimizá. ¿Por dónde empezamos?</h1>)}
           <div className="mensajes">
-            {messages.map((msg, i) => (
-              <div key={i} className={`msg ${msg.sender_type}`}>
-                <b>{msg.sender_type}:</b> {msg.text}
-              </div>
-            ))}
+            {chatLoading ? (
+              <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="loading-chat"
+              >Cargando chat...
+              </motion.div>
+              ) : (
+              <AnimatePresence>
+                {messages.map((msg, i) => (
+                  <motion.div
+                  key={i}
+                  className={`msg ${msg.sender_type}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}>
+                    <b>{msg.sender_type}:</b> {msg.text}
+                    </motion.div>
+                  ))}
+              </AnimatePresence>
+            )}
           </div>
 {activeChat && modelInfo[activeChat] && (
   <div className="modelo-info">
