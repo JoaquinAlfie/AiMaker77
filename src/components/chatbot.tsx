@@ -245,11 +245,7 @@ const handleActiveChat = async (chatId: string) => {
         </section>
 
         <main className="mainchatbot">
-          <h1 className="titulochatbot">
-            {activeChat
-              ? `Chat activo: ${activeChat}`
-              : "Creá, entrená, optimizá. ¿Por dónde empezamos?"}
-          </h1>
+          <h1 className="titulochatbot">"Creá, entrená, optimizá. ¿Por dónde empezamos?"</h1>
 
           <div className="mensajes">
             {messages.map((msg, i) => (
