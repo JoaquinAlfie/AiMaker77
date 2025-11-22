@@ -83,7 +83,7 @@ export const sendMessage = async (chatId: string, content: string) => {
     });
     
     const data = await res.json().catch(() => null); // evita fallo si res no tiene json
-    console.log("RESPUESTA REAL DEL BACKEND:", data.modelResult.message);
+    console.log("RESPUESTA REAL DEL BACKEND:", data);
     if (!res.ok) {
       console.error(`Error al enviar mensaje al chat ${chatId}`, data);
       return { error: true, ...data }; // siempre devuelve un objeto
