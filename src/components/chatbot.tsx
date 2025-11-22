@@ -15,7 +15,6 @@ type ChatbotProps = { //Define qué propiedades recibe el componente
 function Chatbot({setPage, user, setUser }: ChatbotProps) {
   const [chats, setChats] = useState<any[]>([]); //estado que guarda todos los chats del usuario. tipo: any[], es un arreglo de objetos(cada objeto representa un chat). Valor inicial: [], vacío, porque al principio no hay chats cargados. Se actualiza con setChats(...) cuando traés los chats del backend. Se usa para mostrar la lista de chats en la interfaz.
   const [activeChat, setActiveChat] = useState<string | null>(null); //es el ID del chat que está activo o seleccionado actualmente. puede ser un string (el ID) o null si no hay chat activo. Cuando el usuario hace clic en un chat, se actualiza con setActiveChat(id). Se usa para cargar los mensajes del chat activo y destacar el chat en la lista.
-  const [ready, setReady] = useState(false);
   const [messages, setMessages] = useState<any[]>([]); // guarda todos los mensajes del chat activo. any[] → arreglo de objetos, cada objeto es un mensaje { sender_type: "user" | "ai", text: "..." }. Valor inicial: [] - vacío, porque al inicio no hay mensajes cargados. Se actualiza con setMessages(...) cada vez que se selecciona un chat o se envía un mensaje. Se usa para renderizar los mensajes en la pantalla.
   const [message, setMessage] = useState(""); // guarda el texto que el usuario está escribiendo en la caja de chat. Tipo: string → siempre un texto. Valor inicial: "" -vacío al inicio. Se actualiza con setMessage(...) cada vez que el usuario escribe en el textarea. Se usa al enviar el mensaje para mandarlo al backend y luego limpiar la caja de texto.
   const [loading, setLoading] = useState(false); // indica si está cargando algo, por ejemplo, enviando un mensaje. Tipo: boolean → true o false. Valor inicial: false- al inicio no está cargando nada. Se pone true cuando se llama a handleSend y se envía un mensaje. Se pone false cuando termina de enviarlo (en finally). Sirve para mostrar un spinner o indicador de carga mientras el mensaje se envía.
@@ -36,7 +35,6 @@ function Chatbot({setPage, user, setUser }: ChatbotProps) {
   // Cargar mensajes del chat seleccionado
 useEffect(() => { //define un efecto que React ejecuta después de que chatbot se renderiza. Se ejecutará cada vez que cambie alguna variable del array de dependencias ([activeChat]
   if (!activeChat) return; // si activeChat es null o undefined (o vacio), !activeChat será true y el return detiene la ejecucion del useEffect
-  setReady(false); // ocultar y preparar transicion
   (async () => {
     try {
       console.log("🔹 Request a getMessages con chatId:", activeChat);
@@ -52,9 +50,7 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
     } catch (err) {
       console.error("Error inesperado al obtener mensajes:", err);
       setMessages([]);
-    }     setTimeout(() => {
-      setReady(true);
-    }, 10);
+    } 
   })();
 }, [activeChat]); // El useEffect se ejecuta cada vez que cambia activeChat
 
@@ -248,9 +244,9 @@ const handleActiveChat = async (chatId: string) => {
         </section>
 
         <main className="mainchatbot">
-          {messages.length === 0 &&( <h1 className="titulochatbot fade-in">Creá, entrená, optimizá. ¿Por dónde empezamos?</h1>)}
+          {messages.length === 0 &&( <h1 className="titulochatbot">Creá, entrená, optimizá. ¿Por dónde empezamos?</h1>)}
 
-          <div key={activeChat} className={`mensajes ${ready ? "fade-in" : ""}`}>
+          <div className="mensajes">
             {messages.map((msg, i) => (
               <div key={i} className={`msg ${msg.sender_type}`}>
                 <b>{msg.sender_type}:</b> {msg.text}
