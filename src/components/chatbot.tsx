@@ -1,6 +1,6 @@
 import "../assets/styles/style-chatbot.css";
 import React, { useEffect, useState, useRef } from "react";
-import { getAllChats, createChat, getMessages, sendMessage} from "../api/chat";
+import { getAllChats, createChat, getMessages, sendMessage, deleteChat} from "../api/chat";
 
 type ChatbotProps = { //Define qué propiedades recibe el componente
   user: string; //nombre del usuario actual
@@ -263,7 +263,25 @@ const handleActiveChat = async (chatId: string) => {
               onClick={() => handleActiveChat(chat.id)}
             >
               {chat.name}
+              <button
+        className="delete-chat-btn"
+        onClick={async (e) => {
+          e.stopPropagation(); // evita que se active el chat al hacer click en delete
+          const confirmed = window.confirm("¿Seguro querés eliminar este chat?");
+          if (!confirmed) return;
+          const res = await deleteChat(chat.id);
+          if (!res.error) {
+            setChats(prev => prev.filter(c => c.id !== chat.id));
+            if (activeChat === chat.id) setActiveChat(null);
+          } else {
+            alert("Error al eliminar el chat");
+          }
+        }}
+      >
+        Delete
+      </button>
             </div>
+            
           ))}
         </section>
 

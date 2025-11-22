@@ -322,7 +322,8 @@ a {
   cursor: pointer;
   padding: 12px;
   transition: all 0.2s ease;
-  color:#000000
+  color:#000000;
+  font-family: 'Poppins', sans-serif ;
 }
 
 .chat-item:hover {
