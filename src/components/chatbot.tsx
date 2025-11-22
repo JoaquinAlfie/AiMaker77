@@ -20,6 +20,7 @@ function Chatbot({setPage, user, setUser }: ChatbotProps) {
   const [loading, setLoading] = useState(false); // indica si está cargando algo, por ejemplo, enviando un mensaje. Tipo: boolean → true o false. Valor inicial: false- al inicio no está cargando nada. Se pone true cuando se llama a handleSend y se envía un mensaje. Se pone false cuando termina de enviarlo (en finally). Sirve para mostrar un spinner o indicador de carga mientras el mensaje se envía.
   const [menuOpen, setMenuOpen] = useState(false); // controla si el menú del usuario está abierto o cerrado. Tipo: boolean → true o false. Valor inicial: false - menú cerrado al inicio. Se pone true al hacer clic en el botón del usuario. Se pone false al hacer clic afuera del menú (detectado con menuRef). Sirve para mostrar u ocultar el menú desplegable.
   const menuRef = useRef<HTMLDivElement>(null); // crea una referencia (menuRef) que puede apuntar a un elemento HTML. le digo: Este menuRef va a apuntar a un <div> (HTMLDivElement). Inicializarla en null, porque al principio el div todavía no existe en la página (no se ha renderizado). Usarla más adelante con ref={menuRef} para poder acceder directamente a ese div desde el código.
+  const [modelInfo, setModelInfo] = useState<any | null>(null); //prueba
 
   
   // Cargar todos los chats del usuario
@@ -58,7 +59,7 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
   const handleNewChat = async () => {
   await createChat("Chat");   // llama a la función createChat del archivo chat.ts y le pasa "chat"
   const allChats = await getAllChats();  // Llama a la función getAllChats() para obtener la lista actualizada de todos los chats del usuario desde el backend. Guarda la lista en la variable allChats. Esto “recarga los chats” porque ahora tengo la lista completa, incluyendo el chat que acabo de crear.
-  setChats([...(allChats.chats || allChats)].reverse()); //Si allChats tiene una propiedad chats usa eso, si no usa allChats directamente (si ya es un array)
+  setChats([...(allChats.chats || allChats)].reverse()); //Si allChats tiene una propiedad chats usa eso, si no usa allChats directamente (si ya es un array) crea una copia y luego la da vuelta, sin modificar el array original.
   const lastChat = (allChats.chats || allChats).slice(-1)[0]; //Toma la última posición del array de chats, es decir, el chat que acabamos de crear. slice(-1)[0] devuelve el último elemento del array. Guardamos ese chat en lastChat para poder seleccionarlo como activo.
   if (lastChat) setActiveChat(lastChat.id); // Si existe un lastChat (por seguridad, para no tirar error si no hay chats), actualizamos el estado activeChat.
  };
@@ -129,6 +130,18 @@ const handleActiveChat = async (chatId: string) => {
       console.log("Respuesta real de la API:", result);
       //Si resultado tiene un valor, actualiza los mensajes en el front
       if (result) {
+
+        if (result.modelResult && result.modelResult.message?.length > 0) {
+          const item = result.modelResult.message[0];
+          setModelInfo({
+            url: item.download_url,
+            metricName: item.metrics?.metric,
+            metricValue: item.metrics?.value,
+    });
+
+    console.log("Model info guardada:", item);
+  }
+
 
         // Agrego primero el mensaje del usuario
     setMessages(prev => [...prev, { sender_type: "user", text: message }]);
@@ -246,6 +259,17 @@ const handleActiveChat = async (chatId: string) => {
         <main className="mainchatbot">
           {messages.length === 0 &&( <h1 className="titulochatbot">Creá, entrená, optimizá. ¿Por dónde empezamos?</h1>)}
 
+          {modelInfo && (
+            <div className="modelo-info">
+              <p><b>Modelo entrenado:</b></p>
+              {modelInfo.metricName && (
+                <p>Métrica ({modelInfo.metricName}): <b>{modelInfo.metricValue}</b></p>
+                )}
+                {modelInfo.url && (
+                  <a href={modelInfo.url} target="_blank">Descargar modelo</a>
+                  )}
+              </div>
+            )}
           <div className="mensajes">
             {messages.map((msg, i) => (
               <div key={i} className={`msg ${msg.sender_type}`}>
