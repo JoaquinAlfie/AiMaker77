@@ -282,7 +282,7 @@ const handleDeleteChat = async (chatId: string) => {
             >
               {chat.name}
               <button className="delete-chat-btn" onClick={(e) => {e.stopPropagation(); // evita que se active el chat al hacer click en delete 
-              handleDeleteChat(chat.id);}}>Delete </button>
+              handleDeleteChat(chat.id);}}>DELETE</button>
             </div>
             
           ))}
