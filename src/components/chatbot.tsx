@@ -37,7 +37,8 @@ function Chatbot({setPage, user, setUser }: ChatbotProps) {
       const res = await getAllChats(); // llama a getAllChats(), trae todos los chats desde el backend.
       console.log("🔹 chats cargados:", res); // broo 
        if (!res.error) { 
-        setChats(Array.isArray(res) ? res : res.chats || []); //si res es un array, lo usa; si no, usa res.chats; y si nada de eso existe, usa un array vacío
+         const chatsArray = Array.isArray(res) ? res : res.chats || []; //si res es un array, lo usa; si no, usa res.chats; y si nada de eso existe, usa un array vacío
+        setChats(chatsArray.reverse());
       } })(); 
     }, []);
 
