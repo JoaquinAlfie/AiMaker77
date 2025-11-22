@@ -1,13 +1,13 @@
 import "../assets/styles/style-signup.css";
 import React, { useState } from "react";
-import { registerUser} from "../api/auth";
+import { registerUser, loginUser} from "../api/auth";
 
 interface SignupProps {
   setUser: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home"| "chatbot" | "support">>;
 }
 
-function Signup({ setPage }: SignupProps) {
+function Signup({ setPage, setUser}: SignupProps) {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -39,7 +39,16 @@ function Signup({ setPage }: SignupProps) {
 
       if (res.code === "error" || res.error || res.message?.includes("Ya existe")){
         setError(res.message || res.error);
-      } else {
+        return;
+      } 
+          const loginRes = await loginUser(email, password);
+    console.log("Respuesta login automático:", loginRes);
+
+    if (loginRes.token) {
+      localStorage.setItem("token", loginRes.token);
+      setUser(email);       // actualiza el estado del usuario
+      setPage("home"); }
+      else {
         alert("Usuario creado con éxito. Ahora puedes iniciar sesión.");
         setPage("signin");
       }
