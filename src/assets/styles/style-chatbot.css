@@ -339,7 +339,7 @@ a {
   color: #FFFFFF;
   cursor:pointer;
   transition: all 0.2s ease;
-  padding-left: 30px;
+  margin-left: 30px;
 }
 
 .delete-chat-btn:hover { 
