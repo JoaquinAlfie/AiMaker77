@@ -332,7 +332,7 @@ const loadModelInfo = async (chatId: string) => {
     )}
 
     {modelInfo[activeChat].url && (
-      <a href={modelInfo[activeChat].url} target="_blank">Descargar modelo</a>
+      <a href={modelInfo[activeChat].url} target="_blank" className="urldelmodelo">Descargar modelo</a>
     )}
   </div>
 )}

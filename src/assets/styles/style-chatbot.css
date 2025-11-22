@@ -350,3 +350,20 @@ a {
   transform: scale(1.03);
   box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
 }
+
+.msg {
+  cursor: default; 
+  transition: none;
+}
+
+  .msg:hover {
+  cursor: default; 
+  transition: none;
+  transform: none;
+}
+
+.urldelmodelo {
+  color: #3F6BFF;
+  cursor: pointer;
+  text-decoration: underline;
+  }
