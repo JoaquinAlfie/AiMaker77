@@ -18,7 +18,6 @@ function Chatbot({setPage, user, setUser }: ChatbotProps) {
   const [messages, setMessages] = useState<any[]>([]); // guarda todos los mensajes del chat activo. any[] → arreglo de objetos, cada objeto es un mensaje { sender_type: "user" | "ai", text: "..." }. Valor inicial: [] - vacío, porque al inicio no hay mensajes cargados. Se actualiza con setMessages(...) cada vez que se selecciona un chat o se envía un mensaje. Se usa para renderizar los mensajes en la pantalla.
   const [message, setMessage] = useState(""); // guarda el texto que el usuario está escribiendo en la caja de chat. Tipo: string → siempre un texto. Valor inicial: "" -vacío al inicio. Se actualiza con setMessage(...) cada vez que el usuario escribe en el textarea. Se usa al enviar el mensaje para mandarlo al backend y luego limpiar la caja de texto.
   const [loading, setLoading] = useState(false); // indica si está cargando algo, por ejemplo, enviando un mensaje. Tipo: boolean → true o false. Valor inicial: false- al inicio no está cargando nada. Se pone true cuando se llama a handleSend y se envía un mensaje. Se pone false cuando termina de enviarlo (en finally). Sirve para mostrar un spinner o indicador de carga mientras el mensaje se envía.
-  const [loadingMessages, setLoadingMessages] = useState(false);  // indica si se estan cargando los msjs
   const [menuOpen, setMenuOpen] = useState(false); // controla si el menú del usuario está abierto o cerrado. Tipo: boolean → true o false. Valor inicial: false - menú cerrado al inicio. Se pone true al hacer clic en el botón del usuario. Se pone false al hacer clic afuera del menú (detectado con menuRef). Sirve para mostrar u ocultar el menú desplegable.
   const menuRef = useRef<HTMLDivElement>(null); // crea una referencia (menuRef) que puede apuntar a un elemento HTML. le digo: Este menuRef va a apuntar a un <div> (HTMLDivElement). Inicializarla en null, porque al principio el div todavía no existe en la página (no se ha renderizado). Usarla más adelante con ref={menuRef} para poder acceder directamente a ese div desde el código.
 
@@ -36,7 +35,6 @@ function Chatbot({setPage, user, setUser }: ChatbotProps) {
   // Cargar mensajes del chat seleccionado
 useEffect(() => { //define un efecto que React ejecuta después de que chatbot se renderiza. Se ejecutará cada vez que cambie alguna variable del array de dependencias ([activeChat]
   if (!activeChat) return; // si activeChat es null o undefined (o vacio), !activeChat será true y el return detiene la ejecucion del useEffect
-   setLoadingMessages(true);
   (async () => {
     try {
       console.log("🔹 Request a getMessages con chatId:", activeChat);
@@ -52,8 +50,7 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
     } catch (err) {
       console.error("Error inesperado al obtener mensajes:", err);
       setMessages([]);
-    } finally {
-      setLoadingMessages(false);}
+    } 
   })();
 }, [activeChat]); // El useEffect se ejecuta cada vez que cambia activeChat
 
@@ -247,7 +244,7 @@ const handleActiveChat = async (chatId: string) => {
         </section>
 
         <main className="mainchatbot">
-          {!loadingMessages && messages.length === 0 &&( <h1 className="titulochatbot">Creá, entrená, optimizá. ¿Por dónde empezamos?</h1>)}
+          {messages.length === 0 &&( <h1 className="titulochatbot">Creá, entrená, optimizá. ¿Por dónde empezamos?</h1>)}
 
           <div className="mensajes">
             {messages.map((msg, i) => (
