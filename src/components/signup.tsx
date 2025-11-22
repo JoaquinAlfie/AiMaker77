@@ -1,13 +1,13 @@
 import "../assets/styles/style-signup.css";
 import React, { useState } from "react";
-import { registerUser, loginUser} from "../api/auth";
+import { registerUser} from "../api/auth";
 
 interface SignupProps {
   setUser: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home"| "chatbot" | "support">>;
 }
 
-function Signup({ setPage, setUser }: SignupProps) {
+function Signup({ setPage }: SignupProps) {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -37,22 +37,11 @@ function Signup({ setPage, setUser }: SignupProps) {
 
       console.log("Respuesta registro:", res);
 
-      if (res.code === "error"){
-        setError(res.message);
-        return;
-      }     const loginRes = await loginUser(email, password);
-    console.log("Respuesta login automático:", loginRes);
-
-    if (loginRes.token) {
-      localStorage.setItem("token", loginRes.token);
-      setUser(email);
-      setPage("home");
-      
-      
-      
+      if (res.code === "error" || res.error || res.message?.includes("Ya existe")){
+        setError(res.message || res.error);
       } else {
-        setError(loginRes.message || loginRes.error || "No se pudo iniciar sesión automáticamente");
-      setPage("signin");
+        alert("Usuario creado con éxito. Ahora puedes iniciar sesión.");
+        setPage("signin");
       }
     } catch {
       setError("Error al registrar usuario.");
