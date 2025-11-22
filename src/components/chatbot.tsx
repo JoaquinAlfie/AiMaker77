@@ -258,8 +258,14 @@ const handleActiveChat = async (chatId: string) => {
 
         <main className="mainchatbot">
           {messages.length === 0 &&( <h1 className="titulochatbot">Creá, entrená, optimizá. ¿Por dónde empezamos?</h1>)}
-
-          {modelInfo && (
+          <div className="mensajes">
+            {messages.map((msg, i) => (
+              <div key={i} className={`msg ${msg.sender_type}`}>
+                <b>{msg.sender_type}:</b> {msg.text}
+              </div>
+            ))}
+          </div>
+                    {modelInfo && (
             <div className="modelo-info">
               <p><b>Modelo entrenado:</b></p>
               {modelInfo.metricName && (
@@ -270,13 +276,6 @@ const handleActiveChat = async (chatId: string) => {
                   )}
               </div>
             )}
-          <div className="mensajes">
-            {messages.map((msg, i) => (
-              <div key={i} className={`msg ${msg.sender_type}`}>
-                <b>{msg.sender_type}:</b> {msg.text}
-              </div>
-            ))}
-          </div>
 
           <section className="accioneschatbot">
             <textarea
