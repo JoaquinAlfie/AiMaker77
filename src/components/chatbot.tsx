@@ -45,7 +45,7 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
         console.error("Error al obtener mensajes del chat:", res.error);
         setMessages([]);
       } else {
-        setMessages(res.chat_messages || []); //si res es un array, lo usa, si no, usa res.chats; y si nada de eso existe, usa un array vacío
+        setMessages(res.messages || res || []); //si res es un array, lo usa, si no, usa res.chats; y si nada de eso existe, usa un array vacío
       }
     } catch (err) {
       console.error("Error inesperado al obtener mensajes:", err);
