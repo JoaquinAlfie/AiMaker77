@@ -152,9 +152,6 @@
   border-right: 1px solid rgba(0, 0, 0, 0.08);
   position: relative;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   }
 .chatis {
   display: flex;
@@ -323,6 +320,7 @@ a {
 
 .chat-item {
   cursor: pointer;
+  padding: 12px;
   transition: all 0.2s ease;
   color:#000000;
   font-family: 'Poppins', sans-serif ;
@@ -341,6 +339,7 @@ a {
   color: #FFFFFF;
   cursor:pointer;
   transition: all 0.2s ease;
+  padding-left: 30px;
 }
 
 .delete-chat-btn:hover { 
