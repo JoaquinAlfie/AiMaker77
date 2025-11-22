@@ -78,87 +78,80 @@ const handleActiveChat = async (chatId: string) => {
     setMessages([]);
   }
 };
-//declara  la funcion handleSend
-  const handleSend = async () => 
-  {
-    //messages - Varible que se define en el front la cual es igual al texto ingresado
-    //
-    console.log("ACTIVE CHAT INICIAL:", activeChat);
-    console.log("handleSend ejecutando..."); 
-    if (!message.trim()) return alert("Escribí un mensaje antes de enviar."); // verifica que el mensaje no esté vacío ni tenga solo espacios.
-     // --- AGREGAR MENSAJE DEL USER AL INSTANTE ---
-  const userMessageText = message; 
-  setMessages(prev => [...prev, { sender_type: "user", text: userMessageText }]);
-  setMessage(""); 
-    setLoading(true); //Indica que se esta cargando el mensaje
+// declara la funcion handleSend
+const handleSend = async () => {
+  // messages - Variable que se define en el front la cual es igual al texto ingresado
+  console.log("ACTIVE CHAT INICIAL:", activeChat);
+  console.log("handleSend ejecutando...");
 
-    try 
-    {
-      
-      let chatId = activeChat; //Guarda el ID del chat activo en una variable local chatId. Esto se usa para enviar el mensaje al chat correcto.
+  if (!message.trim())
+    return alert("Escribí un mensaje antes de enviar."); // verifica que el mensaje no esté vacío ni tenga solo espacios.
 
-      // Verfica que chatId exista, si no, crea uno nuevo
-      if (!chatId) 
-      {
-        const newChat = await createChat("Nuevo Chat"); //Crea un nuevo chat con nombre "nuevo chat"
-        // Si el chat se creó correctamente, actualiza la lista de chats y establece el chat activo
-        if (newChat && !newChat.error) // Comprueba que el chat se haya creado correctamente y no tenga errores.
-        {
-          // Declara allChats como la lista de chats actualizada
-          const allChats = await getAllChats(); // llama a getAllChats para recargar la lista de chats del usuario desde el backend.
-          // Actualiza el estado de los chats en el front
-          setChats(allChats.chats || allChats); // Si allChats.chats existe, lo usa; si no, usa allChats directamente.
-          // Obtiene el ID del último chat creado
-          const lastChat = (allChats.chats || allChats).slice(-1)[0];
-          // Asigna el ID del nuevo chat a chatId y lo establece como chat activo
-          chatId = lastChat.id;
-          // Define el chat activo en el estado
-          setActiveChat(chatId);
-        } 
-        else 
-        {
-          // Si hubo un error al crear el chat, muestra una alerta
-          alert("Error al crear el chat.");
-          //Detiene la carga
-          setLoading(false);
-          // Retorna un objeto que indica un error al crear el chat y detiene la función.
-          return {error: "Error al crear el chat.", message: newChat};
-        }
+  setLoading(true); // Indica que se esta cargando el mensaje
+
+  try {
+    let chatId = activeChat; // Guarda el ID del chat activo en una variable local
+
+    // Verifica que chatId exista, si no, crea uno nuevo
+    if (!chatId) {
+      const newChat = await createChat("Nuevo Chat");
+
+      if (newChat && !newChat.error) {
+        const allChats = await getAllChats(); // recarga la lista
+
+        setChats(allChats.chats || allChats);
+
+        const lastChat = (allChats.chats || allChats).slice(-1)[0];
+
+        chatId = lastChat.id;
+        setActiveChat(chatId);
+      } else {
+        alert("Error al crear el chat.");
+        setLoading(false);
+        return { error: "Error al crear el chat.", message: newChat };
+      }
+    }
+
+    // Debug
+    console.log("chatId, message", { chatId, message });
+    console.log("Enviando mensaje...");
+
+    const result = await sendMessage(chatId!, message);
+    console.log("Respuesta real de la API:", result);
+
+    if (result) {
+      if (result.modelResult && result.modelResult.message?.length > 0) {
+        const item = result.modelResult.message[0];
+
+        setModelInfo({
+          url: item.download_url,
+          metricName: item.metrics?.metric,
+          metricValue: item.metrics?.value,
+        });
+
+        console.log("Model info guardada:", item);
       }
 
-      // Debug
-      console.log("chatId, message", { chatId, message: userMessageText }); 
-      console.log("Enviando mensaje...")
+      // Agrego primero el mensaje del usuario
+      setMessages((prev) => [
+        ...prev,
+        { sender_type: "user", text: message },
+      ]);
 
-      const result = await sendMessage(chatId!, userMessageText); // llama a sendMessage del backend para enviar el mensaje al chat especificado.
-      console.log("Respuesta real de la API:", result);
-      //Si resultado tiene un valor, actualiza los mensajes en el front
-      if (result) {
+      setMessage("");
 
-        if (result.modelResult && result.modelResult.message?.length > 0) {
-          const item = result.modelResult.message[0];
-          setModelInfo({
-            url: item.download_url,
-            metricName: item.metrics?.metric,
-            metricValue: item.metrics?.value,
-    });
-
-    console.log("Model info guardada:", item);
-  }
-
-    // Ahora agregamos los mensajes que devuelve la IA (bot)
-    if (result && result.chat_messages) {
-      // Cada mensaje que venga de la API lo agregamos al estado
-      setMessages(prev => [...prev, ...result.chat_messages]);
-      console.log("Mensajes de la IA agregados:", result.chat_messages);
-    }}}
-    catch (err) {
-      console.error("Error al enviar mensaje:", err);
-    } 
-    finally {
-      setLoading(false);
+      // Ahora agregamos los mensajes que devuelve la IA
+      if (result && result.chat_messages) {
+        setMessages((prev) => [...prev, ...result.chat_messages]);
+        console.log("Mensajes de la IA agregados:", result.chat_messages);
+      }
     }
-  };
+  } catch (err) {
+    console.error("Error al enviar mensaje:", err);
+  } finally {
+    setLoading(false);
+  }
+};
 
 
 
