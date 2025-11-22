@@ -67,15 +67,6 @@ useEffect(() => { //define un efecto que React ejecuta después de que chatbot s
 const handleActiveChat = async (chatId: string) => {
   console.log("Seleccionaste chat:", chatId);
   setActiveChat(chatId);
-
-  try {
-    const response = await getMessages(String(chatId)); // renombré a response
-    console.log("🔹 Respuesta de getMessages:", response);
-    setMessages(response); // ahora sí usamos la propiedad correcta //prueba 1
-  } catch (err) {
-    console.error("Error al obtener mensajes del chat:", err);
-    setMessages([]);
-  }
 };
 //declara  la funcion handleSend
   const handleSend = async () => 
