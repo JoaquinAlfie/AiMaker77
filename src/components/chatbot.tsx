@@ -72,7 +72,7 @@ const handleActiveChat = async (chatId: string) => {
   try {
     const response = await getMessages(String(chatId)); // renombré a response
     console.log("🔹 Respuesta de getMessages:", response);
-    setMessages(response.chat_messages || []); // ahora sí usamos la propiedad correcta
+    setMessages(response); // ahora sí usamos la propiedad correcta //prueba 1
   } catch (err) {
     console.error("Error al obtener mensajes del chat:", err);
     setMessages([]);
