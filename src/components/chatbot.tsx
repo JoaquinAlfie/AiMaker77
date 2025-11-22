@@ -245,7 +245,7 @@ const handleActiveChat = async (chatId: string) => {
         </section>
 
         <main className="mainchatbot">
-          {activeChat && messages.length === 0 &&( <h1 className="titulochatbot">Creá, entrená, optimizá. ¿Por dónde empezamos?</h1>)}
+          {messages.length === 0 &&( <h1 className="titulochatbot">Creá, entrená, optimizá. ¿Por dónde empezamos?</h1>)}
 
           <div className="mensajes">
             {messages.map((msg, i) => (
