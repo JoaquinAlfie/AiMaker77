@@ -322,7 +322,7 @@ a {
   cursor: pointer;
   padding: 12px;
   transition: all 0.2s ease;
-  color:#7D71E6
+  color:#000000
 }
 
 .chat-item:hover {
