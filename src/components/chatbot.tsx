@@ -12,6 +12,14 @@ type ChatbotProps = { //Define qué propiedades recibe el componente
   >;
 };
 
+type ModelInfo = {
+  [chatId: string]: {
+    url: string | null;
+    metricName: string | null;
+    metricValue: number | null;
+  };
+};
+
 function Chatbot({setPage, user, setUser }: ChatbotProps) {
   const [chats, setChats] = useState<any[]>([]); //estado que guarda todos los chats del usuario. tipo: any[], es un arreglo de objetos(cada objeto representa un chat). Valor inicial: [], vacío, porque al principio no hay chats cargados. Se actualiza con setChats(...) cuando traés los chats del backend. Se usa para mostrar la lista de chats en la interfaz.
   const [activeChat, setActiveChat] = useState<string | null>(null); //es el ID del chat que está activo o seleccionado actualmente. puede ser un string (el ID) o null si no hay chat activo. Cuando el usuario hace clic en un chat, se actualiza con setActiveChat(id). Se usa para cargar los mensajes del chat activo y destacar el chat en la lista.
@@ -20,7 +28,7 @@ function Chatbot({setPage, user, setUser }: ChatbotProps) {
   const [loading, setLoading] = useState(false); // indica si está cargando algo, por ejemplo, enviando un mensaje. Tipo: boolean → true o false. Valor inicial: false- al inicio no está cargando nada. Se pone true cuando se llama a handleSend y se envía un mensaje. Se pone false cuando termina de enviarlo (en finally). Sirve para mostrar un spinner o indicador de carga mientras el mensaje se envía.
   const [menuOpen, setMenuOpen] = useState(false); // controla si el menú del usuario está abierto o cerrado. Tipo: boolean → true o false. Valor inicial: false - menú cerrado al inicio. Se pone true al hacer clic en el botón del usuario. Se pone false al hacer clic afuera del menú (detectado con menuRef). Sirve para mostrar u ocultar el menú desplegable.
   const menuRef = useRef<HTMLDivElement>(null); // crea una referencia (menuRef) que puede apuntar a un elemento HTML. le digo: Este menuRef va a apuntar a un <div> (HTMLDivElement). Inicializarla en null, porque al principio el div todavía no existe en la página (no se ha renderizado). Usarla más adelante con ref={menuRef} para poder acceder directamente a ese div desde el código.
-  const [modelInfo, setModelInfo] = useState<any | null>(null); //prueba
+  const [modelInfo, setModelInfo] = useState<ModelInfo>({}); //prueba
 
   
   // Cargar todos los chats del usuario
@@ -137,11 +145,14 @@ const handleActiveChat = async (chatId: string) => {
 
         if (result.modelResult && result.modelResult.message?.length > 0) {
           const item = result.modelResult.message[0];
-          setModelInfo({
-            url: item.download_url,
-            metricName: item.metrics?.metric,
-            metricValue: item.metrics?.value,
-    });
+          setModelInfo(prev => ({
+  ...prev,
+  [chatId!]: {
+    url: item.download_url,
+    metricName: item.metrics?.metric,
+    metricValue: item.metrics?.value,
+  }
+}));
 
     console.log("Model info guardada:", item);
   }
@@ -264,17 +275,23 @@ const handleActiveChat = async (chatId: string) => {
               </div>
             ))}
           </div>
-                    {modelInfo && (
-            <div className="modelo-info">
-              <p><b>Modelo entrenado:</b></p>
-              {modelInfo.metricName && (
-                <p>Métrica ({modelInfo.metricName}): <b>{modelInfo.metricValue}</b></p>
-                )}
-                {modelInfo.url && (
-                  <a href={modelInfo.url} target="_blank">Descargar modelo</a>
-                  )}
-              </div>
-            )}
+{activeChat && modelInfo[activeChat] && (
+  <div className="modelo-info">
+    <p><b>Modelo entrenado:</b></p>
+
+    {modelInfo[activeChat].metricName && (
+      <p>
+        Métrica ({modelInfo[activeChat].metricName}): 
+        <b> {modelInfo[activeChat].metricValue}</b>
+      </p>
+    )}
+
+    {modelInfo[activeChat].url && (
+      <a href={modelInfo[activeChat].url} target="_blank">Descargar modelo</a>
+    )}
+  </div>
+)}
+
 
           <section className="accioneschatbot">
             <textarea
