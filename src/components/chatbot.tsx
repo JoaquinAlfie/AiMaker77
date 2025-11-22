@@ -86,6 +86,10 @@ const handleActiveChat = async (chatId: string) => {
     console.log("ACTIVE CHAT INICIAL:", activeChat);
     console.log("handleSend ejecutando..."); 
     if (!message.trim()) return alert("Escribí un mensaje antes de enviar."); // verifica que el mensaje no esté vacío ni tenga solo espacios.
+     // --- AGREGAR MENSAJE DEL USER AL INSTANTE ---
+  const userMessageText = message; 
+  setMessages(prev => [...prev, { sender_type: "user", text: userMessageText }]);
+  setMessage(""); 
     setLoading(true); //Indica que se esta cargando el mensaje
 
     try 
@@ -123,10 +127,10 @@ const handleActiveChat = async (chatId: string) => {
       }
 
       // Debug
-      console.log("chatId, message", { chatId, message }); 
+      console.log("chatId, message", { chatId, message: userMessageText }); 
       console.log("Enviando mensaje...")
 
-      const result = await sendMessage(chatId!, message); // llama a sendMessage del backend para enviar el mensaje al chat especificado.
+      const result = await sendMessage(chatId!, userMessageText); // llama a sendMessage del backend para enviar el mensaje al chat especificado.
       console.log("Respuesta real de la API:", result);
       //Si resultado tiene un valor, actualiza los mensajes en el front
       if (result) {
@@ -141,11 +145,6 @@ const handleActiveChat = async (chatId: string) => {
 
     console.log("Model info guardada:", item);
   }
-
-
-        // Agrego primero el mensaje del usuario
-    setMessages(prev => [...prev, { sender_type: "user", text: message }]);
-    setMessage("");
 
     // Ahora agregamos los mensajes que devuelve la IA (bot)
     if (result && result.chat_messages) {
