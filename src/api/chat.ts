@@ -1,5 +1,6 @@
 const BASE_URL = "https://ai-maker-api.vercel.app/chats"; //rutas para chats
 const MSG_URL = "https://ai-maker-api.vercel.app/messages"; //rutas para mensajes
+const MODEL_URL = "https://ai-maker-api.vercel.app/models"; //rutas para modelos
 
 // funcion para obtener el token JWT que guarde al iniciar sesión. es necesario para que el backend deje entrar
 const getToken = () => localStorage.getItem("token");
@@ -93,5 +94,19 @@ export const sendMessage = async (chatId: string, content: string) => {
   } catch (e) {
     console.error("sendMessage error:", e);
     return { error: true, message: e };
+  }
+};
+
+export const getModelByChat = async (chatId: string) => {
+  try {
+    const res = await fetch(`${MODEL_URL}/chat/${chatId}`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data;
+  } catch (e) {
+    console.error("getModelByChat error:", e);
+    return null;
   }
 };
