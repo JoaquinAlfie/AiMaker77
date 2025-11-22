@@ -1,6 +1,6 @@
 import "../assets/styles/style-chatbot.css";
 import React, { useEffect, useState, useRef } from "react";
-import { getAllChats, createChat, getMessages, sendMessage, getModelByChat} from "../api/chat";
+import { getAllChats, createChat, getMessages, sendMessage} from "../api/chat";
 
 type ChatbotProps = { //Define qué propiedades recibe el componente
   user: string; //nombre del usuario actual
@@ -81,20 +81,8 @@ const handleActiveChat = async (chatId: string) => {
     const response = await getMessages(String(chatId)); // renombré a response
     console.log("🔹 Respuesta de getMessages:", response);
     setMessages(response); // ahora sí usamos la propiedad correcta //prueba 1
-        const modelRes = await getModelByChat(chatId);
-    if (modelRes) {
-      setModelInfo(prev => ({
-        ...prev,
-        [chatId]: {
-          url: modelRes.download_url || null,
-          metricName: modelRes.metrics?.metric || null,
-          metricValue: modelRes.metrics?.value || null,
-        },
-      }));
-      console.log("🔹 Model info cargada:", modelRes);
-    }
   } catch (err) {
-    console.error("Error al obtener mensajes o modelo del chat:", err);
+    console.error("Error al obtener mensajes del chat:", err);
     setMessages([]);
   }
 };
@@ -287,19 +275,22 @@ const handleActiveChat = async (chatId: string) => {
               </div>
             ))}
           </div>
-          {activeChat && modelInfo[activeChat] && (
-            <div className="modelo-info">
-              <p><b>Modelo entrenado:</b></p>
-              {modelInfo[activeChat].metricName && (
-                <p>Métrica ({modelInfo[activeChat].metricName}): <b> 
-                  {modelInfo[activeChat].metricValue}</b>
-                  </p>
-                )}
-              {modelInfo[activeChat].url && (
-                <a href={modelInfo[activeChat].url} target="_blank">Descargar modelo</a>
-                )}
-            </div>
-          )}
+{activeChat && modelInfo[activeChat] && (
+  <div className="modelo-info">
+    <p><b>Modelo entrenado:</b></p>
+
+    {modelInfo[activeChat].metricName && (
+      <p>
+        Métrica ({modelInfo[activeChat].metricName}): 
+        <b> {modelInfo[activeChat].metricValue}</b>
+      </p>
+    )}
+
+    {modelInfo[activeChat].url && (
+      <a href={modelInfo[activeChat].url} target="_blank">Descargar modelo</a>
+    )}
+  </div>
+)}
 
 
           <section className="accioneschatbot">
