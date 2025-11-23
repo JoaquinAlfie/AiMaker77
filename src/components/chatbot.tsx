@@ -2,9 +2,13 @@ import "../assets/styles/style-chatbot.css";
 import React, { useEffect, useState, useRef } from "react";
 import { getAllChats, createChat, getMessages, sendMessage, deleteChat, getToken} from "../api/chat";
 
+interface User {
+  name: string;
+  email: string;
+}
 type ChatbotProps = { //Define qué propiedades recibe el componente
-  user: string; //nombre del usuario actual
-  setUser: React.Dispatch<React.SetStateAction<string>>; //función para actualizar el usuario (por ejemplo al cerrar sesión)
+  user: User; //nombre del usuario actual
+  setUser: React.Dispatch<React.SetStateAction<{ name: string; email: string } | null>>; //función para actualizar el usuario (por ejemplo al cerrar sesión)
   setPage: React.Dispatch< //función para cambiar la página que se muestra
     React.SetStateAction<
       "landing" | "signin" | "signup" | "home" | "chatbot" |"verify" | "support"
@@ -231,7 +235,7 @@ const loadModelInfo = async (chatId: string) => {
 
     const handleLogout = () => {
     localStorage.removeItem("token");
-    setUser("");
+    setUser(null);
     setPage("landing");
   };
 
@@ -275,7 +279,7 @@ const loadModelInfo = async (chatId: string) => {
               <div className="dropdown-menuchat">
                 <a className="dropdown-itemchat">
                   <img src="/img/usergris.png" alt="mail" width="22" />
-                  {user}
+                  {user.name}
                 </a>
                 <a className="dropdown-item2chat" onClick={handleLogout}>
                   <img src="/img/cerrar.png" alt="logout" width="22" />

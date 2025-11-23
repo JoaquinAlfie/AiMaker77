@@ -1,9 +1,14 @@
 import "../assets/styles/style-home.css"
 import React, { useState, useEffect, useRef } from "react";
 
+
+type User = {
+  name: string;
+  email: string;
+};
 type HomeProps = {
-  user: string;
-  setUser: React.Dispatch<React.SetStateAction<string>>;
+  user: User;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
   setPage: React.Dispatch<
     React.SetStateAction<"landing" | "signin" | "signup" | "home" | "chatbot" |"verify" | "support">
   >;
@@ -26,7 +31,7 @@ function Home({ user, setUser, setPage }: HomeProps) {
 
     const handleLogout = () => {
     localStorage.removeItem("token");
-    setUser("");
+    setUser(null);
     setPage("landing");
   };
   return (
@@ -57,7 +62,7 @@ function Home({ user, setUser, setPage }: HomeProps) {
               <div className="dropdown-menu">
                 <a className="dropdown-item">
                   <img src="/img/usergris.png" alt="mail" width="22" height="22" />
-                  {user}
+                  {user.name}
                 </a>
                 <a className="dropdown-item2" onClick={handleLogout}>
                   <img src="/img/cerrar.png" alt="logout" width="22" height="22" />
@@ -88,7 +93,7 @@ function Home({ user, setUser, setPage }: HomeProps) {
         </section>
         <section className="holapibe">
           <div className="bienvenido">Bienvenido, </div>
-          <div className="pibe">{user}</div>
+          <div className="pibe">{user.name}</div>
         </section>
       </main>
     </div>
