@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { verifyCode } from "../api/auth";
-
+import "../assets/styles/verifycode.css";
 interface VerifyProps {
   email: string;
   setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home" | "chatbot" |"verify" | "support">>;
@@ -39,15 +39,10 @@ function VerifyCode({ email, setPage }: VerifyProps) {
 
   return (
     <div className="verify-container">
-      <h2>Verificación de cuenta</h2>
-      <p>Se ha enviado un código a tu correo: {email}</p>
-      <input
-        type="text"
-        placeholder="Código de verificación"
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-      />
-      <button onClick={handleVerify}>{loading ? "Verificando..." : "Verificar"}</button>
+      <h2 className="tituloverifycode">Verificación de cuenta</h2>
+      <p className="sehaenviado">Se ha enviado un código a tu correo: {email}</p>
+      <input type="text" placeholder="Código de verificación" className="inputverify" value={code} onChange={(e) => setCode(e.target.value)} />
+      <button className="verificarcode" onClick={handleVerify}>{loading ? "Verificando..." : "Verificar"}</button>
       {error && <p className="obligatorios">{error}</p>}
     </div>
   );
