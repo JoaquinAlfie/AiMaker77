@@ -24,7 +24,7 @@ function VerifyCode({ email, setPage }: VerifyProps) {
       const res = await verifyCode(email, code);
       console.log("Respuesta verificación:", res);
 
-      if (res.verified === "OK") {
+      if (res.message?.toLowerCase().includes("confirmado con exito")) {
         alert("Cuenta verificada con éxito. Ahora podés iniciar sesión.");
         setPage("signin");
       } else {
