@@ -91,6 +91,9 @@ const handleActiveChat = async (chatId: string) => {
 //declara  la funcion handleSend
   const handleSend = async () => 
   {
+    if (activeChat && modelInfo[activeChat]) {
+      return alert("Solo puedes entrenar un modelo por chat.");
+    }
     //messages - Varible que se define en el front la cual es igual al texto ingresado
     //
     console.log("ACTIVE CHAT INICIAL:", activeChat);
