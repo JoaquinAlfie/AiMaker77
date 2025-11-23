@@ -2,12 +2,8 @@ import React, { useState } from "react";
 import "../assets/styles/style-signin.css";
 import { loginUser } from "../api/auth";
 
-interface UserType {
-  name: string;
-  email: string;
-}
 interface SigninProps {
-  setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
+  setUser: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home"| "chatbot" |"verify" | "support">>;
 }
 
@@ -32,7 +28,7 @@ function Signin({ setUser, setPage }: SigninProps) {
 
       if (res.token) {
         localStorage.setItem("token", res.token);
-        setUser({ name: res.name || email, email });
+        setUser(email);
         setPage("home");
       } else {
         setError(res.message || res.error || "Credenciales inválidas");
