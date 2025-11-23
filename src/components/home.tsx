@@ -87,8 +87,7 @@ function Home({ user, setUser, setPage }: HomeProps) {
           <button className="btn-como-funciona" onClick={() => alert("Tutorial no disponible al momento")}>¿Cómo Funciona?</button>
         </section>
         <section className="holapibe">
-          <div className="bienvenido">Bienvenido, </div>
-          <div className="pibe">{user}</div>
+          <div className="bienvenido">Bienvenido</div>
         </section>
       </main>
     </div>

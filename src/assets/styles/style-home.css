@@ -190,7 +190,8 @@ a {
   border: 1px solid #ccc;
   border-radius: 13px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 170px;
+   min-width: 170px;
+  display: inline-block;
   z-index: 100;
   animation: fadeIn 0.2s ease-in-out;
 }

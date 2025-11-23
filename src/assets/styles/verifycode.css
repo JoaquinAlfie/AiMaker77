@@ -64,6 +64,6 @@
   transform: scale(1.03);
   }
 
-::placeholder {
+.inputverify::placeholder {
     color: #7D71E6;
 }
