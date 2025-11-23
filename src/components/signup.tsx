@@ -37,13 +37,14 @@ function Signup({ setPage, setVerifyEmail }: SignupProps) {
       });
 
       console.log("Respuesta registro:", res);
-      if (res.code === "OK") {
-      setError(""); // limpiar cualquier error anterior
-      setVerifyEmail(email);
-      setPage("verify");
-      alert("Usuario creado con éxito. Se ha enviado un código a tu email para verificar tu cuenta.");
-      } else if (res.code === "error" || res.message?.includes("Ya existe")) {
-        setError(res.message || res.error);
+      if (res.message?.toLowerCase().includes("creado con exito")) {
+      setError(""); // Limpiamos cualquier mensaje de error previo
+      setVerifyEmail(email); // Guardamos el email para VerifyCode
+      setPage("verify"); // Cambiamos a la pantalla de verificación
+    } 
+    // Si ya existe usuario
+    else if (res.message?.toLowerCase().includes("ya existe")) {
+      setError(res.message);
       } else if (res.message?.includes("No recipients defined")) {
         setError(
           "Error al enviar email de verificación. Revisa tu correo o intenta más tarde."
