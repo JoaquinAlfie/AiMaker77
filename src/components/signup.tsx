@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import { registerUser} from "../api/auth";
 
 interface SignupProps {
-  setUser: React.Dispatch<React.SetStateAction<string>>;
+  setUser: React.Dispatch<React.SetStateAction<{ name: string; email: string } | null>>;
   setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "verify"| "signup" | "verify" |"home"| "chatbot" | "support">>;
   setVerifyEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Signup({ setPage, setVerifyEmail }: SignupProps) {
+function Signup({ setPage, setVerifyEmail, setUser }: SignupProps) {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -40,6 +40,7 @@ function Signup({ setPage, setVerifyEmail }: SignupProps) {
       if (res.message?.toLowerCase().includes("creado con exito")) {
       setError(""); // Limpiamos cualquier mensaje de error previo
       setVerifyEmail(email); // Guardamos el email para VerifyCode
+      setUser({ name, email });
       setPage("verify"); // Cambiamos a la pantalla de verificación
     } 
     // Si ya existe usuario
