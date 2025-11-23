@@ -4,10 +4,11 @@ import { registerUser} from "../api/auth";
 
 interface SignupProps {
   setUser: React.Dispatch<React.SetStateAction<string>>;
-  setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home"| "chatbot" | "support">>;
+  setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "verify"| "signup" | "verify" |"home"| "chatbot" | "support">>;
+  setVerifyEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Signup({ setPage }: SignupProps) {
+function Signup({ setPage, setVerifyEmail }: SignupProps) {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -36,12 +37,20 @@ function Signup({ setPage }: SignupProps) {
       });
 
       console.log("Respuesta registro:", res);
-
-      if (res.code === "error" || res.error || res.message?.includes("Ya existe")){
+      if (res.code === "OK") {
+        alert(
+          "Usuario creado con éxito. Se ha enviado un código a tu email para verificar tu cuenta."
+        );
+        setVerifyEmail(email);
+        setPage("verify"); // cambiamos a pantalla de verificación
+      } else if (res.code === "error" || res.message?.includes("Ya existe")) {
         setError(res.message || res.error);
+      } else if (res.message?.includes("No recipients defined")) {
+        setError(
+          "Error al enviar email de verificación. Revisa tu correo o intenta más tarde."
+        );
       } else {
-        alert("Usuario creado con éxito. Ahora puedes iniciar sesión.");
-        setPage("signin");
+        setError(res.message || res.error || "Error al registrar usuario.");
       }
     } catch {
       setError("Error al registrar usuario.");

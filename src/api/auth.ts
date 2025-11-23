@@ -33,3 +33,16 @@ export const loginUser = async (email: string, password: string) => { // la func
     return { error: "Error al iniciar sesión" };
   }
 };
+
+export const verifyCode = async (email: string, code: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/register/code`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, code }),
+    });
+    return await res.json();
+  } catch {
+    return { error: "Error al verificar el usuario" };
+  }
+};

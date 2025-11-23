@@ -7,7 +7,7 @@ type ChatbotProps = { //Define qué propiedades recibe el componente
   setUser: React.Dispatch<React.SetStateAction<string>>; //función para actualizar el usuario (por ejemplo al cerrar sesión)
   setPage: React.Dispatch< //función para cambiar la página que se muestra
     React.SetStateAction<
-      "landing" | "signin" | "signup" | "home" | "chatbot" | "support"
+      "landing" | "signin" | "signup" | "home" | "chatbot" |"verify" | "support"
     >
   >;
 };

@@ -5,7 +5,7 @@ type HomeProps = {
   user: string;
   setUser: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<
-    React.SetStateAction<"landing" | "signin" | "signup" | "home" | "chatbot" | "support">
+    React.SetStateAction<"landing" | "signin" | "signup" | "home" | "chatbot" |"verify" | "support">
   >;
 };
 

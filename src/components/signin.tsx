@@ -4,7 +4,7 @@ import { loginUser } from "../api/auth";
 
 interface SigninProps {
   setUser: React.Dispatch<React.SetStateAction<string>>;
-  setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home"| "chatbot" | "support">>;
+  setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home"| "chatbot" |"verify" | "support">>;
 }
 
 function Signin({ setUser, setPage }: SigninProps) {

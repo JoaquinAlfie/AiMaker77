@@ -4,13 +4,15 @@ import Signin from './components/signin'
 import Signup from './components/signup'
 import Chatbot from './components/chatbot'
 import Support from './components/support'
+import VerifyCode from './components/verifycode'
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion"; // instale la libreria framer-motion para cuando cambio de pagina haya una animacion de salida y entrada
 
 function App() {
   const [user, setUser] = useState<string>("");
+  const [verifyEmail, setVerifyEmail] = useState<string>("");
   const [page, setPage] = useState<
-    "landing" | "signin" | "signup" | "home" | "chatbot" | "support">("landing");
+    "landing" | "signin" | "signup" | "home" | "verify" |"chatbot" | "support">("landing");
 
   // 💡 Si ya hay un usuario, mostramos la página correspondiente
   return (
@@ -40,10 +42,12 @@ function App() {
           (() => {
             switch (page) {
               case "signup":
-                return <Signup setUser={setUser} setPage={setPage} />; // si setpage es signup retorna Signup, usa set user porque necesita validar el usuario
+                return <Signup setUser={setUser} setPage={setPage} setVerifyEmail={setVerifyEmail} />; // si setpage es signup retorna Signup, usa set user porque necesita validar el usuario
               case "signin":
                 return <Signin setUser={setUser} setPage={setPage} />; // si setpage es signin retorna Signin, usa set user porque necesita crear el usuario
-              default:
+                case "verify":
+                return <VerifyCode email={verifyEmail} setPage={setPage} />;
+                default:
                 return <Landing setPage={setPage} />; // si page no coincide con ninguno de los casos anteriores retorna landing, no usa set user
             }
           })()

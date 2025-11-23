@@ -1,7 +1,7 @@
 import "../assets/styles/style.css"
 
 interface LandingProps {
-  setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home"| "chatbot" | "support">>;
+  setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "signup" | "home"| "chatbot" |"verify" | "support">>;
 }
 
 function Landing({ setPage }: LandingProps) {

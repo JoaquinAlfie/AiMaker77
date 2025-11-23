@@ -3,7 +3,7 @@ import "../assets/styles/style-support.css"
 interface SupportProps {
   setPage: React.Dispatch<
     React.SetStateAction<
-      "landing" | "signin" | "signup" | "home" | "chatbot" | "support"
+      "landing" | "signin" | "signup" | "home" | "chatbot" |"verify" | "support"
     >
   >;
 }
