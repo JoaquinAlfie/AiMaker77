@@ -38,11 +38,10 @@ function Signup({ setPage, setVerifyEmail }: SignupProps) {
 
       console.log("Respuesta registro:", res);
       if (res.code === "OK") {
-        alert(
-          "Usuario creado con éxito. Se ha enviado un código a tu email para verificar tu cuenta."
-        );
-        setVerifyEmail(email);
-        setPage("verify"); // cambiamos a pantalla de verificación
+      setError(""); // limpiar cualquier error anterior
+      setVerifyEmail(email);
+      setPage("verify");
+      alert("Usuario creado con éxito. Se ha enviado un código a tu email para verificar tu cuenta.");
       } else if (res.code === "error" || res.message?.includes("Ya existe")) {
         setError(res.message || res.error);
       } else if (res.message?.includes("No recipients defined")) {
