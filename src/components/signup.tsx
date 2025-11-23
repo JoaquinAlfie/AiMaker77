@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { registerUser} from "../api/auth";
 
 interface SignupProps {
-  setUser: React.Dispatch<React.SetStateAction<{ name: string; email: string } | null>>;
+  setUser: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<"landing" | "signin" | "verify"| "signup" | "verify" |"home"| "chatbot" | "support">>;
   setVerifyEmail: React.Dispatch<React.SetStateAction<string>>;
 }

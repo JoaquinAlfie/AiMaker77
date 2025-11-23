@@ -8,12 +8,8 @@ import VerifyCode from './components/verifycode'
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion"; // instale la libreria framer-motion para cuando cambio de pagina haya una animacion de salida y entrada
 
-interface User {
-  name: string;
-  email: string;
-}
 function App() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<string>("");
   const [verifyEmail, setVerifyEmail] = useState<string>("");
   const [page, setPage] = useState<
     "landing" | "signin" | "signup" | "home" | "verify" |"chatbot" | "support">("landing");
