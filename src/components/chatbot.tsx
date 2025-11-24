@@ -153,7 +153,7 @@ const handleActiveChat = async (chatId: string) => {
           setModelInfo(prev => ({
   ...prev,
   [chatId!]: {
-    url: item.download_url,
+    url: item.download_url || item.url || item.file_url || null,
     metricName: item.metrics?.metric,
     metricValue: item.metrics?.value,
   }
@@ -206,7 +206,7 @@ const loadModelInfo = async (chatId: string) => {
       setModelInfo(prev => ({
         ...prev,
         [chatId]: {
-          url: item.download_url,
+          url: item.download_url || item.url || item.file_url || null,
           metricName: item.metrics?.metric,
           metricValue: item.metrics?.value,
         }
