@@ -119,14 +119,10 @@ const handleActiveChat = async (chatId: string) => {
         {
           // Declara allChats como la lista de chats actualizada
           const allChats = await getAllChats(); // llama a getAllChats para recargar la lista de chats del usuario desde el backend.
-          // Actualiza el estado de los chats en el front
-          setChats(allChats.chats || allChats); // Si allChats.chats existe, lo usa; si no, usa allChats directamente.
-          // Obtiene el ID del último chat creado
-          const lastChat = (allChats.chats || allChats).slice(-1)[0];
-          // Asigna el ID del nuevo chat a chatId y lo establece como chat activo
-          chatId = lastChat.id;
-          // Define el chat activo en el estado
-          setActiveChat(chatId);
+          setChats(allChats.chats || allChats); // Si allChats.chats existe, lo usa; si no, usa allChats directamente. // Actualiza el estado de los chats en el front
+          const lastChat = (allChats.chats || allChats).slice(-1)[0]; // Obtiene el ID del último chat creado
+          chatId = lastChat.id; // Asigna el ID del nuevo chat a chatId y lo establece como chat activo
+          setActiveChat(chatId); // Define el chat activo en el estado
         } 
         else 
         {
