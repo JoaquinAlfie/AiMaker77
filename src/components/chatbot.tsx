@@ -113,13 +113,13 @@ const handleActiveChat = async (chatId: string) => {
       // Verfica que chatId exista, si no, crea uno nuevo
       if (!chatId) 
       {
-        const newChat = await createChat("Nuevo Chat"); //Crea un nuevo chat con nombre "nuevo chat"
+        const newChat = await createChat("Chat"); //Crea un nuevo chat con nombre "nuevo chat"
         // Si el chat se creó correctamente, actualiza la lista de chats y establece el chat activo
         if (newChat && !newChat.error) // Comprueba que el chat se haya creado correctamente y no tenga errores.
         {
           // Declara allChats como la lista de chats actualizada
           const allChats = await getAllChats(); // llama a getAllChats para recargar la lista de chats del usuario desde el backend.
-          setChats(allChats.chats || allChats); // Si allChats.chats existe, lo usa; si no, usa allChats directamente. // Actualiza el estado de los chats en el front
+          setChats([...(allChats.chats || allChats)].reverse()); // Si allChats.chats existe, lo usa; si no, usa allChats directamente. // Actualiza el estado de los chats en el front
           const lastChat = (allChats.chats || allChats).slice(-1)[0]; // Obtiene el ID del último chat creado
           chatId = lastChat.id; // Asigna el ID del nuevo chat a chatId y lo establece como chat activo
           setActiveChat(chatId); // Define el chat activo en el estado
@@ -149,7 +149,7 @@ const handleActiveChat = async (chatId: string) => {
           setModelInfo(prev => ({
   ...prev,
   [chatId!]: {
-    url: item.download_url || item.url || item.file_url || null,
+    url: item.download_url || item.url || item.file_url || item.file || null,
     metricName: item.metrics?.metric,
     metricValue: item.metrics?.value,
   }
@@ -202,7 +202,7 @@ const loadModelInfo = async (chatId: string) => {
       setModelInfo(prev => ({
         ...prev,
         [chatId]: {
-          url: item.download_url || item.url || item.file_url || null,
+          url: item.download_url || item.url || item.file_url || item.file || null,
           metricName: item.metrics?.metric,
           metricValue: item.metrics?.value,
         }
