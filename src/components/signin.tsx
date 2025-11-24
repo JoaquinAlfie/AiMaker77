@@ -52,7 +52,7 @@ function Signin({ setUser, setPage }: SigninProps) {
             <div className="logueo">
                 <p className="signin">Sign in</p>
                 <section className="usuario">
-                    <input id="usuario1" name="usuario" placeholder="Enter email or user name" maxLength={34} value={email} onChange={(e)=> setEmail (e.target.value)}/>
+                    <input id="usuario1" name="usuario" placeholder="Enter email" maxLength={34} value={email} onChange={(e)=> setEmail (e.target.value)}/>
                 </section>
                 <section className="contra">
                     <input id="contra1" name="contraseña" placeholder="Password" maxLength={28} type={showPassword ? "text" : "password"} value={password} onChange={(e)=> setPassword (e.target.value)}/>
